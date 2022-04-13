@@ -1,0 +1,286 @@
+:root{
+    /* text */
+    --space-btwn-lines: 150%;
+
+    /* headers */
+    --h1-font-size: 4em;
+    --h2-font-size: 3em;
+
+    /* home button */
+    --hover-shadow-offset-x: 5px;
+    --hover-shadow-offset-y: 5px;
+    --hover-shadow-offset-x-neg: -5px;
+    --hover-shadow-offset-y-neg: -5px;
+    --margin-top-bottom-home-btn: 10px;
+    --margin-left-right-home-btn: 30px;
+
+    /* nav bar */
+    --top-margin-nav-item: 20px;
+    --bot-margin-nav-item: 50px;
+    --left-right-margin-nav-item: 2vw;
+    --nav-font-size: 2.5em;
+    --nav-fix-centering: 22vh;
+    --nav-height: 100%;
+    --nav-width: 100%;
+
+    /* min-widths */
+    --header-min-widths: 1100px;
+    --nav-min-width: 1090px;
+    --list-item-min-width: 400px;
+
+    /* colors */
+    --text-color: white;
+    --hover-shadow-color: #5D5C61;
+    --hover-button-text-color: #B1A296;
+    --hover-button-bg-color: #7395AE;
+    --background-color: #557A95;
+
+}
+
+@font-face {
+    font-family: Mulish;
+    /* Only included Regular style since there was so little
+     italic/bold text it wouldn't be worth it */
+    src: url(Mulish-Regular.ttf);
+    font-display: fallback;
+}
+
+body {
+    font-family: Mulish, Arial, Helvetica, sans-serif;
+    line-height: var(--space-btwn-lines);
+}
+
+#home_btn_label {
+    position:absolute;
+    top: 150px;
+    left: 90px;
+
+    transform: rotate(-8deg);
+
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    font-size:var(--h1-font-size);
+    /* fix centering */
+    margin-right: var(--nav-fix-centering);
+
+    /* prevent text from getting cramped */
+    min-width: var(--header-min-widths);
+
+    color: var(--text-color);
+}
+
+h2 {
+    text-align: center;
+    font-size:var(--h2-font-size);
+    /* fix centering */
+    margin-right: var(--nav-fix-centering);
+
+    /* prevent text from getting cramped */
+    min-width: var(--header-min-widths);
+
+    color: var(--text-color);
+}
+
+a > img {
+    float: left;
+    margin: var(--margin-top-bottom-home-btn) var(--margin-left-right-home-btn);
+
+    transform: rotate(-0.02turn);
+}
+
+a > img:hover {
+    box-shadow: var(--hover-shadow-offset-x) var(--hover-shadow-offset-y) var(--hover-shadow-color),
+    var(--hover-shadow-offset-x-neg) var(--hover-shadow-offset-y) var(--hover-shadow-color),
+    var(--hover-shadow-offset-x-neg) var(--hover-shadow-offset-y-neg) var(--hover-shadow-color),
+    var(--hover-shadow-offset-x) var(--hover-shadow-offset-y-neg) var(--hover-shadow-color);
+    cursor: pointer;
+}
+
+nav {
+    background-color: var(--background-color);
+
+    height: var(--nav-height);
+    width: var(--nav-width);
+
+    /* fix nav not bordering all of its content */
+    padding: 1px 1px;
+
+    /* prevent text from getting too cramped */
+    min-width: var(--nav-min-width);
+}
+
+nav > ul {
+    /* removes the bullet points */
+    list-style-type: none;
+
+    /* removes any content to the right of the nav-bar */
+    overflow: hidden;
+
+    margin: auto;
+
+    display: block;
+}
+
+.nav-item {
+    /* make navigation bar horizontal */
+    float: left;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px 10px;
+    grid-template-areas: 
+        "c1 c2"
+        "c3 c4";
+    
+}
+
+.cell_one {
+    grid-area: "c1";
+}
+
+.cell_two {
+    grid-area: "c2";
+}
+
+.cell_three {
+    grid-area: "c3";
+}
+
+.cell_four {
+    grid-area: "c4";
+}
+
+li > a {
+    display: block;
+    text-align: center;
+    
+    padding: var(--top-margin-nav-item) var(--left-right-margin-nav-item) var(--bot-margin-nav-item) var(--left-right-margin-nav-item);
+
+    font-size: var(--nav-font-size);
+
+    color: var(--text-color);
+
+    min-width: var(--list-item-min-width);
+
+    /* transition */
+    transition-property: background-color;
+    transition-duration: 2s;
+}
+
+li > a:hover {
+    color: var(--hover-button-text-color);
+
+    background-color: var(--hover-button-bg-color); 
+}
+
+.container {
+    /* make flex box */
+    display: flex;
+
+    /* make it wrap when window becomes to small */
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+}
+
+.first_content {
+    flex-basis: auto;
+
+    /* animation */
+    animation-duration: 1.5s;
+    animation-name: fade-in;
+
+    max-width: 700px;
+}
+
+.second_content {
+    flex-basis: auto;
+    
+    animation-duration: 1.5s;
+    animation-name: fade-in;
+
+    min-width: 400px;
+}
+
+details, caption, tr, td {
+    font-size: 1.25em;
+}
+
+#fav-fish-aside {
+    max-width: 400px;
+}
+
+#language-table-caption {
+    font-size: 1.5em;
+}
+
+#kaggle_project_details {
+    max-width: 600px;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+footer {
+    background-color: var(--background-color);
+
+    text-align: center;
+
+    animation-duration: 1.5s;
+    animation-name: fade-in;
+
+    color: var(--text-color);
+
+    /* fix nav not bordering all of its content */
+    padding: 1px 1px;
+
+    /* prevent text from getting too cramped */
+    min-width: var(--nav-min-width);
+}
+
+.icons {
+    /* line up paragraphs with icons */
+    display: inline;
+
+    position: relative;
+    bottom: 20px;
+}
+
+#night_mode_btn {
+    /* put button in bottom right corner */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    /* style button */
+    background-color: white;
+
+    transition-duration: 0.2s;
+}
+
+#night_mode_btn:hover {
+    background-color: orange;
+}
+
+#night_mode_btn:active {
+    transform: translate(2px, 2px);
+}
+
+@media screen and (max-width: 1000px) {
+    .media_test {
+        display: none;
+    }
+}
