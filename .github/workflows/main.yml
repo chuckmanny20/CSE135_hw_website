@@ -31,4 +31,3 @@ jobs:
             cd test
             echo ${{secrets.SUDO_PASSWORD}} | sudo -S git remote set-url origin https://chuckmanny20:${{secrets.GIT_TOKEN}}@github.com/chuckmanny20/CSE135_hw_website.git
             echo ${{secrets.SUDO_PASSWORD}} | sudo -S git clone git@github.com:chuckmanny20/CSE135_hw_website.git
-
