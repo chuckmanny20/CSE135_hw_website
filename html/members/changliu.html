@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/myJS.js"></script>
+    <title>Chang Liu's Webpage</title>
+    <link rel="icon" type="image/png" sizes="144x144" href="./img/icon.png"/>
+</head>
+
+<body style="margin: 0px;">
+
+    <nav>
+        <ul>
+            <li><a href="#top" target="_self" style="color: rgb(196, 135, 253);">Academic</a></li>
+            <li><a href="" onclick="toBeContinued();">Travel</a></li>
+            <li><a href="" onclick="toBeContinued();">Living</a></li>
+            <li><a href="" onclick="toBeContinued();">Continuing</a></li>
+        </ul>
+    </nav>
+    
+    
+    
+    <a href="#top" target="_self"> <button id="return_top"> 
+        <img src="./img/toTop.jpg" alt="the image to top" width="100%"> 
+    </button> </a>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <div class="container">
+        <audio src="bgm.mp3" controls style="float:right;" autoplay loop> audio not be supplied </audio>
+        
+        <div> <h1>Chang Liu</h1> <h2 style="font-size: 28px; font-weight: 100; color: darkgray;"> Graduate (Master of Science) </h2> </div>
+
+        <br><br>
+        <div id="intro">
+            <div style="float: left; width: 45%; box-sizing: border-box;">
+                <h2>Profile</h2>
+                <p>
+                    I'm Chang Liu, a first year master student studying electrical and computer engineering at 
+                    University of California, San Diego
+                    <a href="https://ucsd.edu/" target="_blank" style="color: blue;">(UCSD)</a>.
+                    During the past 2 quarters, I took a few courses related to software development and machine learning, 
+                    as well as passed all of them and achieved a GPA of 3.5/4.0.
+                </p>
+                <p>
+                    In addition to the courses, I'm also interested in the application of what I have learned. 
+                    Therefore, I have participated in research projects, industrial internship and academic competitions.
+                    I am currently seeking for internships related to software engineering, and my related experiences 
+                    can be found below.
+                </p>
+            </div>
+            <div class="photo" style="float:right; width: 50%; box-sizing: border-box;">
+                <img src="./img/photo.jpg" alt="Photo" style="width: 80%; margin-right: 0;" title="photo"> 
+            </div>
+            
+        </div>
+
+        <br style="clear: both;"><br>
+
+        <div class="box_name_bar">
+            <button class="switch" id="ExperienceBtn" onclick='openAndClose(this.id, "Experience");'> + </button>
+            <h2>Internship</h2>
+        </div>
+
+        <div class="box" id="Experience">
+            <h3 style="float: left; margin: 4px;"> <b>WeBank</b> / AI Algorithm Engineer Intern </h3>
+            <p class="date"> June. 2020 - Sept. 2020 &nbsp; </p>
+
+            <br><br>
+            Image Hashing
+            <ul style="clear: both;">
+                <li> Developed a novel ternary learning-to-hash algorithm for image retrieval task using PyTorch. </li>
+                <li> Achieved a 2% elevation of state-of-the-art algorithms in terms of retrieval mAP. </li>
+            </ul>
+            Explainable-AI (XAI)
+            <ul style="clear: both;">
+                <li> Developed a XAI framework using Python, Scikit-Learn and PyTorch. </li>
+                <li> Provided customizable and multi-granularity explanations for black-box models. </li>
+            </ul>
+
+        </div>
+
+        <div class="box_name_bar">
+            <button class="switch" id="CourseBtn" onclick='openAndClose(this.id, "Projects");'> + </button>
+            <h2>Projects</h2>
+        </div>
+        
+        <div class="box" id="Projects">           
+            <h3> <b>Customized Light-weight GPU Matrix Multiplication</b> </h3>
+            <!-- <p style="float: left; margin: 4px;"> &nbsp;&nbsp; Xi'an Jiaotong-Liverpool University </p>  -->
+            <p class="date"> Jan. 2022 - Mar. 2022 &nbsp; </p>
+            <ul style="clear: both;">
+                <li> Developed a light-weight matrix multiplication with CUDA, and binded it with PyBind11 for Python calling. </li>
+                <li> Achieved 20-fold improvement in terms of computational speed compared with the matmul function in NumPy. </li>
+            </ul>
+            <br>
+            <h3> <b>Hadoop-based text file processing system</b> </h3>
+            <p class="date"> Sept. 2020 - Dec. 2020 &nbsp; </p>
+            <ul style="clear: both;">
+                <li> Implemented the MapReduce algorithm in Hadoop distributed file system with Java. </li>
+                <li> Deployed the algorithm with pseudo distributed mode in a Linux server. </li>
+                <li> Completed the task of multi-process paralleled word frequency counting. </li>
+            </ul>
+            <br>
+            <h3> <b>Campus Crowd Visualization System</b> </h3>
+            <p class="date"> Mar. 2020 - June. 2020 &nbsp; </p>
+            <ul style="clear: both;">
+                <li> Developed a Django interface to achieve the communication between front-end and back-end. </li>
+                <li> Implemented a MySQL database to manage the routing log data. </li>
+                <li> Achieved the real-time prediction and visualization of campus crowds based on the historical data analysis. </li>
+            </ul>
+
+            
+        </div>
+
+
+        <!-- <div class="box_name_bar">
+            <button class="switch" id="CourseBtn" onclick='openAndClose(this.id, "Course");'> + </button>
+            <h2>Course Project</h2>
+        </div>
+
+        <div class="box" id="Course">
+            <h3 style="float: left; margin: 4px;"> <b>Development of gesture control interface for webpage</b> / Member </h3>
+            <p class="date"> March.2020 - Present &nbsp; </p>
+            <ul style="clear: both;">
+                <li> Detect gestures through rgb camera, implement zooming, moving and other web interaction functions. </li>
+                <li> In charge of the video recognition part, use OpenCV library to implement object detection and 
+                    video processing, and built PyTorch based CNN model to implement real time gesture recognition.
+                </li>
+                <li> Participate in the interface development part, develop the interface to convert model output signals 
+                    into webpage operating instructions.
+                </li>
+            </ul>
+            <br>
+            <h3 style="float: left; margin: 4px;"> <b>DoS Attack Study on Operating Systems within a Same LAN</b>
+                 / Team Leader </h3>
+            <p class="date"> March.2019 - June.2019 &nbsp; </p>
+            <ul style="clear: both;">
+                <li> Led team members to apply DoS attack to different Operating Systems, adjusted parameters of DoS attack 
+                    and recorded the data of Operating Systems during being attacked, found out the performance differences 
+                    between different systems. </li>
+            </ul>
+        </div> -->
+
+        
+
+        
+        <!-- <div class="box_name_bar">
+            <button class="switch" id="ArticleBtn" onclick='openAndClose(this.id, "Article");'> + </button>
+            <h2>Article</h2>
+        </div>
+
+        <div class="box" id="Article">
+            <ul>
+                <li> C. Liu, B. Liu, J. Kang, et al., "DoS Attack Study on Operating Systems within a Same LAN," <em>Journal 
+                    of Computer and Higher Education,</em> vol. 1, pp. 1-2, June 2019. </li>
+            </ul>
+        </div> -->
+
+
+        <div class="box_name_bar">
+            <button class="switch" id="SkillBtn" onclick='openAndClose(this.id, "Skill");'> + </button>
+            <h2>Skill</h2>
+        </div>
+        
+        <div class="box" id="Skill" style="margin-bottom: 0;">
+            <ul>
+                <li> Strong knowledge of Python, Java, PyTorch. </li>
+                <li> Experience of C++, Golang, SQL, JavaScript, R, Fiber, Django, Hadoop, Scikit-Learn, TensorFlow, OpenCV, and Git. </li>
+                <li> Comfortable in using Linux and Windows for software development. </li>
+                <li> Good knowledge of data structures and algorithms. </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="contact">
+        <div style="float: left; width: 50%; box-sizing: border-box; padding-left: 17em;"> 
+            <p>
+                E-mail: <br>
+                <a href="Mailto: chl140@ucsd.edu" style="color: white;">
+                    chl140@ucsd.edu
+                </a>
+            </p>
+        </div>
+        <div style="float: right; width: 50%; box-sizing: border-box;">
+            <p>
+                Address<br>
+                <address>
+                    3869 Miramar Street<br>
+                    #4104<br>
+                    La Jolla, CA 92037<br>
+                </address>
+            </p>
+        </div>
+
+        <br style="clear:both;">
+    </div>
+        
+    <h1 id="footer">Personal Webpage @ Chang Liu</h1>
+
+</body>
+
+</html>
