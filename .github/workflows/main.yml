@@ -24,13 +24,13 @@ jobs:
           key: ${{secrets.SSH_KEY}} # Private key of server
           username: ${{secrets.SSH_USERNAME }} # User of the server to ssh into
           passphrase: ${{secrets.SSH_PASSPHRASE }}
-      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
-        with:
-          email: 'chuckmanny20@gmail.com'
-          token: '${{ secrets.GIT_TOKEN }}'
           
           script: |
             mkdir test
             cd test
             git clone https://github.com/chuckmanny20/CSE135_hw_website.git
-            echo 'Deployment successful'
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          email: 'chuckmanny20@gmail.com'
+          token: '${{ secrets.GIT_TOKEN }}'
+
