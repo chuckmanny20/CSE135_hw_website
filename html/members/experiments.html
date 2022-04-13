@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set title of page -->
+    <title>Liam O'Brien's Portfolio</title>
+
+    <!-- Set character/entity encoding -->
+    <meta charset="UTF-8">
+    <!-- Explicitly tells Microsoft Edge to render in Edge mode instead of some previous version -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="description" content="Liam O'Brien Portfolio. Created while taking CSE 134B under Professor Powell.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Link style sheet (won't be filled until HW3) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Add :skull: favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+
+<body>
+<header>
+    <nav>
+        <a href="liamobrien.html" id="home_btn"><img src="home_icon_128x128.webp" alt="Home Icon" height="128px" width="128px"></a>
+        <a href="liamobrien.html" id="home_btn_label" style="color: white;">Home</a>
+        <h1>My Mad Science Experiments...</h1>
+        <h2><i>Beware!</i></h2>
+        <ul class="wrapper">
+            <li class="nav-item" class="cell_one"><a href="about_me.html">About Me</a></li>
+            <li class="nav-item"class="cell_two"><a href="projects.html">My Projects</a></li>
+            <li class="nav-item" class="cell_three"><a href="experience.html">Experience/Skills</a></li>
+            <li class="nav-item" class="cell_four"><a href="experiments.html">Experimentation</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div>
+    <em>Note: These following examples are just to test/showcase my own web dev skills and will constantly change.</em>
+    <br>
+    <strong>Do NOT assume this is all I can do or that my sites are this messy!</strong>
+
+    <pre>
+               .--'''''''''--.
+            .'      .---.      '.
+           /    .-----------.    \
+          /        .-----.        \
+          |       .-.   .-.       |
+          |      /   \ /   \      |
+           \    | .-. | .-. |    /
+            '-._| | | | | | |_.-'
+                | '-' | '-' |
+                 \___/ \___/
+              _.-'  /   \  `-._
+            .' _.--|     |--._ '.
+            ' _...-|     |-..._ '
+                   |     |
+                   '.___.'
+                     | |
+                    _| |_
+                   /\( )/\
+                  /  ` '  \
+                 | |     | |
+                 '-'     '-'
+                 | |     | |
+                 | |     | |
+                 | |-----| |
+              .`/  |     | |/`.
+              |    |     |    |
+              '._.'| .-. |'._.'
+                    \ | /
+                    | | |
+                    | | |
+                    | | |
+                   /| | |\
+                 .'_| | |_`.
+                 `. | | | .'
+              .    /  |  \    .
+             /o`.-'  / \  `-.`o\
+            /o  o\ .'   `. /o  o\
+            `.___.'       `.___.'
+    </pre>
+    <audio controls>
+        <source src="this_guy_stinks-Copy.webm" type="audio/webm">
+        <source src="this_guy_stinks-Copy.mp3" type="audio/mpeg">
+    </audio>
+    <hr>
+    <canvas id="exampleCanvas">
+        <script>
+            var canvas = document.getElementById("exampleCanvas")
+            var ctx = canvas.getContext('2d')
+            ctx.fillStyle='blue'
+            ctx.fillRect(0,0,302,152)
+        </script>
+    </canvas>
+    <svg>
+        <circle cx="0" cy="0" r="50" stroke="blue" stroke-width="25" fill="red"></circle>
+    </svg>
+
+    <section>
+        <h3>Feedback</h3>
+
+        <form action="/experiments.html">
+            <fieldset>
+                <legend>Your contact info:</legend>
+
+                <label for="contact_name">Name:</label>
+                <input type="text" id="contact_name" name="contact_name">
+                <label for="contact_email">Email:</label>
+                <input type="text" id="contact_email" name="contact_email">
+                <input type="submit" value="Press to Submit and look at the URL">
+            </fieldset>
+        </form>
+
+        <label for="rating">Rate my site from 1-10:</label>
+        <select id="rating">
+            <optgroup label="Options">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </optgroup>
+        </select>
+        <br>
+        <label for="textarea_test">Type whatever you'd like:</label>
+        <br>
+        <textarea id="textarea_test" name="textarea_test" rows="4" cols="50" placeholder="Type here..."></textarea>
+        <br>
+        <form>
+            <label for="datalist_test">Which fountain soda is your favorite?</label>
+            <input list="sodas" name="datalist_test" id="datalist_test">
+            <datalist id="sodas">
+                <option>A&M Root Beer</option>
+                <option>Coca-Cola</option>
+                <option>Coke Zero</option>
+                <option>Diet Coke</option>
+                <option>Fanta</option>
+                <option>Sprite</option>
+            </datalist>
+            <button type="reset">Click to clear the box.</button>
+        </form>
+        <br>
+        <template><p>THIS WILL NOT RENDER ON THE PAGE SPOOOOOOOOOOOOKY!!!!</p></template>
+        <iframe src="index.html" title="Testing rendering the homepage in an iframe"></iframe>
+    </section>
+
+    <section>
+        <p class="media_test" style="background-color: green;">This will disappear when the window gets small enough!</p>
+    </section>
+</div>
+
+<footer>
+    <section>
+        <h3>Contact Info:</h3>
+        
+        <picture id="mail_icon">
+            <source srcset="icons8-mail.svg" type="image/svg+xml">
+            <source srcset="icons8-mail-50.webp" type="image/webp">
+            <img src="icons8-mail-50.png" type="image/png" alt="mail icon">
+        </picture>
+        
+        <p class="icons">
+            <b>Email:</b> l2obrien@ucsd.edu <br>
+        </p>
+
+        <picture id="phone_icon">
+            <source srcset="icons8-phone.svg" type="image/svg+xml">
+            <source srcset="icons8-phone-50.webp" type="image/webp">
+            <img src="icons8-phone-50.png" type="image/png" alt="phone icon">
+       </picture>
+
+        <p class="icons">
+            <b>Phone #:</b> (555) 555-5555</p>
+        </p>
+    </section>
+
+    <button id="night_mode_btn"><img id="button_img" class="night" src="night-mode.webp" alt="night_mode_button" height="32px" width="32px"></button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyA6Vmo91pb8TTzZNVOrNeGti0ygSggkKn8",
+          authDomain: "cse-134b-hw5-8dbd0.firebaseapp.com",
+          projectId: "cse-134b-hw5-8dbd0",
+          storageBucket: "cse-134b-hw5-8dbd0.appspot.com",
+          messagingSenderId: "868503803337",
+          appId: "1:868503803337:web:2ca12d1743cfc032928418",
+          measurementId: "G-KZJ5H0BBHD"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+
+    <script src="./main.js"></script>
+</footer>
+</body>
+
+</html>

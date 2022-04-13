@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set title of page -->
+    <title>Liam O'Brien's Portfolio</title>
+
+    <!-- Set character/entity encoding -->
+    <meta charset="UTF-8">
+    <!-- Explicitly tells Microsoft Edge to render in Edge mode instead of some previous version -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Link style sheet (won't be filled until HW3) -->
+    <link rel="stylesheet" href="crudstyles.css">
+
+    <!-- Add :skull: favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+</head>
+
+<body>
+    <header>
+        <h1>Liam's Blog</h1>
+
+        <nav id="nav_wrapper">
+            <ul class="nav_list">
+                <li class="logged_out nav_item">
+                    <button id="login_btn">Log In</button>
+                </li>
+                <li class="logged_in nav_item">
+                    <button id="logout_btn">Log Out</button>
+                </li>
+            </ul>
+        </nav>
+
+        <h3 id="user_info"> </h3>
+    </header>
+
+    <main>
+        <ul id="blog_list">
+            
+        </ul>
+    </main>
+
+    <div id="add_btn_wrapper">
+        <button id="add_btn" class="logged_in">Add Post</button>
+    </div>
+
+    <dialog id="login_dialog">
+        <form method="dialog" id="login_form">
+            <p>
+                <label for="email_input">Email:</label>
+                <input required id="email_input" name="email_input" type="email">
+                <br>
+                <label for="password_input">Password:</label>
+                <input required id="password_input" name="password_input" type="password">
+            </p>
+            <menu>
+                <!-- These buttons close the dialog b/c it's inside a form w/ method="dialog" -->
+                <button id="cancel_login_btn">Cancel</button>
+                <button id="ok_login_btn">Ok</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <dialog id="adding_dialog">
+        <form method="dialog">
+            <p>
+                <label for="title_input">Post Title</label>
+                <input required id="title_input" name="title_input">
+                <br>
+                <label for="date_input">Post Date</label>
+                <input readonly type="date" id="date_input" name="date_input">
+                <br>
+                <label for="summary_input">Post Summary</label>
+                <input required id="summary_input" name="summary_input">
+            </p>
+            <menu>
+                <!-- These buttons close the dialog b/c it's inside a form w/ method="dialog" -->
+                <button id="cancel_btn">Cancel</button>
+                <button id="save_btn">Save</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <dialog id="editing_dialog">
+        <form method="dialog">
+            <p>
+                <label for="title_edit">Post Title</label>
+                <input required id="title_edit" name="title_edit">
+                <br>
+                <label for="date_edit">Post Date</label>
+                <input readonly type="date" id="date_edit" name="date_edit">
+                <br>
+                <label for="summary_edit">Post Summary</label>
+                <input required id="summary_edit" name="summary_edit">
+            </p>
+            <menu>
+                <!-- These buttons close the dialog b/c it's inside a form w/ method="dialog" -->
+                <button id="cancel_edit_btn">Cancel</button>
+                <button id="save_edit_btn">Save</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <dialog id="delete_dialog">
+        <form method="dialog">
+            <p>
+                <label>Delete Post?</label>
+            </p>
+            <menu>
+                <!-- These buttons close the dialog b/c it's inside a form w/ method="dialog" -->
+                <button id="cancel_delete_btn">Cancel</button>
+                <button id="ok_delete_btn">Ok</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <dialog id="login_prompt_dialog">
+        <form method="dialog">
+            <p> You must login to do this!</p>
+            <menu>
+                <button id="login_prompt_ok_btn">Ok</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyA6Vmo91pb8TTzZNVOrNeGti0ygSggkKn8",
+          authDomain: "cse-134b-hw5-8dbd0.firebaseapp.com",
+          projectId: "cse-134b-hw5-8dbd0",
+          storageBucket: "cse-134b-hw5-8dbd0.appspot.com",
+          messagingSenderId: "868503803337",
+          appId: "1:868503803337:web:2ca12d1743cfc032928418",
+          measurementId: "G-KZJ5H0BBHD"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+
+    <!-- Link DOMPurify for handling user input -->
+    <script type="text/javascript" src="DOMPurify-main/dist/purify.min.js"></script>
+    <!-- Main Module -->
+    <script type="module">
+        import {buildList, updateTitle, updateDate, updateSummary, saveNewPost, editPost, deletePost} from './styledposts.js'
+        import {addPressed, addCancelPressed, delCancelPressed, editCancelPressed} from './styled_blog_buttons.js'
+        import {loginPressed, loginCancelPressed} from './authentication_buttons.js'
+
+        // programatically build the list based on the localStorage
+        buildList();
+
+        // add listeners to Add Post button and its cancel button on the dialog
+        document.getElementById('add_btn').addEventListener('click', addPressed);
+        document.getElementById('cancel_btn').addEventListener('click', addCancelPressed);
+
+        // add listeners to the buttons on the edit dialog
+        document.getElementById('cancel_edit_btn').addEventListener('click', editCancelPressed);
+        document.getElementById('save_edit_btn').addEventListener('click', editPost);
+
+        // add listeners to the buttons on the delete dialog
+        document.getElementById('cancel_delete_btn').addEventListener('click', delCancelPressed);
+        document.getElementById('ok_delete_btn').addEventListener('click', deletePost);
+
+        // add listeners to the inputs to update variables while they are being typed in
+        document.getElementById('title_input').addEventListener('change', updateTitle);
+        document.getElementById('date_input').addEventListener('change', updateDate);
+        document.getElementById('summary_input').addEventListener('change', updateSummary);
+
+        // add listener to when the add dialog closes
+        document.getElementById('adding_dialog').addEventListener('close', saveNewPost);
+
+        // authentication buttons
+        document.getElementById('login_btn').addEventListener('click', loginPressed);
+        document.getElementById('cancel_login_btn').addEventListener('click', loginCancelPressed);
+    </script>
+
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

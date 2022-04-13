@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set title of page -->
+    <title>Liam O'Brien's Portfolio</title>
+
+    <!-- Set character/entity encoding -->
+    <meta charset="UTF-8">
+    <!-- Explicitly tells Microsoft Edge to render in Edge mode instead of some previous version -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="description" content="Liam O'Brien Portfolio. Created while taking CSE 134B under Professor Powell.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Link style sheet (won't be filled until HW3) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Add :skull: favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <style>
+        * {
+            -border: 1px;
+            -border-style: solid;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <a href="liamobrien.html" id="home_btn"><img src="home_icon_128x128.webp" alt="Home Icon" height="128px" width="128px"></a>
+        <a href="liamobrien.html" id="home_btn_label" style="color: white;">Home</a>
+        <h1>Welcome To My Portfolio!</h1>
+        <h2>Don't be shy...Look Around!</h2>
+        <ul class="wrapper">
+            <li class="nav-item" class="cell_one"><a href="about_me.html">About Me</a></li>
+            <li class="nav-item"class="cell_two"><a href="projects.html">My Projects</a></li>
+            <li class="nav-item" class="cell_three"><a href="experience.html">Experience/Skills</a></li>
+            <li class="nav-item" class="cell_four"><a href="experiments.html">Experimentation</a></li>
+            <li class="nav-item" class="cell_five"><a href="methodtest.html">HTTP With JavaScript</a></li>
+            <li class="nav-item" class="cell_six"><a href="crud.html">CRUD App</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="first_content">
+        <h3>My Coolest Project:</h3>
+        <figure>
+            <picture>
+                <source srcset="deep_learning_project_figure.webp" type="image/webp">
+                <img src="deep_learning_project_figure.png" type="image/png" alt="CSE 151B Project Figure" height="336px" width="387px">
+            </picture>
+            <figcaption>Deep Learning Project using a RNN (Recurise Neural Network) that ended with my partner and I getting 5th place with a RMSE (Root Mean Square Error)
+                        of 2.105
+            </figcaption>
+        </figure>
+        <a href="projects.html"><p>More Details...</p></a>
+    </section>
+
+    <section class="second_content">
+        <h3>Me!</h3>
+        <picture>
+            <source srcset="casual_me_resized.webp" type="image/webp">
+            <img src="casual_me_resized.jpg" type="image/jpg" alt="Pic of me!" height="512px" width="512px">
+        </picture>
+        <aside id="fav-fish-aside">
+            This picture happens to be of my favorite fish I've caught... a tiny guitar fish!
+        </aside>
+    </section>
+</main>
+
+<footer>
+    <section>
+        <h3>Contact Info:</h3>
+
+        <picture id="mail_icon">
+            <source srcset="icons8-mail.svg" type="image/svg+xml">
+            <source srcset="icons8-mail-50.webp" type="image/webp">
+            <img src="icons8-mail-50.png" type="image/png" alt="mail icon" height="50px" width="50px">
+        </picture>
+        
+        <p class="icons">
+            <b>Email:</b> l2obrien@ucsd.edu <br>
+        </p>
+
+        <picture id="phone_icon">
+            <source srcset="icons8-phone.svg" type="image/svg+xml">
+            <source srcset="icons8-phone-50.webp" type="image/webp">
+            <img src="icons8-phone-50.png" type="image/png" alt="phone icon" height="50px" width="50px">
+       </picture>
+
+        <p class="icons">
+            <b>Phone #:</b> (555) 555-5555</p>
+        </p>
+    </section>
+
+    <button id="night_mode_btn"><img id="button_img" class="night" src="night-mode.webp" alt="night_mode_button" height="32px" width="32px"></button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyA6Vmo91pb8TTzZNVOrNeGti0ygSggkKn8",
+          authDomain: "cse-134b-hw5-8dbd0.firebaseapp.com",
+          projectId: "cse-134b-hw5-8dbd0",
+          storageBucket: "cse-134b-hw5-8dbd0.appspot.com",
+          messagingSenderId: "868503803337",
+          appId: "1:868503803337:web:2ca12d1743cfc032928418",
+          measurementId: "G-KZJ5H0BBHD"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+
+    <script src="./main.js"></script>
+</footer>
+</body>
+
+</html>
