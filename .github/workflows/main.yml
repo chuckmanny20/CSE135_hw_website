@@ -27,9 +27,9 @@ jobs:
           
           script: |
             cd /var/www
-            "${{secrets.SUDO_PASSWORD}}\n" | sudo -S mkdir test
-            "${{secrets.SUDO_PASSWORD}}\n" | sudo -S cd test
-            "${{secrets.SUDO_PASSWORD}}\n" | sudo -S git clone https://github.com/chuckmanny20/CSE135_hw_website.git
+            echo ${{secrets.SUDO_PASSWORD}} | sudo -S mkdir test
+            echo ${{secrets.SUDO_PASSWORD}} | sudo -S cd test
+            echo ${{secrets.SUDO_PASSWORD}} | sudo -S git clone https://github.com/chuckmanny20/CSE135_hw_website.git
       - uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
           email: 'chuckmanny20@gmail.com'
