@@ -29,6 +29,7 @@ jobs:
             cd /var/www
             echo ${{secrets.SUDO_PASSWORD}} | sudo -S mkdir test
             cd test
+            echo ${{secrets.SUDO_PASSWORD}} | sudo -S git remote add origin https://chuckmanny20:${{secrets.GIT_TOKEN}}@github.com/chuckmanny20/CSE135_hw_website.git
             echo ${{secrets.SUDO_PASSWORD}} | sudo -S git clone https://github.com/chuckmanny20/CSE135_hw_website.git
       - uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
