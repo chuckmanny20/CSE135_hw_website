@@ -23,7 +23,7 @@ jobs:
           host: ${{secrets.SSH_HOST}} #IP address of server to ssh into
           key: ${{secrets.SSH_KEY}} # Private key of server
           username: ${{secrets.SSH_USERNAME }} # User of the server to ssh into
-          passphrase: ${{secrets.PASSPHRASE }}
+          passphrase: ${{secrets.SSH_PASSPHRASE }}
           
           script: |
             mkdir test
