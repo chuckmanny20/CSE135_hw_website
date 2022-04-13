@@ -26,6 +26,7 @@ jobs:
           passphrase: ${{secrets.SSH_PASSPHRASE }}
           
           script: |
+            cd /var/www
             mkdir test
             cd test
             git clone https://github.com/chuckmanny20/CSE135_hw_website.git
