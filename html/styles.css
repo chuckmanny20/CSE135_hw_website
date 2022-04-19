@@ -22,9 +22,19 @@
     padding-bottom: 5px;
 }
 
+.section_title {
+    /* shift title to right to not be right up to border */
+    margin-left: 15px;
+}
+
 .section_header {
     /* Remove space between header and list*/
     margin-bottom: 0px;
+}
+
+.flex_container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 footer {
