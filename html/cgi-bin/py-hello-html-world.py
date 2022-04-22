@@ -4,8 +4,8 @@ import cgi
 import os
 
 
-#print ("Cache-Control: no-cache\n")
-print ("Content-type:text/html\r\n\r\n")
+print ("Cache-Control: no-cache")
+print ("Content-type:text/html")
 print ('<html>')
 print ('<head>')
 print ('<title>Hello, Python!</title>')
@@ -18,6 +18,5 @@ print ('<p>Current Time: %s</p>' %(date))
 print ('<p>test</p>')
 print (cgi.escape(os.environ["REMOTE_ADDR"]))
 #print ('<p>Your IP Address: %s</p>' %(address))
-
 print ('</body>')
 print ('</html>')
