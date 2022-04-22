@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env python3
+
 import datetime
 import socket
 
