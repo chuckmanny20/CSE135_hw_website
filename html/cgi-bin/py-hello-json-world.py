@@ -4,7 +4,7 @@ import os
 
 
 print("Cache-Control: no-cache")
-print("Content-type: application/json\n\n")
+print("Content-type: application/json\r\n\r\n")
 
 date = datetime.datetime.now()
 address = os.environ["REMOTE_ADDR"]
