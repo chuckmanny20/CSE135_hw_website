@@ -4,7 +4,7 @@ import cgi
 import os
 
 
-print ("Cache-Control: no-cache")
+#print ("Cache-Control: no-cache")
 print ("Content-type:text/html")
 print ('<html>')
 print ('<head>')
