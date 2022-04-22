@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 import datetime
-import socket
-
-from torch import add
 
 #print ("Cache-Control: no-cache\n")
 print ("Content-type:text/html\r\n\r\n")
