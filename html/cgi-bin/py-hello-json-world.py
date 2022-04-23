@@ -2,10 +2,11 @@
 import datetime
 import json
 import os
+import sys
 
 
-print("Cache-Control: no-cache")
-print("Content-type: application/json\r\n\r\n")
+#print("Cache-Control: no-cache")
+print("Content-type: text/plain\n")
 
 date = datetime.datetime.now()
 address = os.environ["REMOTE_ADDR"]
@@ -13,12 +14,12 @@ address = os.environ["REMOTE_ADDR"]
 msg = {
     "title": "Hello, Python!",
     "heading": "Zhaoxing Lyu was here!  - Hello, Python!",
-    "message": "This page was generated with the Perl programming langauge",
+    "message": "This page was generated with the Python programming langauge",
     "time": date,
     "IP": address
 }
 
-j = json.dump(msg)
+j = json.dumps(msg)
 print(j)
 
 
