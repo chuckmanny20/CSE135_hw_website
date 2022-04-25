@@ -9,7 +9,7 @@ print("<html><head><title>GET query string</title></head>\
 
 # get and format query string
 print("Raw query string: %s\n<br/><br/>" %(os.environ.get("QUERY_STRING")))
-print("<table> Formatted Query String:")
+print("<table> Formatted Query String:<br/>\n")
 buffer = os.environ.get("QUERY_STRING")
 pairs = buffer.split('&')
 for i in pairs:
