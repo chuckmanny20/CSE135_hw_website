@@ -5,7 +5,7 @@ import json
 import os
 
 
-#print("Cache-Control: no-cache")
+print("Cache-Control: no-cache")
 print("Content-type: application/json\n")
 
 date = datetime.datetime.now()
