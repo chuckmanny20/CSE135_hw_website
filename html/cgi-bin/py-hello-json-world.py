@@ -16,5 +16,6 @@ msg = {
     'heading': 'Zhaoxing Lyu was here!  - Hello, Python!',
     'message': 'This page was generated with the Python programming langauge',
 }
-
-print(json.JSONEncoder().encode(msg))
+j = json.dumps(msg)
+print(j)
+#print(json.JSONEncoder().encode(msg))
