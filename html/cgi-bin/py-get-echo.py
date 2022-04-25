@@ -8,14 +8,13 @@ print("<html><head><title>GET query string</title></head>\
         <hr/> \n")
 
 # get and format query string
-print("Raw query string: %s\n<br/><br/>", os.environ.get("QUERY_STRING"))
-#print("<table> Formatted Query String:")
-query = os.environ.get("QUERY_STRING")
-print(query)
-
-
-
-#print("</table>")
+print("Raw query string: %s\n<br/><br/>" %(os.environ.get("QUERY_STRING")))
+print("<table> Formatted Query String:")
+buffer = os.environ.get("QUERY_STRING")
+pairs = buffer.split('&')
+for i in pairs:
+    print("%s = %s <br/>\n" %(i.split('=')[0], i.split('=')[1]))
+print("</table>")
 
 # Print HTML footer  
 print("</body>")
