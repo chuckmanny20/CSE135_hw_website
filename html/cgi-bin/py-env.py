@@ -9,6 +9,6 @@ print("<html><head><title>Environment Variables</title></head>\
         <hr/> \n")
 # Loop over the environment variables and print each variable and its value
 for param in os.environ.keys():
-   print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
+   print("%s\n<br/>" % (os.environ[param]))
 
 print("</body></html>")
