@@ -8,7 +8,7 @@ print("<html><head><title>POST Message Body</title></head>\
     </head><body><h1 align=center>POST Message Body</h1>\
         <hr/> \n")
 
-print("Message Body: %s\n<br/>", sys.stdin)
+print("Message Body: %s\n<br/>" %(sys.stdin.readlines()))
 
 # Print HTML footer
 print("</body>")
