@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 import os
 
-from matplotlib.pyplot import get
-
 
 print("Cache-Control: no-cache")
 print("Content-type: text/html\n\n")
