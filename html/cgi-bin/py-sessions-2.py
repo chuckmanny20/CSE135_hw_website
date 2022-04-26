@@ -9,7 +9,7 @@ print("Content-type: text/html\n\n")
 print("<html>")
 print("<head><title>Python Sessions</title></head>\n")
 print("<body>")
-print("<h1>C Sessions Page 2</h1>")
+print("<h1>Python Sessions Page 2</h1>")
 print("<table>")
 
 if os.environ.get("HTTP_COOKIE") != None and os.environ.get("HTTP_COOKIE") != "destroyed":
