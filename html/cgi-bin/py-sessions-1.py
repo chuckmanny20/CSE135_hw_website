@@ -18,7 +18,7 @@ if username[0][0] == "u":
 # set the cookie using a header, add extra \n to end headers
 if len(name) > 0:
     print("Content-type: text/html\n")
-    print("Set-Cookie: %s\n\n" %(name))
+    print("Cookie: %s\n\n" %(name))
 else:
     print("Content-type: text/html\n\n")
     #print(username)
