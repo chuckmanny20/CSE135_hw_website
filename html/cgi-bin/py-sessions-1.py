@@ -20,6 +20,7 @@ if len(name) > 0:
 else:
     print("Content-type: text/html\n\n")
 print(username)
+print(name)
 # Body - HTML
 print("<html>")
 print("<head><title>Python Sessions</title></head>\n")
