@@ -8,7 +8,7 @@ print("Content-type: text/html\n\n")
 print("<html>")
 print("<head><title>Python Session Destroyed</title></head>")
 print("<body>")
-print("<h1>C Session Destroyed</h1>")
+print("<h1>Python Session Destroyed</h1>")
 
 # Links
 print("<a href=\"/cgi-bin/py-sessions-1.py\">Back to Page 1</a>")

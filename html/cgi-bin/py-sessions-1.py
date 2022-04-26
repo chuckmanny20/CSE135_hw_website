@@ -7,13 +7,13 @@ import os
 print("Cache-Control: no-cache")
 
 # get name from env
-username = sys.stdin.readlines()
+username = sys.stdin.readline()
 
 #print (username[0])
 # check to see if a proper name was sent
 name = ""
-if username[0][0] == "u":
-    name = username[0].split('=')[1]
+if username[0] == "u":
+    name = username.split('=')[1]
 
 # set the cookie using a header, add extra \n to end headers
 if len(name) > 0:
