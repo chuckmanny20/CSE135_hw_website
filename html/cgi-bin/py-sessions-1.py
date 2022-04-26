@@ -2,7 +2,6 @@
 import sys
 import os
 
-
 # headers
 print("Cache-Control: no-cache")
 
@@ -12,7 +11,7 @@ username = sys.stdin.readlines()
 # print (username[0])
 # check to see if a proper name was sent
 name = ""
-if username[0][0] == "u":
+if username != None and username[0][0] == "u":
     name = username[0].split('=')[1]
 # name = ""
 # if username[0] == "u":
