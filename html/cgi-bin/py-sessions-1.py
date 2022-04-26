@@ -12,7 +12,7 @@ username = sys.stdin.readlines()
 #print (username[0])
 # check to see if a proper name was sent
 name = ""
-if username[0][0] == "u":
+if username != None and username[0][0] == "u":
     name = username[0].split('=')[1]
 
 # set the cookie using a header, add extra \n to end headers
