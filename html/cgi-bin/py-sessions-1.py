@@ -8,7 +8,7 @@ print("Cache-Control: no-cache")
 
 # get name from env
 username = sys.stdin.readlines()
-
+print(username)
 # check to see if a proper name was sent
 name = ""
 if username[0] == 'u':
