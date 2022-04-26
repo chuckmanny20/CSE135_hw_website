@@ -15,10 +15,11 @@ name = ""
 if username[0][0] == "u":
     name = username
 
+print(name)
 # set the cookie using a header, add extra \n to end headers
 if len(name) > 0:
-    print("Content-type: text/html\n")
-    print("Cookie: %s\n\n" %(name))
+    print("Content-type: text/html")
+    print("Set-Cookie: %s\n\n" %(name))
 else:
     print("Content-type: text/html\n\n")
     #print(username)
