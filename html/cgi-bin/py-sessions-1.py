@@ -25,14 +25,14 @@ else:
 print("<html>")
 print("<head><title>Python Sessions</title></head>\n")
 print("<body>")
-print("<h1>C Sessions Page 1</h1>")
+print("<h1>Python Sessions Page 1</h1>")
 print("<table>")
 
 #First check for new Cookie, then Check for old Cookie
 if len(name) > 0:
-    print("<tr><td>Cookie:</td><td>%s</td></tr>\n", name)
+    print("<tr><td>Cookie:</td><td>%s</td></tr>\n" %(name))
 elif os.environ.get("HTTP_COOKIE") != None and os.environ.get("HTTP_COOKIE") != "destroyed":
-    print("<tr><td>Cookie:</td><td>%s</td></tr>\n", os.environ.get("HTTP_COOKIE"))
+    print("<tr><td>Cookie:</td><td>%s</td></tr>\n" %(os.environ.get("HTTP_COOKIE")))
 else:
     print("<tr><td>Cookie:</td><td>None</td></tr>\n")
 
