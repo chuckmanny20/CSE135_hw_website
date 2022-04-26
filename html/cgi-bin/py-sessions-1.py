@@ -8,7 +8,6 @@ print("Cache-Control: no-cache")
 
 # get name from env
 username = sys.stdin.readlines()
-print(username)
 # check to see if a proper name was sent
 name = ""
 if username[0] == 'u':
@@ -20,7 +19,7 @@ if len(name) > 0:
     print("Set-Cookie: %s\n\n" %(name))
 else:
     print("Content-type: text/html\n\n")
-
+print(username)
 # Body - HTML
 print("<html>")
 print("<head><title>Python Sessions</title></head>\n")
