@@ -2,7 +2,6 @@
 import sys
 import os
 
-from matplotlib.pyplot import get
 
 # headers
 print("Cache-Control: no-cache")
