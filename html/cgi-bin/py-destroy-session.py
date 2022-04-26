@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 print("Cache-Control: no-cache")
-print("Set-Cookie: destroyed\n")
+print("Set-Cookie: destroyed")
 print("Content-type: text/html\n\n")
 
 # Body - HTML
