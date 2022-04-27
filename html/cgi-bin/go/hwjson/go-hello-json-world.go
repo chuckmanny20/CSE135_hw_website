@@ -8,7 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Cache-Control: no-cache")
-	fmt.Println("Content-type: text/html")
+	fmt.Println("Content-type: text/json")
 	fmt.Println("{\n\t\"message\": \"Hello World\",")
 
 	fmt.Println("\t\"date\": \"" + time.Now().Format("2006-01-02 15:04:05") + "\",")
