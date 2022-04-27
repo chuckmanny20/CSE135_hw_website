@@ -43,13 +43,12 @@
             print "</table>";
         ?>
         <br />
-        <a href="/cgi-bin/c-sessions-2.cgi\">Session Page 2</a>
+        <a href="/cgi-bin/php-sessions-2.php\">Session Page 2</a>
         <br />
-        <a href="/c-cgiform.html\">C CGI Form</a>
+        <a href="/php-cgiform.html\">C CGI Form</a>
         <br /><br />
 
-        // Destroy Cookie button
-        <form action="/cgi-bin/c-destroy-session.cgi\" method="get\">
+        <form action="/cgi-bin/php-destroy-session.php\" method="get\">
             <button type="submit\">Destroy Session</button>
         </form>
     </body>
