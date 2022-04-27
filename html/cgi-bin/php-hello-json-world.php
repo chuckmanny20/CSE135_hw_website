@@ -12,7 +12,7 @@
         
     $json_object = json_encode($json_array);
         
-    print "<p>" . $json_object . "</p>";
+    print $json_object;
 ?>
 
 
