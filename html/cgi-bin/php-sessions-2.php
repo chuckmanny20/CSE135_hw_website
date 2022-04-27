@@ -16,6 +16,13 @@
 
             $user = $_SESSION['username'];
 
+            // Check to see if a proper name was sent
+            // Skips "username=____" to just get the "____"
+            if ($user[0] == 'u')
+            {
+                $user = substr($user, 9);
+            }
+
             print("<table>");
 
             // First check for new Cookie, then Check for old Cookie
