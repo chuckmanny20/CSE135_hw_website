@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello, PHP!</title>
+        <title>Hello, PHP! (JSON)</title>
     </head>
     <body>
         <?php
