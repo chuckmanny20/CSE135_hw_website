@@ -1,6 +1,6 @@
 <?php
     header("Cache-Control: no-cache");
-    header("Content-type: text/html");
+    header("Content-type: text/json");
 ?>
 
 <!DOCTYPE html>
