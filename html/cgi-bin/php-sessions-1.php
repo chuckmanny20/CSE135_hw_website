@@ -9,7 +9,7 @@
         <title>PHP Sessioning Page 1</title>
     </head>
     <body>
-        <h1>C Sessions Page 1</h1>
+        <h1>PHP Sessions Page 1</h1>
         <?php
             session_name("ZhaoXingID");
             session_start();
@@ -45,7 +45,7 @@
         <br />
         <a href="/cgi-bin/php-sessions-2.php\">Session Page 2</a>
         <br />
-        <a href="/php-cgiform.html\">C CGI Form</a>
+        <a href="/php-cgiform.html\">PHP CGI Form</a>
         <br /><br />
 
         <form action="/cgi-bin/php-destroy-session.php\" method="get\">
