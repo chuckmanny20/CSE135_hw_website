@@ -16,7 +16,8 @@
             $env_array = getenv();
 
             foreach ($env_array as $key=>$value) {
-                print "<b>" . $key . ":</b>" . $value . "\n";
+                // nl2br replaces \n with HTML line breaks <br>
+                print nl2br("<b>" . $key . ":</b> " . $value . "\n");
             }
         ?>
     </body>
