@@ -47,7 +47,7 @@
         <br />
         <a href="/cgi-bin/php-sessions-1.php">Session Page 1</a>
         <br />
-        <a href="/php-cgiform.html">PHP CGI Form</a>
+        <a href="/php-cgiform.php">PHP CGI Form</a>
         <br /><br />
 
         <form action="/cgi-bin/php-destroy-session.php" method="get">
