@@ -18,16 +18,16 @@ func main() {
 	// set the cookie using a header, add extra \n to end headers
 	if len(name) > 0 {
 		fmt.Println("Content-type: text/html")
-		fmt.Printf("Set-Cookie: %s\n\n", name)
+		fmt.Printf("Set-Cookie: %s\n\n", name[1])
 	} else {
 		fmt.Print("Content-type: text/html\n\n")
 	}
 
 	// Body - HTML
 	fmt.Println("<html>")
-	fmt.Println("<head><title>Python Sessions</title></head>")
+	fmt.Println("<head><title>Go Sessions</title></head>")
 	fmt.Println("<body>")
-	fmt.Println("<h1>Python Sessions Page 1</h1>")
+	fmt.Println("<h1>Go Sessions Page 1</h1>")
 	fmt.Println("<table>")
 
 	//First check for new Cookie, then Check for old Cookie
@@ -45,7 +45,7 @@ func main() {
 	fmt.Println("<br />")
 	fmt.Println("<a href=\"/cgi-bin/py-sessions-2.py\">Session Page 2</a>")
 	fmt.Println("<br />")
-	fmt.Println("<a href=\"/py-cgiform.html\">Python CGI Form</a>")
+	fmt.Println("<a href=\"/py-cgiform.html\">Go CGI Form</a>")
 	fmt.Println("<br /><br />")
 
 	// Destroy Cookie button
