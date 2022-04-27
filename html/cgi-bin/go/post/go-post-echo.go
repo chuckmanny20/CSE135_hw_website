@@ -13,10 +13,8 @@ func main() {
 	fmt.Println("</head><body><h1 align=center>POST Message Body</h1><hr/>")
 
 	inputReader := bufio.NewReader(os.Stdin)
-	input, err := inputReader.ReadString('\n')
-    if err == nil {
-        fmt.Printf("Message Body: %s\n<br/>\n", input)
-    }
+	input, _ := inputReader.ReadString('\n')
+	fmt.Printf("Message Body: %s\n<br/>\n", input)
 
 	// # fmt.Println HTML footer
 	fmt.Println("</body>")
