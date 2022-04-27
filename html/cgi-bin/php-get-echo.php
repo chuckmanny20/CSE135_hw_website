@@ -15,9 +15,9 @@
             # The Query String is simply an environment variable
             print "<b>Query String:</b>" . $_SERVER['QUERY_STRING'] . "<br />\n";
 
-            $length = strlen($_SERVER['QUERY_STRING'])
+            $length = strlen($_SERVER['QUERY_STRING']);
 
-            $in = []
+            $in = [];
 
             # Credit for this code to parse the Query string:
             # https://www.mediacollege.com/internet/perl/query-string.html
