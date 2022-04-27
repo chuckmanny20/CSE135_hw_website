@@ -19,7 +19,7 @@
             // Check to see if a proper name was sent
             if ($user[0] == 'u')
             {
-                name = username + 9;
+                $user = substr($user, 9);
             }
 
             print("<table>");
