@@ -13,6 +13,8 @@
         <hr>
         <?php
             // To access body of POST or PUT or whatever
+            // Initially tried stream_get_contents(STDIN); but this stays open and the request was still visible
+            // in the network tab until I closed the tab. Wasn't even grabbing the body anyways
             $entityBody = file_get_contents('php://input');
 
             print "<b>Message Body:</b>" . $entityBody . "<br />\n";
