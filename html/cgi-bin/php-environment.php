@@ -12,10 +12,10 @@
         <h1 align="center">Environment Variables</h1>
         <hr>
         <?php
-            //getenv() without any arguments returns all of them
+            //getenv() without any arguments returns all of the 
             $env_array = getenv();
 
-            foreach ($env_array as $key=>$value) {
+            foreach ($_ENV as $key=>$value) {
                 // nl2br replaces \n with HTML line breaks <br>
                 print nl2br("<b>" . $key . ":</b> " . $value . "\n");
             }
