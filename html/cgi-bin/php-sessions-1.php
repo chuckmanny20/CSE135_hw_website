@@ -15,7 +15,7 @@
             session_start();
 
 
-            $_SESSION['username'] = file_get_contents('php://input')
+            $_SESSION['username'] = file_get_contents('php://input');
             $user = $_SESSION['username'];
 
             // Check to see if a proper name was sent
