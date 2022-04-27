@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main4() {
 	fmt.Print("Cache-Control: no-cache")
 	fmt.Print("Content-type: text/html\n\n")
 	fmt.Println("<html><head><title>Environment Variables</title></head>")
