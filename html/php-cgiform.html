@@ -6,13 +6,6 @@
 </head>
 
 <body>
-  <?php 
-    session_name("ZhaoXingID");
-    // Make cookie last a day instead of instantly deleting
-    session_start([
-        'cookie_lifetime' => 86400,
-    ]);
-  ?>
   <h1 align="center">Session Test</h1>
   <hr>
   <label for="cgi-lang">CGI using PHP</label>

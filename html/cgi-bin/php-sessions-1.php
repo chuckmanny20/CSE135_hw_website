@@ -12,7 +12,7 @@
         <h1>PHP Sessions Page 1</h1>
         <?php
             session_name("ZhaoXingID");
-            // Make cookie last a day instead of instantly deleting
+            // Make cookie last a day
             session_start([
                 'cookie_lifetime' => 86400,
             ]);
@@ -20,7 +20,8 @@
             // if input is empty, keep old cookie
             $cookie_val = file_get_contents('php://input');
 
-            if( strlen($cookie_val) > 0)
+            // have to check >9 because username= is always there
+            if( strlen($cookie_val) > 9)
                 $_SESSION['username'] = $cookie_val;
 
             $user = $_SESSION['username'];
