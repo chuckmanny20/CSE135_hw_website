@@ -44,13 +44,13 @@
             print "</table>";
         ?>
         <br />
-        <a href="/cgi-bin/php-sessions-2.php\">Session Page 2</a>
+        <a href="/cgi-bin/php-sessions-2.php">Session Page 2</a>
         <br />
-        <a href="/php-cgiform.html\">PHP CGI Form</a>
+        <a href="/php-cgiform.html">PHP CGI Form</a>
         <br /><br />
 
-        <form action="/cgi-bin/php-destroy-session.php\" method="get\">
-            <button type="submit\">Destroy Session</button>
+        <form action="/cgi-bin/php-destroy-session.php" method="get">
+            <button type="submit">Destroy Session</button>
         </form>
     </body>
 </html>
