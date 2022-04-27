@@ -15,7 +15,8 @@
             # The Query String is simply an environment variable
             print "<b>Query String:</b>" . $_SERVER['QUERY_STRING'] . "<br />\n";
 
-            $length = strlen($_SERVER['QUERY_STRING']);
+            $query = $_SERVER['QUERY_STRING'];
+            $length = strlen($query);
 
             $in = [];
 
