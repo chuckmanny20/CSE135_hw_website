@@ -7,32 +7,21 @@ import (
 	"strings"
 )
 
-func main7() {
+func main() {
 	// headers
 	fmt.Println("Cache-Control: no-cache")
 
-	// get name from env
-	var inputReader *bufio.Reader
-	var username string
-
-	inputReader = bufio.NewReader(os.Stdin)
-	username, _ = inputReader.ReadString('\n')
-   
-	name := strings.Split(username, "=")
-	// if (len(username) != 0 && username[0] == 'u') {
-	// 	name = strings.Split(username, "=")
-	// }
-	
+	inputReader := bufio.NewReader(os.Stdin)
+	username, _ := inputReader.ReadString('\n')
+	name := strings.Split(username, "=")	
 
 	// set the cookie using a header, add extra \n to end headers
 	if len(name) > 0 {
 		fmt.Println("Content-type: text/html")
 		fmt.Printf("Set-Cookie: %s\n\n", name)
 	} else {
-		fmt.Println("Content-type: text/html")
+		fmt.Print("Content-type: text/html\n\n")
 	}
-		
-	//fmt.Println(username)
 
 	// Body - HTML
 	fmt.Println("<html>")
