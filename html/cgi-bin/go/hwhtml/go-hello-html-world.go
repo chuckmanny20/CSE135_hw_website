@@ -8,7 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Cache-Control: no-cache")
-	fmt.Println("Content-type: text/html")
+	fmt.Print("Content-type: text/html\n\n")
 	fmt.Println("<html>")
 	fmt.Println("<head>")
 	fmt.Println("<title>Hello, Go!</title>")
