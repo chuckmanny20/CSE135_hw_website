@@ -22,8 +22,8 @@
             $array = explode("&", $buffer);
                 foreach ($pair as $array) {
                     $pieces = explode("=", $pair);
-                    $name = $pieces[0]
-                    $value = $pieces[1]
+                    $name = $pieces[0];
+                    $value = $pieces[1];
 
                     $in[$name] = $value;
                 }
