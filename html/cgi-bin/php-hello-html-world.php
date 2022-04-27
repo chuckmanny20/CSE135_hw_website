@@ -15,7 +15,7 @@
             
             date_default_timezone_set('UTC');
 
-            print "<p>Current Time:", date('l jS \of F Y h:i:s A'), "</p>";
+            print "<p>Current Time:" . date('l jS \of F Y h:i:s A') . "</p>";
             
             # IP Address is an environment variable when using CGI
             $address = $_SERVER{REMOTE_ADDR};
