@@ -14,7 +14,7 @@
             session_name("ZhaoXingID");
             session_start();
 
-            $user = $_SESSION['username']
+            $user = $_SESSION['username'];
 
             // Check to see if a proper name was sent
             if ($user[0] == 'u')
