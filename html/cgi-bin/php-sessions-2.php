@@ -12,7 +12,10 @@
         <h1>PHP Sessions Page 2</h1>
         <?php
             session_name("ZhaoXingID");
-            session_start();
+            // Make cookie last a day instead of instantly deleting
+            session_start([
+                'cookie_lifetime' => 86400,
+            ]);
 
             $user = $_SESSION['username'];
 
