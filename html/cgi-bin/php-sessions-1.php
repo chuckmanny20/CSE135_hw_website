@@ -31,7 +31,7 @@
             }
             else if ($_SESSION["HTTP_COOKIE"] != NULL && strcmp($_SESSION["HTTP_COOKIE"], "destroyed"))
             {
-                printf "<tr><td>Cookie:</td><td>%s</td></tr>\n", $_SESSION["HTTP_COOKIE"];
+                print "<tr><td>Cookie:</td><td>%s</td></tr>\n" . $_SESSION["HTTP_COOKIE"];
             }
             else
             {
