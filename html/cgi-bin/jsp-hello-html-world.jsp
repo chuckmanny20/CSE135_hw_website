@@ -1,4 +1,8 @@
-<% page import="java.util.*" %>
+<%@ page import="java.util.*" %>
+<%
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Content-type", "text/html");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -7,9 +11,6 @@
     </head>
     <body>
         <%
-            response.setHeader("Cache-Control", "no-cache");
-            response.setHeader("Content-type", "text/html");
-
             out.print("<h1>Liam was here - Hello, JSP!</h1>");
             out.print("<p>This page was generated with the JSP scripting langauge</p>");
             
