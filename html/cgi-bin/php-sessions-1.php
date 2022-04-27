@@ -29,7 +29,7 @@
             // First check for new Cookie, then Check for old Cookie
             if (strlen($user) > 0)
             {
-                print "<tr><td>Cookie:</td><td>%s</td></tr>\n" . $user;
+                print "<tr><td>Cookie:</td><td>" . $user . "</td></tr>\n";
             }
             else if ($_SESSION["HTTP_COOKIE"] != NULL && strcmp($_SESSION["HTTP_COOKIE"], "destroyed"))
             {
