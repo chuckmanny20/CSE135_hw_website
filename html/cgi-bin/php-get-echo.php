@@ -18,8 +18,8 @@
             # Credit for this code to parse the Query string:
             # https://www.mediacollege.com/internet/perl/query-string.html
             if (strlen($_SERVER['QUERY_STRING']) > 0){
-            $buffer = $_SERVER['QUERY_STRING'];
-            $array = explode("&", $buffer);
+                $buffer = $_SERVER['QUERY_STRING'];
+                $array = explode("&", $buffer);
                 foreach ($pair as $array) {
                     $pieces = explode("=", $pair);
                     $name = $pieces[0];
