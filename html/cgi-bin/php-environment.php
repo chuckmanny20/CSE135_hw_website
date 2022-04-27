@@ -12,10 +12,11 @@
         <h1 align="center">Environment Variables</h1>
         <hr>
         <?php
-            //getenv() without any arguments returns all of the 
+            //getenv() without any arguments returns all of them 
             //$env_array = getenv();
             // $_ENV and getenv() is different from $_SERVER
 
+            // $_SERVER gives the HTTP and Server Environment variables
             foreach ($_SERVER as $key=>$value) {
                 // nl2br replaces \n with HTML line breaks <br>
                 print nl2br("<b>" . $key . ":</b> " . $value . "\n");
