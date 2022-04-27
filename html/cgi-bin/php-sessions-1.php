@@ -21,8 +21,8 @@
             $cookie_val = file_get_contents('php://input');
 
             if( strlen($cookie_val) > 0):
-                $_SESSION['username'] = $cookie_val
-                
+                $_SESSION['username'] = $cookie_val;
+
             $user = $_SESSION['username'];
 
             // Check to see if a proper name was sent
