@@ -12,8 +12,8 @@
         <h1 align="center">Post Request Echo</h1>
         <hr>
         <?php
-            // STDIN is an "already-open stream to php://input"
-            $entityBody = stream_get_contents(STDIN);
+            // To access body of POST or PUT or whatever
+            $entityBody = file_get_contents('php://input');
 
             print "<b>Message Body:</b>" . $entityBody . "<br />\n";
 
