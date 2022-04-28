@@ -16,9 +16,9 @@ func main() {
 	// name := strings.Split(strings.Split(username, "=")[1], "\\s+")
 	name := strings.Split(username, "=")
 
-	if len(name) > 1 {
+	if len(name) > 0 {
 		fmt.Println("Content-type: text/html")
-		fmt.Printf("Set-Cookie: %s\n\n", name[1])
+		fmt.Printf("Set-Cookie: %s\n\n", name[1][1])
 	} else {
 		fmt.Print("Content-type: text/html\n\n")
 	}
@@ -28,7 +28,6 @@ func main() {
 	fmt.Println("<head><title>Go Sessions</title></head>")
 	fmt.Println("<body>")
 	fmt.Println("<h1>Go Sessions Page 1</h1>")
-	fmt.Println(username)
 	fmt.Println("<table>")
 
 	// First check for new Cookie, then Check for old Cookie
