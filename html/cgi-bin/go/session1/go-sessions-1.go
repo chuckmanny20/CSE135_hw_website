@@ -13,9 +13,11 @@ func main() {
 
 	inputReader := bufio.NewReader(os.Stdin)
 	username, _ := inputReader.ReadString('\n')
+	fmt.Println("username")
+	// name := strings.Split(strings.Split(username, "=")[1], "\\s+")
 	name := strings.Split(username, "=")
 
-	if len(name) > 0 {
+	if len(name) > 1 {
 		fmt.Println("Content-type: text/html")
 		fmt.Printf("Set-Cookie: %s\n\n", name[1])
 	} else {
