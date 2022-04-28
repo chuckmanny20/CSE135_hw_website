@@ -13,9 +13,8 @@ func main() {
 
 	inputReader := bufio.NewReader(os.Stdin)
 	username, _ := inputReader.ReadString('\n')
-	name := strings.Split(username, "=")	
+	name := strings.Split(username, " ")
 
-	// set the cookie using a header, add extra \n to end headers
 	if len(name) > 0 {
 		fmt.Println("Content-type: text/html")
 		fmt.Printf("Set-Cookie: %s\n\n", name[1])
@@ -30,7 +29,7 @@ func main() {
 	fmt.Println("<h1>Go Sessions Page 1</h1>")
 	fmt.Println("<table>")
 
-	//First check for new Cookie, then Check for old Cookie
+	// First check for new Cookie, then Check for old Cookie
 	if len(name) > 0 {
 		fmt.Printf("<tr><td>Cookie:</td><td>%s</td></tr>\n", name)
 	} else if os.Getenv("HTTP_COOKIE") != "" && os.Getenv("HTTP_COOKIE") != "destroyed" {
