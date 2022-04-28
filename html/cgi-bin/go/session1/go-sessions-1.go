@@ -13,7 +13,6 @@ func main() {
 
 	inputReader := bufio.NewReader(os.Stdin)
 	username, _ := inputReader.ReadString('\n')
-	fmt.Println("username")
 	// name := strings.Split(strings.Split(username, "=")[1], "\\s+")
 	name := strings.Split(username, "=")
 
@@ -29,6 +28,7 @@ func main() {
 	fmt.Println("<head><title>Go Sessions</title></head>")
 	fmt.Println("<body>")
 	fmt.Println("<h1>Go Sessions Page 1</h1>")
+	fmt.Println(username)
 	fmt.Println("<table>")
 
 	// First check for new Cookie, then Check for old Cookie
