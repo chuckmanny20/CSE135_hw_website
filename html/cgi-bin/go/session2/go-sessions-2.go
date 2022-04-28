@@ -24,12 +24,12 @@ func main() {
 	fmt.Println("</table>")
 	// Links for other pages
 	fmt.Println("<br/>")
-	fmt.Println("<a href=\"/cgi-bin/py-sessions-1.py\">Session Page 1</a>")
+	fmt.Println("<a href=\"/cgi-bin/go-sessions-1.cgi\">Session Page 1</a>")
 	fmt.Println("<br/>")
-	fmt.Println("<a href=\"/py-cgiform.html\">Go CGI Form</a>")
+	fmt.Println("<a href=\"/go-cgiform.html\">Go CGI Form</a>")
 	fmt.Println("<br/><br/>")
 	// Destroy Cookie button
-	fmt.Println("<form action=\"/cgi-bin/py-destroy-session.py\" method=\"get\">")
+	fmt.Println("<form action=\"/cgi-bin/go-destroy-session.cgi\" method=\"get\">")
 	fmt.Println("<button type=\"submit\">Destroy Session</button>")
 	fmt.Println("</form>")
 	fmt.Println("</body>")
