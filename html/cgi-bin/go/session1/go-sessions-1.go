@@ -17,7 +17,7 @@ func main() {
 
 	if len(name) > 0 {
 		fmt.Println("Content-type: text/html")
-		fmt.Printf("Set-Cookie: %s\n\n", strings.Split(name[1], " ")[1])
+		fmt.Printf("Set-Cookie: %s\n\n", name[1])
 	} else {
 		fmt.Print("Content-type: text/html\n\n")
 	}
