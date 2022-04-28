@@ -15,7 +15,7 @@ func main() {
 	username, _ := inputReader.ReadString('\n')
 	name := strings.Split(username, "=")
 
-	if len(name) > 0 {
+	if len(name) > 1 {
 		fmt.Println("Content-type: text/html")
 		fmt.Printf("Set-Cookie: %s\n\n", name[1])
 	} else {
@@ -30,7 +30,7 @@ func main() {
 	fmt.Println("<table>")
 
 	// First check for new Cookie, then Check for old Cookie
-	if len(name) > 0 {
+	if len(name) > 1 {
 		fmt.Printf("<tr><td>Cookie:</td><td>%s</td></tr>\n", name[1])
 	} else if os.Getenv("HTTP_COOKIE") != "" && os.Getenv("HTTP_COOKIE") != "destroyed" {
 		fmt.Printf("<tr><td>Cookie:</td><td>%s</td></tr>\n", os.Getenv("HTTP_COOKIE"))
