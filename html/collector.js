@@ -12,6 +12,8 @@ function staticCollect() {
     // console.log(map);
 }
 
+staticCollect();
+
 // function performanceCollect() {
 //     const performanceMap = new Map();
 //     console.log(window.performance);
