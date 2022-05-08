@@ -13,9 +13,9 @@ function staticCollect() {
 
 function performanceCollect() {
     var performanceMap = new Map();
-    performanceMap.set('wholeTimingObject', window.PerformanceNavigationTiming);
-    var timeStartLoad = window.PerformanceNavigationTiming.startTime;
-    var timeEndLoad = window.PerformanceNavigationTiming.loadEventEnd;
+    performanceMap.set('wholeTimingObject', PerformanceEntry);
+    var timeStartLoad = window.PerformanceEntry.startTime;
+    var timeEndLoad = window.PerformanceEntry.loadEventEnd;
     performanceMap.set('timeStartLoad', timeStartLoad);
     performanceMap.set('timeEndLoad', timeEndLoad);
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
