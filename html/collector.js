@@ -8,7 +8,6 @@ function staticCollect() {
     staticMap.set('userScreenHeight', window.screen.height);
     staticMap.set('userWindowWidth', window.outerWidth);
     staticMap.set('userWindowHeight', window.outerHeight);
-    console.log(staticMap);
 }
 
 function performanceCollect() {
@@ -16,12 +15,12 @@ function performanceCollect() {
     var timingObject = performance.getEntriesByType("navigation")[0];
     performanceMap.set('wholeTimingObject', timingObject);
     
+    // TODO: timeStartLoad and timeEndLoad are 0, even if those in the timingObject are correct
     var timeStartLoad = timingObject.loadEventStart;
     var timeEndLoad = timingObject.loadEventEnd;
     performanceMap.set('timeStartLoad', timeStartLoad);
     performanceMap.set('timeEndLoad', timeEndLoad);
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
-    console.log(performanceMap);
 }
 
 function activityCollect() {
@@ -74,14 +73,23 @@ function activityCollect() {
     doc.onkeydown = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyDown']);
         resetTimer();
-        console.log(keyboardMap);
     }
     doc.onkeyup = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyUp']);
         resetTimer();
     }
 
-    // TODO: when the entering, leaving and oning
+    // entering, leaving and oning
+    var visibleMap = new Map();
+    visibleMap.set((new Date()).getTime(), 'enterPage');
+    doc.addEventListener("visibilitychange", function () {
+        if (!doc.hidden) {
+            visibleMap.set((new Date()).getTime(), 'enterPage');
+        } else {
+            visibleMap.set((new Date()).getTime(), 'leavePage');
+        }
+    });
+    var curPage = doc.location.toString();
 }
 
 staticCollect();
