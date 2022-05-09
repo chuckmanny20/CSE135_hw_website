@@ -16,8 +16,14 @@ function performanceCollect() {
     performanceMap.set('wholeTimingObject', timingObject);
     
     // TODO: timeStartLoad and timeEndLoad are 0, even if those in the timingObject are correct
-    var timeStartLoad = timingObject.loadEventStart;
-    var timeEndLoad = timingObject.loadEventEnd;
+    const timeStartLoad = timingObject.loadEventStart;
+    const timeEndLoad = timingObject.loadEventEnd;
+    console.log(timeStartLoad);
+    console.log(performance.getEntriesByType("navigation")[0].loadEventStart);
+    console.log(timingObject);
+    console.log(parseFloat(timingObject.domComplete));
+    // float problem
+
     performanceMap.set('timeStartLoad', timeStartLoad);
     performanceMap.set('timeEndLoad', timeEndLoad);
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
@@ -95,3 +101,5 @@ function activityCollect() {
 staticCollect();
 performanceCollect();
 activityCollect();
+
+// store locally in a log file, and send periodcally
