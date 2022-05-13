@@ -5,6 +5,14 @@ function mapToObj(map){
     return obj
 }
 
+function generateID() {
+    let id = Math.random().toString(16).slice(2);
+    let idObj = {};
+
+    idObj['id'] = id;
+    window.localStorage.setItem('ZhaoID', JSON.stringify(idObj));
+}
+
 function staticCollect() {
     var staticMap = new Map();
     staticMap.set('userAgentStr', navigator.userAgent);
@@ -157,41 +165,66 @@ function sendData() {
     keyboardCollection = window.localStorage.getItem('keyboardCollection');
     visibleCollection = window.localStorage.getItem('visibleCollection');
     curPage = window.localStorage.getItem('curPage');
+    ZhaoID = window.localStorage.getItem('ZhaoID');
 
     // pack into XHR and send
     // POST
-    let postXHR = new XMLHttpRequest();
+    let postStaticXHR = new XMLHttpRequest();
+    let postPerformanceXHR = new XMLHttpRequest();
+    let postActivityXHR = new XMLHttpRequest();
 
     // build JSON object
-    let JSONpacket = {}
-    JSONpacket['staticCollection'] = staticCollection
-    JSONpacket['performanceCollection'] = performanceCollection
-    JSONpacket['idleEndList'] = idleEndList
-    JSONpacket['idleLengthList'] = idleLengthList
-    JSONpacket['cursorPosCollection'] = cursorPosCollection
-    JSONpacket['clickCollection'] = clickCollection
-    JSONpacket['scrollCollection'] = scrollCollection
-    JSONpacket['keyboardCollection'] = keyboardCollection
-    JSONpacket['visibleCollection'] = visibleCollection
-    JSONpacket['curPage'] = curPage
+    let staticJSONpacket = {};
+    let performanceJSONpacket = {};
+    let activityJSONpacket = {};
+
+    staticJSONpacket['staticCollection'] = staticCollection;
+    //staticJSONpacket['id'] = ZhaoID;
+
+    performanceJSONpacket['performanceCollection'] = performanceCollection;
+    //performanceJSONpacket['id'] = ZhaoID;
+
+    activityJSONpacket['idleEndList'] = idleEndList;
+    activityJSONpacket['idleLengthList'] = idleLengthList;
+    activityJSONpacket['cursorPosCollection'] = cursorPosCollection;
+    activityJSONpacket['clickCollection'] = clickCollection;
+    activityJSONpacket['scrollCollection'] = scrollCollection;
+    activityJSONpacket['keyboardCollection'] = keyboardCollection;
+    activityJSONpacket['visibleCollection'] = visibleCollection;
+    activityJSONpacket['curPage'] = curPage;
+    //activityJSONpacket['id'] = ZhaoID;
 
     // open up request
     // will have to change the url for this later
     // TODO: Split this into 3 XHRs for static, performance, and activity
-    postXHR.open('POST', 'https://zhaoxinglyu.site/api/posts', true);
+    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static/' + ZhaoID, true);
+    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance/' + ZhaoID, true);
+    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity/' + ZhaoID, true);
 
     // set Headers
     // Want JSON back
     // or postXHR.responseType = 'json';
-    postXHR.setRequestHeader('Content-Type', 'application/json');
+    postStaticXHR.setRequestHeader('Content-Type', 'application/json');
+    postPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
+    postActivityXHR.setRequestHeader('Content-Type', 'application/json');
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    postXHR.addEventListener('load', function() {
-        handleResponse(postXHR);
+    postStaticXHR.addEventListener('load', function() {
+        handleResponse(postStaticXHR);
     });
 
-    postXHR.send(JSON.stringify(JSONpacket));
+    postPerformanceXHR.addEventListener('load', function() {
+        handleResponse(postPerformanceXHR);
+    });
+
+    postActivityXHR.addEventListener('load', function() {
+        handleResponse(postActivityXHR);
+    });
+
+    postStaticXHR.send(JSON.stringify(staticJSONpacket));
+    postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
+    postActivityXHR.send(JSON.stringify(activityJSONpacket));
 }
 
 function handleResponse(response) {
@@ -202,9 +235,11 @@ function handleResponse(response) {
     console.log(packet)
 }
 
+generateID();
 staticCollect();
 performanceCollect();
 activityCollect();
 
-// store locally in localStorage, and send periodcally (5 mins for now?)
+// store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
+setInterval(sendData, 60000)
