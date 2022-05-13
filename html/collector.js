@@ -10,7 +10,7 @@ function staticCollect() {
     staticMap.set('userWindowHeight', window.outerHeight);
 
     // localStorage
-    window.localStorage.setItem('staticCollection', staticMap);
+    window.localStorage.setItem('staticCollection', str(staticMap));
 }
 
 function performanceCollect() {
@@ -32,7 +32,7 @@ function performanceCollect() {
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
 
     // localStorage
-    window.localStorage.setItem('performanceCollection', performanceMap);
+    window.localStorage.setItem('performanceCollection', str(performanceMap));
 }
 
 function activityCollect() {
@@ -104,20 +104,20 @@ function activityCollect() {
     var curPage = doc.location.toString();
 
     // localStorage
-    window.localStorage.setItem('idleEndList', idleEndList);
-    window.localStorage.setItem('idleLengthList', idleLengthList);
+    window.localStorage.setItem('idleEndList', str(idleEndList));
+    window.localStorage.setItem('idleLengthList', str(idleLengthList));
 
-    window.localStorage.setItem('cursorPosCollection', cursorPosMap);
+    window.localStorage.setItem('cursorPosCollection', str(cursorPosMap));
 
-    window.localStorage.setItem('clickCollection', clickMap);
+    window.localStorage.setItem('clickCollection', str(clickMap));
 
-    window.localStorage.setItem('scrollCollection', scrollMap);
+    window.localStorage.setItem('scrollCollection', str(scrollMap));
 
-    window.localStorage.setItem('keyboardCollection', keyboardMap);
+    window.localStorage.setItem('keyboardCollection', str(keyboardMap));
 
-    window.localStorage.setItem('visibleCollection', visibleMap);
+    window.localStorage.setItem('visibleCollection', str(visibleMap));
 
-    window.localStorage.setItem('curPage', curPage);
+    window.localStorage.setItem('curPage', str(curPage));
 }
 
 function sendData() {
