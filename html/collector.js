@@ -10,7 +10,7 @@ function staticCollect() {
     staticMap.set('userWindowHeight', window.outerHeight);
 
     // localStorage
-    window.localStorage.setItem('staticCollection', str(staticMap));
+    window.localStorage.setItem('staticCollection', JSON.stringify(staticMap));
 }
 
 function performanceCollect() {
@@ -32,7 +32,7 @@ function performanceCollect() {
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
 
     // localStorage
-    window.localStorage.setItem('performanceCollection', str(performanceMap));
+    window.localStorage.setItem('performanceCollection', JSON.stringify(performanceMap));
 }
 
 function activityCollect() {
@@ -104,20 +104,20 @@ function activityCollect() {
     var curPage = doc.location.toString();
 
     // localStorage
-    window.localStorage.setItem('idleEndList', str(idleEndList));
-    window.localStorage.setItem('idleLengthList', str(idleLengthList));
+    window.localStorage.setItem('idleEndList', JSON.stringify(idleEndList));
+    window.localStorage.setItem('idleLengthList', JSON.stringify(idleLengthList));
 
-    window.localStorage.setItem('cursorPosCollection', str(cursorPosMap));
+    window.localStorage.setItem('cursorPosCollection', JSON.stringify(cursorPosMap));
 
-    window.localStorage.setItem('clickCollection', str(clickMap));
+    window.localStorage.setItem('clickCollection', JSON.stringify(clickMap));
 
-    window.localStorage.setItem('scrollCollection', str(scrollMap));
+    window.localStorage.setItem('scrollCollection', JSON.stringify(scrollMap));
 
-    window.localStorage.setItem('keyboardCollection', str(keyboardMap));
+    window.localStorage.setItem('keyboardCollection', JSON.stringify(keyboardMap));
 
-    window.localStorage.setItem('visibleCollection', str(visibleMap));
+    window.localStorage.setItem('visibleCollection', JSON.stringify(visibleMap));
 
-    window.localStorage.setItem('curPage', str(curPage));
+    window.localStorage.setItem('curPage', JSON.stringify(curPage));
 }
 
 function sendData() {
