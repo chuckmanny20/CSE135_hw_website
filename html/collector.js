@@ -179,10 +179,10 @@ function sendData() {
     let activityJSONpacket = {};
 
     staticJSONpacket['staticCollection'] = staticCollection;
-    //staticJSONpacket['id'] = ZhaoID;
+    staticJSONpacket['id'] = ZhaoID['id'];
 
     performanceJSONpacket['performanceCollection'] = performanceCollection;
-    //performanceJSONpacket['id'] = ZhaoID;
+    performanceJSONpacket['id'] = ZhaoID['id'];
 
     activityJSONpacket['idleEndList'] = idleEndList;
     activityJSONpacket['idleLengthList'] = idleLengthList;
@@ -192,14 +192,14 @@ function sendData() {
     activityJSONpacket['keyboardCollection'] = keyboardCollection;
     activityJSONpacket['visibleCollection'] = visibleCollection;
     activityJSONpacket['curPage'] = curPage;
-    //activityJSONpacket['id'] = ZhaoID;
+    activityJSONpacket['id'] = ZhaoID['id'];
 
     // open up request
     // will have to change the url for this later
     // TODO: Split this into 3 XHRs for static, performance, and activity
-    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static/' + ZhaoID['id'], true);
-    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance/' + ZhaoID['id'], true);
-    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity/' + ZhaoID['id'], true);
+    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
+    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
+    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
 
     // set Headers
     // Want JSON back
