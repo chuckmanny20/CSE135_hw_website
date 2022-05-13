@@ -245,4 +245,4 @@ activityCollect();
 
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
-setInterval(sendData, 60000)
+//setInterval(sendData, 60000)
