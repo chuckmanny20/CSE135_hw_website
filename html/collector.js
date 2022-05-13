@@ -165,7 +165,7 @@ function sendData() {
     keyboardCollection = window.localStorage.getItem('keyboardCollection');
     visibleCollection = window.localStorage.getItem('visibleCollection');
     curPage = window.localStorage.getItem('curPage');
-    ZhaoID = window.localStorage.getItem('ZhaoID');
+    ZhaoID = JSON.parse(window.localStorage.getItem('ZhaoID'));
 
     // pack into XHR and send
     // POST
@@ -197,9 +197,9 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // TODO: Split this into 3 XHRs for static, performance, and activity
-    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static/' + ZhaoID, true);
-    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance/' + ZhaoID, true);
-    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity/' + ZhaoID, true);
+    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static/' + ZhaoID['id'], true);
+    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance/' + ZhaoID['id'], true);
+    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity/' + ZhaoID['id'], true);
 
     // set Headers
     // Want JSON back
@@ -230,6 +230,8 @@ function sendData() {
 function handleResponse(response) {
     console.log('readyState:' + response.readyState)
     console.log('status:' + response.status)
+    
+    let packet = JSON.parse(response.responseText);
     // puts 8 spaces for indenting JSON to make it nice and clean
     packet = JSON.stringify(packet, null, 8);
     console.log(packet)
