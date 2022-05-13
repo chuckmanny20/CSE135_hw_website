@@ -11,6 +11,8 @@ function staticCollect() {
 
     // localStorage
     window.localStorage.setItem('staticCollection', JSON.stringify(staticMap));
+
+    console.log(staticMap)
 }
 
 function performanceCollect() {
@@ -33,6 +35,8 @@ function performanceCollect() {
 
     // localStorage
     window.localStorage.setItem('performanceCollection', JSON.stringify(performanceMap));
+
+    console.log(performanceMap)
 }
 
 function activityCollect() {
