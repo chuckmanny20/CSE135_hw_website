@@ -62,6 +62,11 @@ function activityCollect() {
             idleEndTime = (new Date()).getTime();
             idleEndList.push(idleEndTime);
             idleLengthList.push(idleEndTime - idleStartTime);
+
+            // localStorage
+            window.localStorage.setItem('idleEndList', idleEndList.toString());
+            window.localStorage.setItem('idleLengthList', idleLengthList.toString());
+
             isIdling = false;
         }
         clearTimeout(t);
@@ -76,14 +81,26 @@ function activityCollect() {
     var scrollMap = new Map();
     doc.onmousemove = function (event) {
         cursorPosMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
+
+        // localStorage
+        window.localStorage.setItem('cursorPosCollection', JSON.stringify(mapToObj(cursorPosMap)));
+
         resetTimer();
     }
     doc.onclick = function (event) {
         clickMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
+
+        // localStorage
+        window.localStorage.setItem('clickCollection', JSON.stringify(mapToObj(clickMap)));
+
         resetTimer();
     }
     doc.onscroll = function () {
         scrollMap.set((new Date()).getTime(), doc.body.scrollHeight);
+
+        // localStorage
+        window.localStorage.setItem('scrollCollection', JSON.stringify(mapToObj(scrollMap)));
+
         resetTimer();
     }
 
@@ -91,10 +108,18 @@ function activityCollect() {
     var keyboardMap = new Map();
     doc.onkeydown = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyDown']);
+
+        // localStorage
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
+
         resetTimer();
     }
     doc.onkeyup = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyUp']);
+
+        // localStorage
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
+
         resetTimer();
     }
 
@@ -104,27 +129,19 @@ function activityCollect() {
     doc.addEventListener("visibilitychange", function () {
         if (!doc.hidden) {
             visibleMap.set((new Date()).getTime(), 'enterPage');
+
+            //localStorage
+            window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
         } else {
             visibleMap.set((new Date()).getTime(), 'leavePage');
+
+            //localStorage
+            window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
         }
     });
     var curPage = doc.location.toString();
 
-    // localStorage
-    window.localStorage.setItem('idleEndList', JSON.stringify(mapToObj(idleEndList)));
-    window.localStorage.setItem('idleLengthList', JSON.stringify(mapToObj(idleLengthList)));
-
-    window.localStorage.setItem('cursorPosCollection', JSON.stringify(mapToObj(cursorPosMap)));
-
-    window.localStorage.setItem('clickCollection', JSON.stringify(mapToObj(clickMap)));
-
-    window.localStorage.setItem('scrollCollection', JSON.stringify(mapToObj(scrollMap)));
-
-    window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
-
-    window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
-
-    window.localStorage.setItem('curPage', JSON.stringify(mapToObj(curPage)));
+    window.localStorage.setItem('curPage', curPage);
 }
 
 function sendData() {
