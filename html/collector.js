@@ -13,6 +13,7 @@ function staticCollect() {
     window.localStorage.setItem('staticCollection', JSON.stringify(staticMap));
 
     console.log(staticMap)
+    console.log(JSON.stringify(staticMap))
 }
 
 function performanceCollect() {
