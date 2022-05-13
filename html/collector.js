@@ -230,11 +230,12 @@ function sendData() {
 function handleResponse(response) {
     console.log('readyState:' + response.readyState)
     console.log('status:' + response.status)
-    
-    let packet = JSON.parse(response.responseText);
+
+    // Only if we were expecting response (this is for POST...)
+    //let packet = JSON.parse(response.responseText);
     // puts 8 spaces for indenting JSON to make it nice and clean
-    packet = JSON.stringify(packet, null, 8);
-    console.log(packet)
+    //packet = JSON.stringify(packet, null, 8);
+    //console.log(packet)
 }
 
 generateID();
