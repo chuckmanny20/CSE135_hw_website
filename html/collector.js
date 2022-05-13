@@ -246,3 +246,6 @@ activityCollect();
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
 //setInterval(sendData, 60000)
+
+// TODO: 1 Session ID (cookie), 1 NEW ID AFTER EVERY TIME YOU SEND DATA TO SERVER
+// Goal: Want an ID to tie all the data together, but each POST should have its own UID
