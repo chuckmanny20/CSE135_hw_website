@@ -1,3 +1,10 @@
+function mapToObj(map){
+    const obj = {}
+    for (let [k,v] of map)
+        obj[k] = v
+    return obj
+}
+
 function staticCollect() {
     var staticMap = new Map();
     staticMap.set('userAgentStr', navigator.userAgent);
@@ -10,10 +17,7 @@ function staticCollect() {
     staticMap.set('userWindowHeight', window.outerHeight);
 
     // localStorage
-    window.localStorage.setItem('staticCollection', JSON.stringify(staticMap));
-
-    console.log(staticMap)
-    console.log(JSON.stringify(staticMap))
+    window.localStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
 }
 
 function performanceCollect() {
@@ -35,9 +39,7 @@ function performanceCollect() {
     performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
 
     // localStorage
-    window.localStorage.setItem('performanceCollection', JSON.stringify(performanceMap));
-
-    console.log(performanceMap)
+    window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
 }
 
 function activityCollect() {
@@ -109,20 +111,20 @@ function activityCollect() {
     var curPage = doc.location.toString();
 
     // localStorage
-    window.localStorage.setItem('idleEndList', JSON.stringify(idleEndList));
-    window.localStorage.setItem('idleLengthList', JSON.stringify(idleLengthList));
+    window.localStorage.setItem('idleEndList', JSON.stringify(mapToObj(idleEndList)));
+    window.localStorage.setItem('idleLengthList', JSON.stringify(mapToObj(idleLengthList)));
 
-    window.localStorage.setItem('cursorPosCollection', JSON.stringify(cursorPosMap));
+    window.localStorage.setItem('cursorPosCollection', JSON.stringify(mapToObj(cursorPosMap)));
 
-    window.localStorage.setItem('clickCollection', JSON.stringify(clickMap));
+    window.localStorage.setItem('clickCollection', JSON.stringify(mapToObj(clickMap)));
 
-    window.localStorage.setItem('scrollCollection', JSON.stringify(scrollMap));
+    window.localStorage.setItem('scrollCollection', JSON.stringify(mapToObj(scrollMap)));
 
-    window.localStorage.setItem('keyboardCollection', JSON.stringify(keyboardMap));
+    window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
 
-    window.localStorage.setItem('visibleCollection', JSON.stringify(visibleMap));
+    window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
 
-    window.localStorage.setItem('curPage', JSON.stringify(curPage));
+    window.localStorage.setItem('curPage', JSON.stringify(mapToObj(curPage)));
 }
 
 function sendData() {
