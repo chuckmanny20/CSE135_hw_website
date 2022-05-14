@@ -47,7 +47,7 @@ function performanceCollect() {
     performanceMap.set('wholeTimingObject', timingObject);
     
     // TODO: timeStartLoad and timeEndLoad are 0, even if those in the timingObject are correct
-    const timeStartLoad = timingObject.transferSize;
+    const timeStartLoad = timingObject.loadEventStart;
     const timeEndLoad = timingObject.loadEventEnd;
     // console.log(timeStartLoad);
     // console.log(performance.getEntriesByType('navigation')[0].transferSize);
