@@ -18,11 +18,24 @@ function staticCollect() {
     staticMap.set('userAgentStr', navigator.userAgent);
     staticMap.set('userLang', navigator.language);
     staticMap.set('userCookieAcceptance', navigator.cookieEnabled);
-    // TODO: 3 manually figuring things
+    staticMap.set('isJsAllowed', true);     // if not allowed this file won't be loaded
+    
+    // try insert image
+    var img = document.createElement('img');
+    img.src = './favicon-16x16.png';
+    var block = document.getElementById('enableTestBlock');
+    block.appendChild(img);
+    staticMap.set('isImageAllowed', !img.disabled);
+    block.removeChild(img);
+
+    var cssFile = document.getElementById('cssFile');
+    staticMap.set('isCssAllowed', !cssFile.disabled);
+    
     staticMap.set('userScreenWidth', window.screen.width);
     staticMap.set('userScreenHeight', window.screen.height);
     staticMap.set('userWindowWidth', window.outerWidth);
     staticMap.set('userWindowHeight', window.outerHeight);
+    staticMap.set('userNetworkConnectionType', navigator.connection.effectiveType);
 
     // localStorage
     window.localStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
@@ -30,16 +43,16 @@ function staticCollect() {
 
 function performanceCollect() {
     var performanceMap = new Map();
-    var timingObject = performance.getEntriesByType("navigation")[0];
+    var timingObject = performance.getEntriesByType('navigation')[0];
     performanceMap.set('wholeTimingObject', timingObject);
     
     // TODO: timeStartLoad and timeEndLoad are 0, even if those in the timingObject are correct
-    const timeStartLoad = timingObject.loadEventStart;
+    const timeStartLoad = timingObject.transferSize;
     const timeEndLoad = timingObject.loadEventEnd;
-    console.log(timeStartLoad);
-    console.log(performance.getEntriesByType("navigation")[0].loadEventStart);
-    console.log(timingObject);
-    console.log(parseFloat(timingObject.domComplete));
+    // console.log(timeStartLoad);
+    // console.log(performance.getEntriesByType('navigation')[0].transferSize);
+    // console.log(timingObject);
+    // console.log(timeEndLoad);
     // float problem
 
     performanceMap.set('timeStartLoad', timeStartLoad);
@@ -134,7 +147,7 @@ function activityCollect() {
     // entering, leaving and oning
     var visibleMap = new Map();
     visibleMap.set((new Date()).getTime(), 'enterPage');
-    doc.addEventListener("visibilitychange", function () {
+    doc.addEventListener('visibilitychange', function () {
         if (!doc.hidden) {
             visibleMap.set((new Date()).getTime(), 'enterPage');
 
