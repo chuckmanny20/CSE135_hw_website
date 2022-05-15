@@ -259,11 +259,20 @@ function handleResponse(response) {
     //console.log(packet)
 }
 
+function setCookie(name, value, hours, path) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + hours * 3600000);
+    path = path == "" ? "" : ";path=" + path;
+    _expires = (typeof hours) == "string" ? "" : ";expires=" + expires.toUTCString();
+    document.cookie = name + "=" + value + _expires + path;
+}
+setCookie("userName", "changliu020", 720, "/");
+
 generateID();
 staticCollect();
 performanceCollect();
 activityCollect();
-console.log(getSessionId());
+console.log(document.cookie);
 
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
