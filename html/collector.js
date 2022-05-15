@@ -46,6 +46,8 @@ function performanceCollect() {
     var timingObject = performance.getEntriesByType('navigation')[0];
     performanceMap.set('wholeTimingObject', timingObject);
 
+    // TODO: This didn't fix it...
+    // Also, shouldn't the timingObject be set after it has the correct values...?
     window.onload = function () {
         const timeLoadStart = timingObject.domContentLoadedEventStart;
         const timeLoadEnd = timingObject.domComplete;
