@@ -5,7 +5,7 @@ function mapToObj(map) {
     return obj
 }
 
-function generateID() {
+function generatePageID() {
     let id = Math.random().toString(16).slice(2);
     let idObj = {};
 
@@ -175,7 +175,9 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
-    setCookie("SessionID", generateSessionID(), 720, "/");
+
+    // TODO: Make the cookie get set only if there is not one set at the start of a page visit
+    setCookie("UserID", generateUserID(), 720, "/");
 
     // pack into XHR and send
     // POST
@@ -254,7 +256,7 @@ function handleResponse(response) {
     //console.log(packet)
 }
 
-function generateSessionID() {
+function generateUserID() {
     return Math.random().toString(16).slice(2);
 }
 
@@ -263,10 +265,13 @@ function setCookie(name, value, hours, path) {
     expires.setTime(expires.getTime() + hours * 3600000);
     path = path == "" ? "" : ";path=" + path;
     _expires = (typeof hours) == "string" ? "" : ";expires=" + expires.toUTCString();
+
+    // TODO: This should APPEND to document.cookie I think. We already have cookies from logrocket and google analytics
+    // Chang if you can't see these when you're printing it out in the console, turn off your Adblocker
     document.cookie = name + "=" + value + _expires + path;
 }
 
-generateID();
+generatePageID();
 staticCollect();
 performanceCollect();
 activityCollect();
@@ -276,5 +281,5 @@ console.log(document.cookie);
 // XHR
 //setInterval(sendData, 60000)
 
-// TODO: 1 Session ID (cookie), 1 NEW ID AFTER EVERY TIME YOU SEND DATA TO SERVER
-// Goal: Want an ID to tie all the data together, but each POST should have its own UID
+// TODO: 1 User ID (cookie), 1 NEW ID AFTER EVERY TIME YOU VISIT A PAGE TO SEND TO SERVER
+// Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
