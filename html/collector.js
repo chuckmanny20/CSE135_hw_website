@@ -13,19 +13,6 @@ function generateID() {
     window.localStorage.setItem('ZhaoID', JSON.stringify(idObj));
 }
 
-function getSessionId() {
-    var c_name = 'JSESSIONID';
-    if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=")
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1
-            c_end = document.cookie.indexOf(";", c_start)
-            if (c_end == -1) c_end = document.cookie.length
-            return unescape(document.cookie.substring(c_start, c_end));
-        }
-    }
-}
-
 function staticCollect() {
     var staticMap = new Map();
     staticMap.set('userAgentStr', navigator.userAgent);
@@ -188,6 +175,8 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     ZhaoID = JSON.parse(window.localStorage.getItem('ZhaoID'));
 
+    setCookie("SessionID", generateSessionID(), 720, "/");
+
     // pack into XHR and send
     // POST
     let postStaticXHR = new XMLHttpRequest();
@@ -259,6 +248,10 @@ function handleResponse(response) {
     //console.log(packet)
 }
 
+function generateSessionID() {
+    return Math.random().toString(16).slice(2);
+}
+
 function setCookie(name, value, hours, path) {
     var expires = new Date();
     expires.setTime(expires.getTime() + hours * 3600000);
@@ -266,7 +259,6 @@ function setCookie(name, value, hours, path) {
     _expires = (typeof hours) == "string" ? "" : ";expires=" + expires.toUTCString();
     document.cookie = name + "=" + value + _expires + path;
 }
-setCookie("userName", "changliu020", 720, "/");
 
 generateID();
 staticCollect();
