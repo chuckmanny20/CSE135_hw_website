@@ -1,6 +1,6 @@
-function mapToObj(map){
+function mapToObj(map) {
     const obj = {}
-    for (let [k,v] of map)
+    for (let [k, v] of map)
         obj[k] = v
     return obj
 }
@@ -13,13 +13,26 @@ function generateID() {
     window.localStorage.setItem('ZhaoID', JSON.stringify(idObj));
 }
 
+function getSessionId() {
+    var c_name = 'JSESSIONID';
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=")
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1
+            c_end = document.cookie.indexOf(";", c_start)
+            if (c_end == -1) c_end = document.cookie.length
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+}
+
 function staticCollect() {
     var staticMap = new Map();
     staticMap.set('userAgentStr', navigator.userAgent);
     staticMap.set('userLang', navigator.language);
     staticMap.set('userCookieAcceptance', navigator.cookieEnabled);
     staticMap.set('isJsAllowed', true);     // if not allowed this file won't be loaded
-    
+
     // try insert image
     var img = document.createElement('img');
     img.src = './favicon-16x16.png';
@@ -30,7 +43,7 @@ function staticCollect() {
 
     var cssFile = document.getElementById('cssFile');
     staticMap.set('isCssAllowed', !cssFile.disabled);
-    
+
     staticMap.set('userScreenWidth', window.screen.width);
     staticMap.set('userScreenHeight', window.screen.height);
     staticMap.set('userWindowWidth', window.outerWidth);
@@ -45,15 +58,15 @@ function performanceCollect() {
     var performanceMap = new Map();
     var timingObject = performance.getEntriesByType('navigation')[0];
     performanceMap.set('wholeTimingObject', timingObject);
-    
-    window.onload = function() {
+
+    window.onload = function () {
         const timeLoadStart = timingObject.domContentLoadedEventStart;
         const timeLoadEnd = timingObject.domComplete;
         performanceMap.set('timeStartLoad', timeLoadStart);
         performanceMap.set('timeEndLoad', timeLoadEnd);
         performanceMap.set('timeTotalLoad', timeLoadEnd - timeLoadStart);
     };
-    
+
     // localStorage
     window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
 }
@@ -218,15 +231,15 @@ function sendData() {
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    postStaticXHR.addEventListener('load', function() {
+    postStaticXHR.addEventListener('load', function () {
         handleResponse(postStaticXHR);
     });
 
-    postPerformanceXHR.addEventListener('load', function() {
+    postPerformanceXHR.addEventListener('load', function () {
         handleResponse(postPerformanceXHR);
     });
 
-    postActivityXHR.addEventListener('load', function() {
+    postActivityXHR.addEventListener('load', function () {
         handleResponse(postActivityXHR);
     });
 
@@ -250,6 +263,7 @@ generateID();
 staticCollect();
 performanceCollect();
 activityCollect();
+console.log(getSessionId());
 
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
