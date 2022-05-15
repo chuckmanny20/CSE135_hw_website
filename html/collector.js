@@ -237,6 +237,10 @@ function sendData() {
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
     postActivityXHR.send(JSON.stringify(activityJSONpacket));
+
+    // TODO: Empty localStorage after sending (except PageID I think)
+    // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
+    // whereas activity doesn't send duplicates but continues to fill up
 }
 
 function handleResponse(response) {
