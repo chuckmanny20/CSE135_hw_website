@@ -46,19 +46,14 @@ function performanceCollect() {
     var timingObject = performance.getEntriesByType('navigation')[0];
     performanceMap.set('wholeTimingObject', timingObject);
     
-    // TODO: timeStartLoad and timeEndLoad are 0, even if those in the timingObject are correct
-    const timeStartLoad = timingObject.loadEventStart;
-    const timeEndLoad = timingObject.loadEventEnd;
-    // console.log(timeStartLoad);
-    // console.log(performance.getEntriesByType('navigation')[0].transferSize);
-    // console.log(timingObject);
-    // console.log(timeEndLoad);
-    // float problem
-
-    performanceMap.set('timeStartLoad', timeStartLoad);
-    performanceMap.set('timeEndLoad', timeEndLoad);
-    performanceMap.set('timeTotalLoad', timeEndLoad - timeStartLoad);
-
+    window.onload = function() {
+        const timeLoadStart = timingObject.domContentLoadedEventStart;
+        const timeLoadEnd = timingObject.domComplete;
+        performanceMap.set('timeStartLoad', timeLoadStart);
+        performanceMap.set('timeEndLoad', timeLoadEnd);
+        performanceMap.set('timeTotalLoad', timeLoadEnd - timeLoadStart);
+    };
+    
     // localStorage
     window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
 }
