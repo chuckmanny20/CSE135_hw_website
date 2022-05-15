@@ -285,3 +285,5 @@ console.log(document.cookie);
 
 // TODO: 1 User ID (cookie), 1 NEW ID AFTER EVERY TIME YOU VISIT A PAGE TO SEND TO SERVER
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
+
+// TODO: Test what happens if you have multiple tabs open (after having collector.js on all pages) and whether or not you need to append to localStorage or what
