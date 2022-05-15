@@ -10,7 +10,7 @@ function generateID() {
     let idObj = {};
 
     idObj['id'] = id;
-    window.localStorage.setItem('ZhaoID', JSON.stringify(idObj));
+    window.localStorage.setItem('PageID', JSON.stringify(idObj));
 }
 
 function staticCollect() {
@@ -173,7 +173,7 @@ function sendData() {
     keyboardCollection = window.localStorage.getItem('keyboardCollection');
     visibleCollection = window.localStorage.getItem('visibleCollection');
     curPage = window.localStorage.getItem('curPage');
-    ZhaoID = JSON.parse(window.localStorage.getItem('ZhaoID'));
+    PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
     setCookie("SessionID", generateSessionID(), 720, "/");
 
@@ -188,11 +188,13 @@ function sendData() {
     let performanceJSONpacket = {};
     let activityJSONpacket = {};
 
+    // TODO:: Add UserID (Cookie) to packet
+
     staticJSONpacket['staticCollection'] = staticCollection;
-    staticJSONpacket['id'] = ZhaoID['id'];
+    staticJSONpacket['id'] = PageID['id'];
 
     performanceJSONpacket['performanceCollection'] = performanceCollection;
-    performanceJSONpacket['id'] = ZhaoID['id'];
+    performanceJSONpacket['id'] = PageID['id'];
 
     activityJSONpacket['idleEndList'] = idleEndList;
     activityJSONpacket['idleLengthList'] = idleLengthList;
@@ -202,7 +204,7 @@ function sendData() {
     activityJSONpacket['keyboardCollection'] = keyboardCollection;
     activityJSONpacket['visibleCollection'] = visibleCollection;
     activityJSONpacket['curPage'] = curPage;
-    activityJSONpacket['id'] = ZhaoID['id'];
+    activityJSONpacket['id'] = PageID['id'];
 
     // open up request
     // will have to change the url for this later
