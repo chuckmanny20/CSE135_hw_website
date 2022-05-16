@@ -123,6 +123,8 @@ function activityCollect() {
 
         window.localStorage.setItem('cursorPosCollection', JSON.stringify( Object.assign( {}, oldcursorPosMap, mapToObj(cursorPosMap))));
 
+        cursorPosMap = new Map();
+
         resetTimer();
     }
     doc.onclick = function (event) {
@@ -133,6 +135,8 @@ function activityCollect() {
 
         window.localStorage.setItem('clickCollection', JSON.stringify( Object.assign( {}, oldclickMap, mapToObj(clickMap))));
 
+        clickMap = new Map();
+
         resetTimer();
     }
     doc.onscroll = function () {
@@ -142,6 +146,8 @@ function activityCollect() {
         let oldscrollMap = JSON.parse(window.localStorage.getItem('scrollCollection'));
 
         window.localStorage.setItem('scrollCollection', JSON.stringify( Object.assign( {}, oldscrollMap, mapToObj(scrollMap))));
+
+        scrollMap = new Map();
 
         resetTimer();
     }
@@ -156,6 +162,8 @@ function activityCollect() {
 
         window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign( {}, oldkeyboardMap, mapToObj(keyboardMap))));
 
+        keyboardMap = new Map();
+
         resetTimer();
     }
     doc.onkeyup = function (event) {
@@ -165,6 +173,8 @@ function activityCollect() {
         let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
 
         window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign( {}, oldkeyboardMap, mapToObj(keyboardMap))));
+
+        keyboardMap = new Map();
 
         resetTimer();
     }
@@ -180,6 +190,8 @@ function activityCollect() {
             let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
 
             window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign( {}, oldvisibleMap, mapToObj(visibleMap))));
+
+            visibleMap = new Map();
         } else {
             visibleMap.set((new Date()).getTime(), 'leavePage');
 
@@ -187,6 +199,8 @@ function activityCollect() {
             let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
             
             window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign( {}, oldvisibleMap, mapToObj(visibleMap))));
+
+            visibleMap = new Map();
         }
     });
     var curPage = doc.location.toString();
