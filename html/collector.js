@@ -113,7 +113,7 @@ function activityCollect() {
         // localStorage
         let oldcursorPosMap = JSON.parse(window.localStorage.getItem('cursorPosCollection'));
 
-        window.localStorage.setItem('cursorPosCollection', JSON.stringify(oldcursorPosMap + mapToObj(cursorPosMap)));
+        window.localStorage.setItem('cursorPosCollection', JSON.stringify( Object.assign( {}, oldcursorPosMap, mapToObj(cursorPosMap))));
 
         resetTimer();
     }
