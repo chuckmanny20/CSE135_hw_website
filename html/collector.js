@@ -178,14 +178,14 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
-    // TODO:: Add UserID (Cookie) to packet
-    UserID = getCookie("UserID");
+    // Add UserID (Cookie) to packet
+    UserID = getCookie('UserID');
 
     // pack into XHR and send
     // POST
-    let postStaticXHR = new XMLHttpRequest();
-    let postPerformanceXHR = new XMLHttpRequest();
-    let postActivityXHR = new XMLHttpRequest();
+    let putStaticXHR = new XMLHttpRequest();
+    let putPerformanceXHR = new XMLHttpRequest();
+    let putActivityXHR = new XMLHttpRequest();
 
     // build JSON object
     let staticJSONpacket = {};
@@ -193,12 +193,12 @@ function sendData() {
     let activityJSONpacket = {};
 
     staticJSONpacket['staticCollection'] = staticCollection;
-    staticJSONpacket['id'] = PageID['id'];
     staticJSONpacket['Userid'] = UserID;
+    staticJSONpacket['id'] = PageID['id'];
 
     performanceJSONpacket['performanceCollection'] = performanceCollection;
-    performanceJSONpacket['id'] = PageID['id'];
     performanceJSONpacket['Userid'] = UserID;
+    performanceJSONpacket['id'] = PageID['id'];
 
     activityJSONpacket['idleEndList'] = idleEndList;
     activityJSONpacket['idleLengthList'] = idleLengthList;
@@ -208,40 +208,41 @@ function sendData() {
     activityJSONpacket['keyboardCollection'] = keyboardCollection;
     activityJSONpacket['visibleCollection'] = visibleCollection;
     activityJSONpacket['curPage'] = curPage;
-    activityJSONpacket['id'] = PageID['id'];
     activityJSONpacket['Userid'] = UserID;
+    activityJSONpacket['id'] = PageID['id'];
 
     // open up request
     // will have to change the url for this later
-    // TODO: Split this into 3 XHRs for static, performance, and activity
-    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
-    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
-    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
+    // Split this into 3 XHRs for static, performance, and activity
+    // PUT not POST b/c want to replace if exists
+    putStaticXHR.open('PUT', 'https://zhaoxinglyu.site/api/static', true);
+    putPerformanceXHR.open('PUT', 'https://zhaoxinglyu.site/api/performance', true);
+    putActivityXHR.open('PUT', 'https://zhaoxinglyu.site/api/activity', true);
 
     // set Headers
     // Want JSON back
     // or postXHR.responseType = 'json';
-    postStaticXHR.setRequestHeader('Content-Type', 'application/json');
-    postPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
-    postActivityXHR.setRequestHeader('Content-Type', 'application/json');
+    putStaticXHR.setRequestHeader('Content-Type', 'application/json');
+    putPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
+    putActivityXHR.setRequestHeader('Content-Type', 'application/json');
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    postStaticXHR.addEventListener('load', function () {
-        handleResponse(postStaticXHR);
+    putStaticXHR.addEventListener('load', function () {
+        handleResponse(putStaticXHR);
     });
 
-    postPerformanceXHR.addEventListener('load', function () {
-        handleResponse(postPerformanceXHR);
+    putPerformanceXHR.addEventListener('load', function () {
+        handleResponse(putPerformanceXHR);
     });
 
-    postActivityXHR.addEventListener('load', function () {
-        handleResponse(postActivityXHR);
+    putActivityXHR.addEventListener('load', function () {
+        handleResponse(putActivityXHR);
     });
 
-    postStaticXHR.send(JSON.stringify(staticJSONpacket));
-    postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
-    postActivityXHR.send(JSON.stringify(activityJSONpacket));
+    putStaticXHR.send(JSON.stringify(staticJSONpacket));
+    putPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
+    putActivityXHR.send(JSON.stringify(activityJSONpacket));
 
     // TODO: Empty localStorage after sending (except PageID I think)
     // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
@@ -292,17 +293,17 @@ function getCookie(cname) {
     return "";
   }
 
-// TODO: Make the cookie get set only if there is not one set at the start of a page visit
-let UserID = getCookie("UserID");
+// Make the cookie get set only if there is not one set at the start of a page visit
+let UserID = getCookie('UserID');
 
 if(UserID == "")
-    setCookie("UserID", generateUserID(), 720, "/");
+    setCookie('UserID', generateUserID(), 720, "/");
 
 generatePageID();
 staticCollect();
 performanceCollect();
 activityCollect();
-console.log(document.cookie);
+// console.log(document.cookie);
 
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
