@@ -237,7 +237,7 @@ function sendData() {
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    postStaticXHR.addEventListener('load', function () {
+    /*postStaticXHR.addEventListener('load', function () {
         handleResponse(postStaticXHR);
     });
 
@@ -247,7 +247,7 @@ function sendData() {
 
     postActivityXHR.addEventListener('load', function () {
         handleResponse(postActivityXHR);
-    });
+    });*/
 
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
@@ -256,11 +256,12 @@ function sendData() {
     // TODO: Empty localStorage after sending (except PageID I think)
     // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
     // whereas activity doesn't send duplicates but continues to fill up
+    // NEVERMIND! Don't need to do this since doing subsequent PUT requests instead of POST requests
 }
 
 function handleResponse(response) {
-    console.log('readyState:' + response.readyState)
-    console.log('status:' + response.status)
+    //console.log('readyState:' + response.readyState)
+    //console.log('status:' + response.status)
 
     // Only if we were expecting response (this is for POST...)
     //let packet = JSON.parse(response.responseText);
