@@ -11,6 +11,7 @@ function generatePageID() {
 
     idObj['id'] = id;
     window.localStorage.setItem('PageID', JSON.stringify(idObj));
+    var isFirstPost = true;
 }
 
 function staticCollect() {
@@ -214,9 +215,15 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // Split this into 3 XHRs for static, performance, and activity
-    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
-    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
-    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
+    if(isFirstPost) {
+        postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
+        postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
+        postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
+    } else {
+        postStaticXHR.open('PUT', 'https://zhaoxinglyu.site/api/static/' + PageID['id'], true);
+        postPerformanceXHR.open('PUT', 'https://zhaoxinglyu.site/api/performance/' + PageID['id'], true);
+        postActivityXHR.open('PUT', 'https://zhaoxinglyu.site/api/activity/' + PageID['id'], true);
+    }
 
     // set Headers
     // Want JSON back
