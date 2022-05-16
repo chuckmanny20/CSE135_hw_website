@@ -92,12 +92,10 @@ function activityCollect() {
             let oldidleEndList = window.localStorage.getItem('idleEndList');
             let oldidleLengthList = window.localStorage.getItem('idleLengthList');
 
-            console.log(oldidleEndList);
-
-            if( oldidleEndList == 'null')
+            if( oldidleEndList == null)
                 oldidleEndList = '';
 
-            if( oldidleLengthList == 'null')
+            if( oldidleLengthList == null)
                 oldidleLengthList = '';
 
             window.localStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
