@@ -16,14 +16,6 @@ function generatePageID() {
     // when a new page is visited, all the activity localStorage items need to be cleaned
     // TODO: Actually this is probably wrong since we could lose data if they just refresh...
     // Want to make it where data is cleaned after a request is sent so no duplicate data but also kept/not overwritten after refresh...
-    window.localStorage.removeItem('idleEndList');
-    window.localStorage.removeItem('idleLengthList');
-    window.localStorage.removeItem('cursorPosCollection');
-    window.localStorage.removeItem('clickCollection');
-    window.localStorage.removeItem('scrollCollection');
-    window.localStorage.removeItem('keyboardCollection');
-    window.localStorage.removeItem('visibleCollection');
-    window.localStorage.removeItem('curPage');
 }
 
 function staticCollect() {
@@ -96,8 +88,12 @@ function activityCollect() {
             idleLengthList.push(idleEndTime - idleStartTime);
 
             // localStorage
-            window.localStorage.setItem('idleEndList', idleEndList.toString());
-            window.localStorage.setItem('idleLengthList', idleLengthList.toString());
+            // if the item is not deleted, that means it wasnt sent to server. Thus, grab then append
+            let oldidleEndList = window.localStorage.getItem('idleEndList');
+            let oldidleLengthList = window.localStorage.getItem('idleLengthList');
+
+            window.localStorage.setItem('idleEndList', oldidleEndList + idleEndList.toString());
+            window.localStorage.setItem('idleLengthList', oldidleLengthList + idleLengthList.toString());
 
             isIdling = false;
         }
@@ -115,7 +111,9 @@ function activityCollect() {
         cursorPosMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
 
         // localStorage
-        window.localStorage.setItem('cursorPosCollection', JSON.stringify(mapToObj(cursorPosMap)));
+        let oldcursorPosMap = JSON.parse(window.localStorage.getItem('cursorPosCollection'));
+
+        window.localStorage.setItem('cursorPosCollection', JSON.stringify(oldcursorPosMap + mapToObj(cursorPosMap)));
 
         resetTimer();
     }
@@ -123,7 +121,9 @@ function activityCollect() {
         clickMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
 
         // localStorage
-        window.localStorage.setItem('clickCollection', JSON.stringify(mapToObj(clickMap)));
+        let oldclickMap = JSON.parse(window.localStorage.getItem('clickCollection'));
+
+        window.localStorage.setItem('clickCollection', JSON.stringify(oldclickMap + mapToObj(clickMap)));
 
         resetTimer();
     }
@@ -131,7 +131,9 @@ function activityCollect() {
         scrollMap.set((new Date()).getTime(), doc.body.scrollHeight);
 
         // localStorage
-        window.localStorage.setItem('scrollCollection', JSON.stringify(mapToObj(scrollMap)));
+        let oldscrollMap = JSON.parse(window.localStorage.getItem('scrollCollection'));
+
+        window.localStorage.setItem('scrollCollection', JSON.stringify(oldscrollMap + mapToObj(scrollMap)));
 
         resetTimer();
     }
@@ -142,7 +144,9 @@ function activityCollect() {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyDown']);
 
         // localStorage
-        window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
+        let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
+
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(oldkeyboardMap + mapToObj(keyboardMap)));
 
         resetTimer();
     }
@@ -150,7 +154,9 @@ function activityCollect() {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyUp']);
 
         // localStorage
-        window.localStorage.setItem('keyboardCollection', JSON.stringify(mapToObj(keyboardMap)));
+        let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
+
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(oldkeyboardMap + mapToObj(keyboardMap)));
 
         resetTimer();
     }
@@ -163,12 +169,16 @@ function activityCollect() {
             visibleMap.set((new Date()).getTime(), 'enterPage');
 
             //localStorage
-            window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
+            let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
+
+            window.localStorage.setItem('visibleCollection', JSON.stringify(oldvisibleMap + mapToObj(visibleMap)));
         } else {
             visibleMap.set((new Date()).getTime(), 'leavePage');
 
             //localStorage
-            window.localStorage.setItem('visibleCollection', JSON.stringify(mapToObj(visibleMap)));
+            let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
+            
+            window.localStorage.setItem('visibleCollection', JSON.stringify(oldvisibleMap + mapToObj(visibleMap)));
         }
     });
     var curPage = doc.location.toString();
@@ -255,11 +265,11 @@ function sendData() {
 
     postPerformanceXHR.addEventListener('load', function () {
         handleResponse(postPerformanceXHR);
-    });
+    });*/
 
     postActivityXHR.addEventListener('load', function () {
         handleResponse(postActivityXHR);
-    });*/
+    });
 
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
@@ -280,6 +290,16 @@ function handleResponse(response) {
     // puts 8 spaces for indenting JSON to make it nice and clean
     //packet = JSON.stringify(packet, null, 8);
     //console.log(packet)
+
+    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+        // delete already saved data
+        window.localStorage.removeItem('idleEndList');
+        window.localStorage.removeItem('idleLengthList');
+        window.localStorage.removeItem('cursorPosCollection');
+        window.localStorage.removeItem('clickCollection');
+        window.localStorage.removeItem('scrollCollection');
+        window.localStorage.removeItem('keyboardCollection');
+        window.localStorage.removeItem('visibleCollection');
 }
 
 function generateUserID() {
