@@ -92,14 +92,17 @@ function activityCollect() {
             let oldidleEndList = window.localStorage.getItem('idleEndList');
             let oldidleLengthList = window.localStorage.getItem('idleLengthList');
 
-            if( oldidleEndList == null)
-                oldidleEndList = '';
+            if( oldidleEndList == null) {
+                window.localStorage.setItem('idleEndList', idleEndList.toString());
+            } else {
+                window.localStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
+            }
 
-            if( oldidleLengthList == null)
-                oldidleLengthList = '';
-
-            window.localStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
-            window.localStorage.setItem('idleLengthList', oldidleLengthList + ',' + idleLengthList.toString());
+            if( oldidleLengthList == null) {
+                window.localStorage.setItem('idleLengthList', idleLengthList.toString());
+            } else {
+                window.localStorage.setItem('idleLengthList', oldidleLengthList + ',' + idleLengthList.toString());
+            }
 
             // clear lists after adding
             idleEndList = [];
