@@ -44,6 +44,7 @@ function staticCollect() {
 function performanceCollect() {
     var performanceMap = new Map();
 
+    // Actually getting set now...
     // Instead of doing all this window.onload and doc.onclick stuff I wish we used addEventListener but to late
     window.onload = function () {
         var timingObject = performance.getEntriesByType('navigation')[0];
@@ -177,9 +178,8 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
-
-    // TODO: Make the cookie get set only if there is not one set at the start of a page visit
-    setCookie("UserID", generateUserID(), 720, "/");
+    // TODO:: Add UserID (Cookie) to packet
+    UserID = getCookie("UserID");
 
     // pack into XHR and send
     // POST
@@ -192,13 +192,13 @@ function sendData() {
     let performanceJSONpacket = {};
     let activityJSONpacket = {};
 
-    // TODO:: Add UserID (Cookie) to packet
-
     staticJSONpacket['staticCollection'] = staticCollection;
     staticJSONpacket['id'] = PageID['id'];
+    staticJSONpacket['Userid'] = UserID;
 
     performanceJSONpacket['performanceCollection'] = performanceCollection;
     performanceJSONpacket['id'] = PageID['id'];
+    performanceJSONpacket['Userid'] = UserID;
 
     activityJSONpacket['idleEndList'] = idleEndList;
     activityJSONpacket['idleLengthList'] = idleLengthList;
@@ -209,6 +209,7 @@ function sendData() {
     activityJSONpacket['visibleCollection'] = visibleCollection;
     activityJSONpacket['curPage'] = curPage;
     activityJSONpacket['id'] = PageID['id'];
+    activityJSONpacket['Userid'] = UserID;
 
     // open up request
     // will have to change the url for this later
@@ -268,10 +269,34 @@ function setCookie(name, value, hours, path) {
     path = path == "" ? "" : ";path=" + path;
     _expires = (typeof hours) == "string" ? "" : ";expires=" + expires.toUTCString();
 
-    // TODO: This should APPEND to document.cookie I think. We already have cookies from logrocket and google analytics
-    // Chang if you can't see these when you're printing it out in the console, turn off your Adblocker
+    // "The document.cookie property looks like a normal text string. But it is not."
+    // "Even if you write a whole cookie string to document.cookie, when you read it out again, you can only see the name-value pair of it."
     document.cookie = name + "=" + value + _expires + path;
 }
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+
+    return "";
+  }
+
+// TODO: Make the cookie get set only if there is not one set at the start of a page visit
+let UserID = getCookie("UserID");
+
+if(UserID == "")
+    setCookie("UserID", generateUserID(), 720, "/");
 
 generatePageID();
 staticCollect();
@@ -281,7 +306,7 @@ console.log(document.cookie);
 
 // store locally in localStorage, and send periodcally (1 min for now?)
 // XHR
-//setInterval(sendData, 60000)
+setInterval(sendData, 60000);
 
 // TODO: 1 User ID (cookie), 1 NEW ID AFTER EVERY TIME YOU VISIT A PAGE TO SEND TO SERVER
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
