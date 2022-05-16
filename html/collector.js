@@ -97,9 +97,13 @@ function activityCollect() {
 
             if( oldidleLengthList == 'null')
                 oldidleLengthList = '';
-                
+
             window.localStorage.setItem('idleEndList', oldidleEndList + idleEndList.toString());
             window.localStorage.setItem('idleLengthList', oldidleLengthList + idleLengthList.toString());
+
+            // clear lists after adding
+            idleEndList = [];
+            idleLengthList = [];
 
             isIdling = false;
         }
