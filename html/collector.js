@@ -183,9 +183,9 @@ function sendData() {
 
     // pack into XHR and send
     // POST
-    let putStaticXHR = new XMLHttpRequest();
-    let putPerformanceXHR = new XMLHttpRequest();
-    let putActivityXHR = new XMLHttpRequest();
+    let postStaticXHR = new XMLHttpRequest();
+    let postPerformanceXHR = new XMLHttpRequest();
+    let postActivityXHR = new XMLHttpRequest();
 
     // build JSON object
     let staticJSONpacket = {};
@@ -214,35 +214,34 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // Split this into 3 XHRs for static, performance, and activity
-    // PUT not POST b/c want to replace if exists
-    putStaticXHR.open('PUT', 'https://zhaoxinglyu.site/api/static', true);
-    putPerformanceXHR.open('PUT', 'https://zhaoxinglyu.site/api/performance', true);
-    putActivityXHR.open('PUT', 'https://zhaoxinglyu.site/api/activity', true);
+    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
+    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
+    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
 
     // set Headers
     // Want JSON back
     // or postXHR.responseType = 'json';
-    putStaticXHR.setRequestHeader('Content-Type', 'application/json');
-    putPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
-    putActivityXHR.setRequestHeader('Content-Type', 'application/json');
+    postStaticXHR.setRequestHeader('Content-Type', 'application/json');
+    postPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
+    postActivityXHR.setRequestHeader('Content-Type', 'application/json');
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    putStaticXHR.addEventListener('load', function () {
-        handleResponse(putStaticXHR);
+    postStaticXHR.addEventListener('load', function () {
+        handleResponse(postStaticXHR);
     });
 
-    putPerformanceXHR.addEventListener('load', function () {
-        handleResponse(putPerformanceXHR);
+    postPerformanceXHR.addEventListener('load', function () {
+        handleResponse(postPerformanceXHR);
     });
 
-    putActivityXHR.addEventListener('load', function () {
-        handleResponse(putActivityXHR);
+    postActivityXHR.addEventListener('load', function () {
+        handleResponse(postActivityXHR);
     });
 
-    putStaticXHR.send(JSON.stringify(staticJSONpacket));
-    putPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
-    putActivityXHR.send(JSON.stringify(activityJSONpacket));
+    postStaticXHR.send(JSON.stringify(staticJSONpacket));
+    postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
+    postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
     // TODO: Empty localStorage after sending (except PageID I think)
     // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
