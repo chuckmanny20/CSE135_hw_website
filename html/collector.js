@@ -12,6 +12,16 @@ function generatePageID() {
     idObj['id'] = id;
     window.localStorage.setItem('PageID', JSON.stringify(idObj));
     window.localStorage.setItem('isFirstPost', 'true');
+    
+    // when a new page is visited, all the activity localStorage items need to be cleaned
+    window.localStorage.removeItem('idleEndList');
+    window.localStorage.removeItem('idleLengthList');
+    window.localStorage.removeItem('cursorPosCollection');
+    window.localStorage.removeItem('clickCollection');
+    window.localStorage.removeItem('scrollCollection');
+    window.localStorage.removeItem('keyboardCollection');
+    window.localStorage.removeItem('visibleCollection');
+    window.localStorage.removeItem('curPage');
 }
 
 function staticCollect() {
