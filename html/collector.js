@@ -140,6 +140,7 @@ function activityCollect() {
         resetTimer();
     }
     doc.onscroll = function () {
+        // TODO: Why is this always 784?
         scrollMap.set((new Date()).getTime(), doc.body.scrollHeight);
 
         // localStorage
@@ -288,10 +289,7 @@ function sendData() {
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
     postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
-    // TODO: Empty localStorage after sending (except PageID I think)
-    // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
-    // whereas activity doesn't send duplicates but continues to fill up
-    // NEVERMIND! Don't need to do this since doing subsequent PUT requests instead of POST requests
+    // New PageID for next POST!
     generatePageID();
 }
 
@@ -308,15 +306,6 @@ function handlePerformanceResponse(response) {
 }
 
 function handleActivityResponse(response) {
-    //console.log('readyState:' + response.readyState)
-    //console.log('status:' + response.status)
-
-    // Only if we were expecting response (this is for POST...)
-    //let packet = JSON.parse(response.responseText);
-    // puts 8 spaces for indenting JSON to make it nice and clean
-    //packet = JSON.stringify(packet, null, 8);
-    //console.log(packet)
-
     if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
         window.localStorage.removeItem('idleEndList');
@@ -372,13 +361,11 @@ generatePageID();
 staticCollect();
 performanceCollect();
 activityCollect();
-// console.log(document.cookie);
 
-// store locally in localStorage, and send periodcally (1 min for now?)
+// store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
 setInterval(sendData, 60000);
 
-// TODO: 1 User ID (cookie), 1 NEW ID AFTER EVERY TIME YOU VISIT A PAGE TO SEND TO SERVER
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
 
 // TODO: Test what happens if you have multiple tabs open (after having collector.js on all pages) and whether or not you need to append to localStorage or what
