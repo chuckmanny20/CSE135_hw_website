@@ -11,7 +11,7 @@ function generatePageID() {
 
     idObj['id'] = id;
     window.localStorage.setItem('PageID', JSON.stringify(idObj));
-    var isFirstPost = true;
+    window.localStorage.setItem('isFirstPost', 'true');
 }
 
 function staticCollect() {
@@ -179,6 +179,9 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
+    isFirstPost = window.localStorage.getItem('isFirstPost');
+    window.localStorage.setItem('isFirstPost', 'false');
+
     // Add UserID (Cookie) to packet
     UserID = getCookie('UserID');
 
@@ -215,7 +218,7 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // Split this into 3 XHRs for static, performance, and activity
-    if(isFirstPost) {
+    if(isFirstPost == 'true') {
         postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
         postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
         postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
