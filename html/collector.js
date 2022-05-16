@@ -43,21 +43,21 @@ function staticCollect() {
 
 function performanceCollect() {
     var performanceMap = new Map();
-    var timingObject = performance.getEntriesByType('navigation')[0];
-    performanceMap.set('wholeTimingObject', timingObject);
 
-    // TODO: This didn't fix it...
-    // Also, shouldn't the timingObject be set after it has the correct values...?
+    // Instead of doing all this window.onload and doc.onclick stuff I wish we used addEventListener but to late
     window.onload = function () {
+        var timingObject = performance.getEntriesByType('navigation')[0];
+        performanceMap.set('wholeTimingObject', timingObject);
+
         const timeLoadStart = timingObject.domContentLoadedEventStart;
         const timeLoadEnd = timingObject.domComplete;
         performanceMap.set('timeStartLoad', timeLoadStart);
         performanceMap.set('timeEndLoad', timeLoadEnd);
         performanceMap.set('timeTotalLoad', timeLoadEnd - timeLoadStart);
-    };
 
-    // localStorage
-    window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
+        // localStorage
+        window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
+    };
 }
 
 function activityCollect() {
