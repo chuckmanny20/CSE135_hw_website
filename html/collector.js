@@ -92,6 +92,8 @@ function activityCollect() {
             let oldidleEndList = window.localStorage.getItem('idleEndList');
             let oldidleLengthList = window.localStorage.getItem('idleLengthList');
 
+            console.log(oldidleEndList);
+
             if( oldidleEndList == 'null')
                 oldidleEndList = '';
 
