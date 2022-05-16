@@ -14,6 +14,8 @@ function generatePageID() {
     window.localStorage.setItem('isFirstPost', 'true');
     
     // when a new page is visited, all the activity localStorage items need to be cleaned
+    // TODO: Actually this is probably wrong since we could lose data if they just refresh...
+    // Want to make it where data is cleaned after a request is sent so no duplicate data but also kept/not overwritten after refresh...
     window.localStorage.removeItem('idleEndList');
     window.localStorage.removeItem('idleLengthList');
     window.localStorage.removeItem('cursorPosCollection');
