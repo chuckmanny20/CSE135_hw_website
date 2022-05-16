@@ -11,11 +11,6 @@ function generatePageID() {
 
     idObj['id'] = id;
     window.localStorage.setItem('PageID', JSON.stringify(idObj));
-    window.localStorage.setItem('isFirstPost', 'true');
-    
-    // when a new page is visited, all the activity localStorage items need to be cleaned
-    // TODO: Actually this is probably wrong since we could lose data if they just refresh...
-    // Want to make it where data is cleaned after a request is sent so no duplicate data but also kept/not overwritten after refresh...
 }
 
 function staticCollect() {
@@ -214,9 +209,6 @@ function sendData() {
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
-    isFirstPost = window.localStorage.getItem('isFirstPost');
-    window.localStorage.setItem('isFirstPost', 'false');
-
     // Add UserID (Cookie) to packet
     UserID = getCookie('UserID');
 
@@ -253,15 +245,9 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // Split this into 3 XHRs for static, performance, and activity
-    if(isFirstPost == 'true') {
-        postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
-        postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
-        postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
-    } else {
-        postStaticXHR.open('PUT', 'https://zhaoxinglyu.site/api/static/' + PageID['id'], true);
-        postPerformanceXHR.open('PUT', 'https://zhaoxinglyu.site/api/performance/' + PageID['id'], true);
-        postActivityXHR.open('PUT', 'https://zhaoxinglyu.site/api/activity/' + PageID['id'], true);
-    }
+    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
+    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
+    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
 
     // set Headers
     // Want JSON back
@@ -272,16 +258,16 @@ function sendData() {
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    /*postStaticXHR.addEventListener('load', function () {
-        handleResponse(postStaticXHR);
+    postStaticXHR.addEventListener('load', function () {
+        handleStaticResponse(postStaticXHR);
     });
 
     postPerformanceXHR.addEventListener('load', function () {
-        handleResponse(postPerformanceXHR);
-    });*/
+        handlePerformanceResponse(postPerformanceXHR);
+    });
 
     postActivityXHR.addEventListener('load', function () {
-        handleResponse(postActivityXHR);
+        handleActivityResponse(postActivityXHR);
     });
 
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
@@ -292,9 +278,22 @@ function sendData() {
     // Set everything else to "" so that static and performance stay empty and send nothing on subsequent POSTs
     // whereas activity doesn't send duplicates but continues to fill up
     // NEVERMIND! Don't need to do this since doing subsequent PUT requests instead of POST requests
+    generatePageID();
 }
 
-function handleResponse(response) {
+function handleStaticResponse(response) {
+    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+        // delete already saved data
+        window.localStorage.removeItem('staticCollection');
+}
+
+function handlePerformanceResponse(response) {
+    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+        // delete already saved data
+        window.localStorage.removeItem('performanceCollection');
+}
+
+function handleActivityResponse(response) {
     //console.log('readyState:' + response.readyState)
     //console.log('status:' + response.status)
 
@@ -313,6 +312,7 @@ function handleResponse(response) {
         window.localStorage.removeItem('scrollCollection');
         window.localStorage.removeItem('keyboardCollection');
         window.localStorage.removeItem('visibleCollection');
+        window.localStorage.removeItem('curPage');
 }
 
 function generateUserID() {
