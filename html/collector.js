@@ -43,7 +43,6 @@ function staticCollect() {
     head.appendChild(cssLink);
     var cssFile = document.getElementById('testCss');
     staticMap.set('isCssAllowed', !cssFile.disabled);
-    console.log(cssLink.disabled);
     head.removeChild(cssLink);
 
     staticMap.set('userScreenWidth', window.screen.width);
@@ -299,9 +298,12 @@ function sendData() {
         handleActivityResponse(postActivityXHR);
     });
 
-    postStaticXHR.send(JSON.stringify(staticJSONpacket));
-    postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
-    postActivityXHR.send(JSON.stringify(activityJSONpacket));
+    console.log(curPage);
+    console.log(staticCollection);
+
+    // postStaticXHR.send(JSON.stringify(staticJSONpacket));
+    // postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
+    // postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
     // New PageID for next POST!
     generatePageID();
@@ -378,7 +380,7 @@ activityCollect();
 
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
-setInterval(sendData, 60000);
+setInterval(sendData, 6000);
 
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
 
