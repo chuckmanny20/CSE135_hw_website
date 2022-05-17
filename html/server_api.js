@@ -121,50 +121,41 @@ server.post('/activity', (req, res) => {
     res.send('Saved to Activity table!');
 });
 
-// DELETE specific ID
+// DELETE specific ID or all
 server.delete('/static/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
 
-    connection.query("DELETE FROM Static WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
-        
-    });
-
-    res.send('Deleted from Static table!');
-});
-
-server.delete('/static/all', (req, res) => {
-    connection.query("DELETE * FROM Static;", (err, rows, fields) => { });
-    res.send('Deleted everything from Static table!');
+    if (PageID == 'all') {
+        connection.query("DELETE * FROM Static;", [], (err, rows, fields) => { });
+        res.send('Deleted everything from Static table!');
+    } else {
+        connection.query("DELETE FROM Static WHERE Pageid = ?;", [PageID], (err, rows, fields) => { });
+        res.send('Deleted from Static table!');
+    }
 });
 
 server.delete('/performance/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
 
-    connection.query("DELETE FROM Performance WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
-        
-    });
-
-    res.send('Deleted from Performance table!');
-});
-
-server.delete('/performance/all', (req, res) => {
-    connection.query("DELETE * FROM Performance;", (err, rows, fields) => { });
-    res.send('Deleted everything from Performance table!');
+    if (PageID == 'all') {
+        connection.query("DELETE * FROM Performance;", [], (err, rows, fields) => { });
+        res.send('Deleted everything from Performance table!');
+    } else {
+        connection.query("DELETE FROM Performance WHERE Pageid = ?;", [PageID], (err, rows, fields) => { });
+        res.send('Deleted from Performance table!');
+    }
 });
 
 server.delete('/activity/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
 
-    connection.query("DELETE FROM Activity WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
-        
-    });
-
-    res.send('Deleted from Activity table!');
-});
-
-server.delete('/activity/all', (req, res) => {
-    connection.query("DELETE * FROM Activity;", (err, rows, fields) => { });
-    res.send('Deleted everything from Activity table!');
+    if (PageID == 'all') {
+        connection.query("DELETE * FROM Activity;", [], (err, rows, fields) => { });
+        res.send('Deleted everything from Activity table!');
+    } else {
+        connection.query("DELETE FROM Activity WHERE Pageid = ?;", [PageID], (err, rows, fields) => { });
+        res.send('Deleted from Activity table!');
+    }
 });
 
 // PUT specific ID
