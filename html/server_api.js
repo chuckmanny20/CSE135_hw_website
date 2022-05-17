@@ -2,7 +2,8 @@
 
 const jsonServer = require('/usr/local/lib/node_modules/json-server');
 const mysql = require('mysql');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const { connect } = require('http2');
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '/var/run/mysqld/mysqld.sock',
@@ -72,7 +73,11 @@ server.get('/activity/:Pageid', (req, res) => {
 
 // POSTs
 server.post('/static', jsonParser, (req, res) => {
-    console.log(req.body);
+    console.log(req.body.Pageid);
+
+    //connection.query()
+
+    res.send('Saved to Database!');
 });
 
 // Returns an Express router
