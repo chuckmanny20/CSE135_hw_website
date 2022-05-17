@@ -21,11 +21,14 @@ server.get('/static', (req, res) => {
 
     window.document.insertAdjacentHTML("beforeend", "<p>Test!</p>");
 
-    connection.query("SELECT * from Static;", (err, rows, fields) => {
-        console.log("I think we fetched");
-        res.json(rows);
-    });
- })
+    connection.connect(function (err) {
+        if(err) throw err;
+        connection.query("SELECT * from Static;", (err, rows, fields) => {
+            console.log("I think we fetched");
+            res.json(rows);
+        });
+    })
+ });
 
 // Returns an Express router
 var router = jsonServer.router('db_api.json');
