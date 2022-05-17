@@ -24,7 +24,9 @@ const server = jsonServer.create();
 var jsonParser = bodyParser.json()
 
 // Set default middlewares (logger, static, cors and no-cache)
-//server.use(jsonServer.defaults());
+server.use(jsonServer.defaults());
+
+// Add parser for JSON and urlencoded forms
 server.use(jsonParser);
 server.use(bodyParser.urlencoded({ extended: true }));
 
@@ -77,7 +79,9 @@ server.get('/activity/:Pageid', (req, res) => {
 server.post('/static', (req, res) => {
     console.log(req.body.Pageid);
 
-    //connection.query()
+    connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
+        
+    });
 
     res.send('Saved to Static table!');
 });
