@@ -17,8 +17,7 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
-    newPara = document.createElement("p");
-    newPara.innerText = "test!";
+    document.body.insertAdjacentHTML("beforeend", "<p>Testing!</p>");
 
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
