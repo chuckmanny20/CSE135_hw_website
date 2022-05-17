@@ -24,7 +24,8 @@ const server = jsonServer.create();
 var jsonParser = bodyParser.json()
 
 // Set default middlewares (logger, static, cors and no-cache)
-server.use(jsonServer.defaults());
+//server.use(jsonServer.defaults());
+server.use(jsonParser);
 
 // Add custom routes
 // Basic GET all's
@@ -72,12 +73,12 @@ server.get('/activity/:Pageid', (req, res) => {
 });
 
 // POSTs
-server.post('/static', jsonParser, (req, res) => {
+server.post('/static', (req, res) => {
     console.log(req.body.Pageid);
 
     //connection.query()
 
-    res.send('Saved to Database!');
+    res.send('Saved to Static table!');
 });
 
 // Returns an Express router
