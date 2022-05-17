@@ -18,12 +18,10 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
-    console.log(connection);
 
     connection.connect(function (err) {
         if(err) throw err;
         connection.query("SELECT * from Static;", (err, rows, fields) => {
-            console.log("I think we fetched");
             res.json(rows);
         });
     })
