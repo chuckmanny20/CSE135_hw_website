@@ -20,7 +20,7 @@ function loadStyle() {
     link.href = './styles.css';
     link.id = 'testCss';
     return link;
-  }  
+}
 
 function staticCollect() {
     var staticMap = new Map();
@@ -101,13 +101,13 @@ function activityCollect() {
             let oldidleEndList = window.localStorage.getItem('idleEndList');
             let oldidleLengthList = window.localStorage.getItem('idleLengthList');
 
-            if( oldidleEndList == null) {
+            if (oldidleEndList == null) {
                 window.localStorage.setItem('idleEndList', idleEndList.toString());
             } else {
                 window.localStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
             }
 
-            if( oldidleLengthList == null) {
+            if (oldidleLengthList == null) {
                 window.localStorage.setItem('idleLengthList', idleLengthList.toString());
             } else {
                 window.localStorage.setItem('idleLengthList', oldidleLengthList + ',' + idleLengthList.toString());
@@ -135,7 +135,7 @@ function activityCollect() {
         // localStorage
         let oldcursorPosMap = JSON.parse(window.localStorage.getItem('cursorPosCollection'));
 
-        window.localStorage.setItem('cursorPosCollection', JSON.stringify( Object.assign( {}, oldcursorPosMap, mapToObj(cursorPosMap))));
+        window.localStorage.setItem('cursorPosCollection', JSON.stringify(Object.assign({}, oldcursorPosMap, mapToObj(cursorPosMap))));
 
         cursorPosMap = new Map();
 
@@ -147,7 +147,7 @@ function activityCollect() {
         // localStorage
         let oldclickMap = JSON.parse(window.localStorage.getItem('clickCollection'));
 
-        window.localStorage.setItem('clickCollection', JSON.stringify( Object.assign( {}, oldclickMap, mapToObj(clickMap))));
+        window.localStorage.setItem('clickCollection', JSON.stringify(Object.assign({}, oldclickMap, mapToObj(clickMap))));
 
         clickMap = new Map();
 
@@ -159,7 +159,7 @@ function activityCollect() {
         // localStorage
         let oldscrollMap = JSON.parse(window.localStorage.getItem('scrollCollection'));
 
-        window.localStorage.setItem('scrollCollection', JSON.stringify( Object.assign( {}, oldscrollMap, mapToObj(scrollMap))));
+        window.localStorage.setItem('scrollCollection', JSON.stringify(Object.assign({}, oldscrollMap, mapToObj(scrollMap))));
 
         scrollMap = new Map();
 
@@ -174,7 +174,7 @@ function activityCollect() {
         // localStorage
         let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
 
-        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign( {}, oldkeyboardMap, mapToObj(keyboardMap))));
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
 
         keyboardMap = new Map();
 
@@ -186,7 +186,7 @@ function activityCollect() {
         // localStorage
         let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
 
-        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign( {}, oldkeyboardMap, mapToObj(keyboardMap))));
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
 
         keyboardMap = new Map();
 
@@ -196,6 +196,11 @@ function activityCollect() {
     // entering, leaving and oning
     var visibleMap = new Map();
     visibleMap.set((new Date()).getTime(), 'enterPage');
+
+    var curPage = doc.location.toString();
+    if (!doc.hidden)
+        window.localStorage.setItem('curPage', curPage);
+    
     doc.addEventListener('visibilitychange', function () {
         if (!doc.hidden) {
             visibleMap.set((new Date()).getTime(), 'enterPage');
@@ -203,23 +208,23 @@ function activityCollect() {
             //localStorage
             let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
 
-            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign( {}, oldvisibleMap, mapToObj(visibleMap))));
+            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
 
             visibleMap = new Map();
+
+            var curPage = doc.location.toString();
+            window.localStorage.setItem('curPage', curPage);
         } else {
             visibleMap.set((new Date()).getTime(), 'leavePage');
 
             //localStorage
             let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
-            
-            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign( {}, oldvisibleMap, mapToObj(visibleMap))));
+
+            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
 
             visibleMap = new Map();
         }
     });
-    var curPage = doc.location.toString();
-
-    window.localStorage.setItem('curPage', curPage);
 }
 
 function sendData() {
@@ -310,28 +315,28 @@ function sendData() {
 }
 
 function handleStaticResponse(response) {
-    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
         window.localStorage.removeItem('staticCollection');
 }
 
 function handlePerformanceResponse(response) {
-    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
         window.localStorage.removeItem('performanceCollection');
 }
 
 function handleActivityResponse(response) {
-    if((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
         window.localStorage.removeItem('idleEndList');
-        window.localStorage.removeItem('idleLengthList');
-        window.localStorage.removeItem('cursorPosCollection');
-        window.localStorage.removeItem('clickCollection');
-        window.localStorage.removeItem('scrollCollection');
-        window.localStorage.removeItem('keyboardCollection');
-        window.localStorage.removeItem('visibleCollection');
-        window.localStorage.removeItem('curPage');
+    window.localStorage.removeItem('idleLengthList');
+    window.localStorage.removeItem('cursorPosCollection');
+    window.localStorage.removeItem('clickCollection');
+    window.localStorage.removeItem('scrollCollection');
+    window.localStorage.removeItem('keyboardCollection');
+    window.localStorage.removeItem('visibleCollection');
+    window.localStorage.removeItem('curPage');
 }
 
 function generateUserID() {
@@ -354,7 +359,7 @@ function getCookie(cname) {
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
 
-    for(let i = 0; i <ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -365,12 +370,12 @@ function getCookie(cname) {
     }
 
     return "";
-  }
+}
 
 // Make the cookie get set only if there is not one set at the start of a page visit
 let UserID = getCookie('UserID');
 
-if(UserID == "")
+if (UserID == "")
     setCookie('UserID', generateUserID(), 720, "/");
 
 generatePageID();
