@@ -26,6 +26,7 @@ var jsonParser = bodyParser.json()
 // Set default middlewares (logger, static, cors and no-cache)
 //server.use(jsonServer.defaults());
 server.use(jsonParser);
+server.use(bodyParser.urlencoded({ extended: true }));
 
 // Add custom routes
 // Basic GET all's
