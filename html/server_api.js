@@ -10,6 +10,11 @@ const connection = mysql.createConnection({
     database : 'CollectorDatabase'
 });
 
+// Connect ONCE
+connection.connect(function (err) {
+    if(err) throw err;
+})
+
 // Returns an Express server
 const server = jsonServer.create();
 
@@ -18,13 +23,9 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
-
-    connection.connect(function (err) {
-        if(err) throw err;
-        connection.query("SELECT * from Static;", (err, rows, fields) => {
-            res.json(rows);
-        });
-    })
+    connection.query("SELECT * from Static;", (err, rows, fields) => {
+        res.json(rows);
+    });
  });
 
 // Returns an Express router
