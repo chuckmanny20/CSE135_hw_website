@@ -77,13 +77,33 @@ server.get('/activity/:Pageid', (req, res) => {
 
 // POSTs
 server.post('/static', (req, res) => {
-    console.log(req.body.Pageid);
+    //console.log(req.body.Pageid);
 
     connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
         
     });
 
     res.send('Saved to Static table!');
+});
+
+server.post('/performance', (req, res) => {
+    //console.log(req.body.Pageid);
+
+    connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.timeStartLoad, req.body.timeEndLoad, req.body.timeTotalLoad, req.body.wholeTimingObject], (err, rows, fields) => {
+        
+    });
+
+    res.send('Saved to Performance table!');
+});
+
+server.post('/activity', (req, res) => {
+    //console.log(req.body.Pageid);
+
+    connection.query("INSERT INTO Activity (Pageid, Userid, idleEndList, idleLengthList, cursorPosCollection, clickCollection, scrollCollection, keyboardCollection, visibleCollection, curPage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage], (err, rows, fields) => {
+        
+    });
+
+    res.send('Saved to Activity table!');
 });
 
 // Returns an Express router
