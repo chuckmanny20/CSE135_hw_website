@@ -17,7 +17,9 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', function (req, res) { 
-    console.log("test");
+    newPara = document.createElement("p");
+    newPara.innerText = "test!";
+    
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
         res.json(rows);
