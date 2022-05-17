@@ -95,8 +95,12 @@ server.post('/performance', (req, res) => {
 
     performanceCollection = JSON.parse(req.body.performanceCollection);
 
-    //console.log(performanceCollection['wholeTimingObject']);
-    //console.log(parseFloat(performanceCollection['timeStartLoad']));
+    console.log(req.body.Pageid);
+    console.log(req.body.Userid);
+    console.log(parseFloat(performanceCollection['timeStartLoad']));
+    console.log(parseFloat(performanceCollection['timeEndLoad']));
+    console.log(parseFloat(performanceCollection['timeTotalLoad']));
+    console.log(performanceCollection['wholeTimingObject']);
 
     connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, performanceCollection != null ? parseFloat(performanceCollection['timeStartLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeEndLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeTotalLoad']) : null, performanceCollection != null ? performanceCollection['wholeTimingObject'] : null], (err, rows, fields) => {
         
@@ -107,6 +111,8 @@ server.post('/performance', (req, res) => {
 
 server.post('/activity', (req, res) => {
     console.log(req.body.Pageid);
+
+    console.log(req.body.cursorPosCollection);
 
     connection.query("INSERT INTO Activity (Pageid, Userid, idleEndList, idleLengthList, cursorPosCollection, clickCollection, scrollCollection, keyboardCollection, visibleCollection, curPage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage], (err, rows, fields) => {
         
