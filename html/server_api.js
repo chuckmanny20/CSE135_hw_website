@@ -17,9 +17,6 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
-    console.log(connection);
-
-    window.document.insertAdjacentHTML("beforeend", "<p>Test!</p>");
 
     connection.connect(function (err) {
         if(err) throw err;
