@@ -132,7 +132,7 @@ server.delete('/static/:Pageid', (req, res) => {
     res.send('Deleted from Static table!');
 });
 
-server.delete('/static/', (req, res) => {
+server.delete('/static/all', (req, res) => {
     connection.query("DELETE * FROM Static;", (err, rows, fields) => { });
     res.send('Deleted from Static table!');
 });
