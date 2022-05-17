@@ -7,7 +7,7 @@ const connection = mysql.createConnection({
    user     : 'root',
    password : 'CSE135forSQL!',
    database : 'CollectorDatabase'
-})
+});
 
 // Returns an Express server
 const server = jsonServer.create();
@@ -17,8 +17,7 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
-
-    document.body.insertAdjacentHTML("beforeend", "<p>Testing!</p>");
+    console.log(connection);
 
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
