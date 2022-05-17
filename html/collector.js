@@ -237,6 +237,8 @@ function sendData() {
     visibleCollection = window.localStorage.getItem('visibleCollection');
     curPage = window.localStorage.getItem('curPage');
     PageID = JSON.parse(window.localStorage.getItem('PageID'));
+    console.log(curPage);
+    console.log(performanceCollection);
 
     // Add UserID (Cookie) to packet
     UserID = getCookie('UserID');
@@ -299,9 +301,9 @@ function sendData() {
         handleActivityResponse(postActivityXHR);
     });
 
-    postStaticXHR.send(JSON.stringify(staticJSONpacket));
-    postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
-    postActivityXHR.send(JSON.stringify(activityJSONpacket));
+    // postStaticXHR.send(JSON.stringify(staticJSONpacket));
+    // postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
+    // postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
     // New PageID for next POST!
     generatePageID();
@@ -378,7 +380,8 @@ activityCollect();
 
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
-setInterval(sendData, 60000);
+setInterval(sendData, 6000);
+
 
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
 
