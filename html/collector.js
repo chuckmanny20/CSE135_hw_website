@@ -43,7 +43,6 @@ function staticCollect() {
     head.appendChild(cssLink);
     var cssFile = document.getElementById('testCss');
     staticMap.set('isCssAllowed', !cssFile.disabled);
-    console.log(cssLink.disabled);
     head.removeChild(cssLink);
 
     staticMap.set('userScreenWidth', window.screen.width);
@@ -298,6 +297,9 @@ function sendData() {
     postActivityXHR.addEventListener('load', function () {
         handleActivityResponse(postActivityXHR);
     });
+
+    // console.log(curPage);
+    // console.log(staticCollection);
 
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
