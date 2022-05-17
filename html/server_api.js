@@ -16,14 +16,15 @@ const server = jsonServer.create();
 server.use(jsonServer.defaults());
 
 // Add custom routes
-/*server.get('/static', (req, res) => { 
+server.get('/static', (req, res) => { 
+
     document.body.insertAdjacentHTML("beforeend", "<p>Testing!</p>");
 
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
         res.json(rows);
     });
- })*/
+ })
 
 // Returns an Express router
 var router = jsonServer.router('db_api.json');
