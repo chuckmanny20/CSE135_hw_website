@@ -18,6 +18,7 @@ server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', (req, res) => { 
+    console.log(connection);
 
     connection.connect(function (err) {
         if(err) throw err;
