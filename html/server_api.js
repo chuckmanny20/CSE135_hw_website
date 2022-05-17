@@ -2,6 +2,7 @@
 
 const jsonServer = require('/usr/local/lib/node_modules/json-server');
 const mysql = require('mysql');
+const bodyParser = require('body-parser')
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '/var/run/mysqld/mysqld.sock',
@@ -17,6 +18,9 @@ connection.connect(function (err) {
 
 // Returns an Express server
 const server = jsonServer.create();
+
+// create application/json parser
+var jsonParser = bodyParser.json()
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(jsonServer.defaults());
@@ -67,7 +71,7 @@ server.get('/activity/:Pageid', (req, res) => {
 });
 
 // POSTs
-server.post('/static', (req, res) => {
+server.post('/static', jsonParser, (req, res) => {
     console.log(req.body);
 });
 
