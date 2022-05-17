@@ -77,7 +77,7 @@ server.get('/activity/:Pageid', (req, res) => {
 
 // POSTs
 server.post('/static', (req, res) => {
-    //console.log(req.body.Pageid);
+    console.log(req.body.Pageid);
 
     connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
         
@@ -87,7 +87,7 @@ server.post('/static', (req, res) => {
 });
 
 server.post('/performance', (req, res) => {
-    //console.log(req.body.Pageid);
+    console.log(req.body.Pageid);
 
     connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.timeStartLoad, req.body.timeEndLoad, req.body.timeTotalLoad, req.body.wholeTimingObject], (err, rows, fields) => {
         
@@ -97,7 +97,7 @@ server.post('/performance', (req, res) => {
 });
 
 server.post('/activity', (req, res) => {
-    //console.log(req.body.Pageid);
+    console.log(req.body.Pageid);
 
     connection.query("INSERT INTO Activity (Pageid, Userid, idleEndList, idleLengthList, cursorPosCollection, clickCollection, scrollCollection, keyboardCollection, visibleCollection, curPage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage], (err, rows, fields) => {
         
@@ -140,7 +140,7 @@ server.delete('/activity/:Pageid', (req, res) => {
 // PUT specific ID
 // PUT is a full update so it should have ALL the content
 server.put('/static/:Pageid', (req, res) => { 
-    connection.query("REPLACE INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
+    connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE Userid = ?, isCSSAllowed = ?, isImageAllowed = ?, isJSAllowed = ?, userAgentStr = ?, userCookieAcceptance = ?, userLang = ?, userNetworkConnectionType = ?, userScreenHeight = ?, userScreenWidth = ?, userWindowHeight = ?, userWindowWidth = ?;", [req.body.Pageid, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth, req.body.Userid, req.body.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
         
     });
 
@@ -148,7 +148,7 @@ server.put('/static/:Pageid', (req, res) => {
 });
 
 server.put('/performance/:Pageid', (req, res) => { 
-    connection.query("REPLACE INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.timeStartLoad, req.body.timeEndLoad, req.body.timeTotalLoad, req.body.wholeTimingObject], (err, rows, fields) => {
+    connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE Userid = ?, timeStartLoad = ?, timeEndLoad = ?, timeTotalLoad = ?, wholeTimingObject = ?;", [req.body.Pageid, req.body.Userid, req.body.timeStartLoad, req.body.timeEndLoad, req.body.timeTotalLoad, req.body.wholeTimingObject, req.body.Userid, req.body.timeStartLoad, req.body.timeEndLoad, req.body.timeTotalLoad, req.body.wholeTimingObject], (err, rows, fields) => {
         
     });
 
@@ -156,7 +156,7 @@ server.put('/performance/:Pageid', (req, res) => {
 });
 
 server.put('/activity/:Pageid', (req, res) => { 
-    connection.query("REPLACE INTO Activity (Pageid, Userid, idleEndList, idleLengthList, cursorPosCollection, clickCollection, scrollCollection, keyboardCollection, visibleCollection, curPage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage], (err, rows, fields) => {
+    connection.query("INSERT INTO Activity (Pageid, Userid, idleEndList, idleLengthList, cursorPosCollection, clickCollection, scrollCollection, keyboardCollection, visibleCollection, curPage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE Userid = ?, idleEndList = ?, idleLengthList = ?, cursorPosCollection = ?, clickCollection = ?, scrollCollection = ?, keyboardCollection = ?, visibleCollection = ?, curPage = ?;", [req.body.Pageid, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage, req.body.Userid, req.body.idleEndList, req.body.idleLengthList, req.body.cursorPosCollection, req.body.clickCollection, req.body.scrollCollection, req.body.keyboardCollection, req.body.visibleCollection, req.body.curPage], (err, rows, fields) => {
         
     });
 
