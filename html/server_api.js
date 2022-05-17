@@ -10,13 +10,14 @@ const connection = mysql.createConnection({
 })
 
 // Returns an Express server
-var server = jsonServer.create();
+const server = jsonServer.create();
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(jsonServer.defaults());
 
 // Add custom routes
 server.get('/static', function (req, res) { 
+    console.log("test");
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
         res.json(rows);
