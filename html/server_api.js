@@ -68,7 +68,7 @@ server.get('/activity/:Pageid', (req, res) => {
 
 // POSTs
 server.post('/static', (req, res) => {
-    console.log(req.params);
+    console.log(req.body);
 });
 
 // Returns an Express router
