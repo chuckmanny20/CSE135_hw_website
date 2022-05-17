@@ -50,6 +50,27 @@ server.get('/static/:Pageid', (req, res) => {
     });
 });
 
+server.get('/performance/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("SELECT * from Performance WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        res.json(rows);
+    });
+});
+
+server.get('/activity/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("SELECT * from Activity WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        res.json(rows);
+    });
+});
+
+// POSTs
+server.post('/static', (req, res) => {
+    console.log(req.params);
+});
+
 // Returns an Express router
 var router = jsonServer.router('db_api.json');
 
