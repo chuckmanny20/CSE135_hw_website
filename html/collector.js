@@ -258,11 +258,11 @@ function sendData() {
 
     staticJSONpacket['staticCollection'] = staticCollection;
     staticJSONpacket['Userid'] = UserID;
-    staticJSONpacket['id'] = PageID['id'];
+    staticJSONpacket['Pageid'] = PageID['id'];
 
     performanceJSONpacket['performanceCollection'] = performanceCollection;
     performanceJSONpacket['Userid'] = UserID;
-    performanceJSONpacket['id'] = PageID['id'];
+    performanceJSONpacket['Pageid'] = PageID['id'];
 
     activityJSONpacket['idleEndList'] = idleEndList;
     activityJSONpacket['idleLengthList'] = idleLengthList;
@@ -273,7 +273,7 @@ function sendData() {
     activityJSONpacket['visibleCollection'] = visibleCollection;
     activityJSONpacket['curPage'] = curPage;
     activityJSONpacket['Userid'] = UserID;
-    activityJSONpacket['id'] = PageID['id'];
+    activityJSONpacket['Pageid'] = PageID['id'];
 
     // open up request
     // will have to change the url for this later
