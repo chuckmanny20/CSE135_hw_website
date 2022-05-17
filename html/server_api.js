@@ -77,12 +77,12 @@ server.get('/activity/:Pageid', (req, res) => {
 
 // POSTs
 server.post('/static', (req, res) => {
-    console.log(req.body.Pageid);
-    console.log(req.body.staticCollection);
-    console.log(req.body.staticCollection.isCSSAllowed);
-    console.log(req.body.staticCollection['isCSSAllowed']);
+    //console.log(req.body.Pageid);
+    //console.log(req.body.staticCollection);
+    
+    staticCollection = JSON.parse(req.body.staticCollection);
 
-    connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, req.body.staticCollection.isCSSAllowed, req.body.isImageAllowed, req.body.isJsAllowed, req.body.userAgentStr, req.body.userCookieAcceptance, req.body.userLang, req.body.userNetworkConnectionType, req.body.userScreenHeight, req.body.userScreenWidth, req.body.userWindowHeight, req.body.userWindowWidth], (err, rows, fields) => {
+    connection.query("INSERT INTO Static (Pageid, Userid, isCSSAllowed, isImageAllowed, isJSAllowed, userAgentStr, userCookieAcceptance, userLang, userNetworkConnectionType, userScreenHeight, userScreenWidth, userWindowHeight, userWindowWidth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, staticCollection['isCSSAllowed'], staticCollection['isImageAllowed'], staticCollection['isJsAllowed'], staticCollection['userAgentStr'], staticCollection['userCookieAcceptance'], staticCollection['userLang'], staticCollection['userNetworkConnectionType'], staticCollection['userScreenHeight'], staticCollection['userScreenWidth'], staticCollection['userWindowHeight'], staticCollection['userWindowWidth']], (err, rows, fields) => {
         
     });
 
