@@ -22,11 +22,33 @@ const server = jsonServer.create();
 server.use(jsonServer.defaults());
 
 // Add custom routes
+// Basic GET all's
 server.get('/static', (req, res) => { 
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         res.json(rows);
     });
- });
+});
+
+server.get('/performance', (req, res) => { 
+    connection.query("SELECT * from Performance;", (err, rows, fields) => {
+        res.json(rows);
+    });
+});
+
+server.get('/activity', (req, res) => { 
+    connection.query("SELECT * from Activity;", (err, rows, fields) => {
+        res.json(rows);
+    });
+});
+
+// GET specific ID
+server.get('/static/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("SELECT * from Static WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        res.json(rows);
+    });
+});
 
 // Returns an Express router
 var router = jsonServer.router('db_api.json');
