@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!-- Script Reference[1] -->
-<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+	<!-- Script Reference[1] -->
+	<meta charset="utf-8">
+	<title>Collector Database</title>
+	<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+	<style>
+		body {
+			background: #e6e6e6;
+		}
+
+		zing-grid[loading] {
+			height: 197px;
+		}
+	</style>
 </head>
+
 <body>
-	<zing-grid src="https://zhaoxinglyu.site/api/static"></zing-grid>
-	<zing-grid src="https://zhaoxinglyu.site/api/performance"></zing-grid>
-	<zing-grid src="https://zhaoxinglyu.site/api/activity"></zing-grid>
+	<zing-grid caption="Static" compact="" zebra="" role="grid" viewport="tablet-portrait"
+		src="https://zhaoxinglyu.site/api/static"></zing-grid>
+	<zing-grid caption="Performance" compact="" zebra="" role="grid" viewport="tablet-portrait"
+		src="https://zhaoxinglyu.site/api/performance"></zing-grid>
+	<zing-grid caption="Activity" compact="" zebra="" role="grid" viewport="tablet-portrait"
+		src="https://zhaoxinglyu.site/api/activity"></zing-grid>
 </body>
+
 </html>
