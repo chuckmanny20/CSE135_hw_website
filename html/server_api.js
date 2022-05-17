@@ -3,7 +3,7 @@
 const jsonServer = require('/usr/local/lib/node_modules/json-server');
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-   host     : 'localhost',
+   host     : 'ubuntu-s-2vcpu-2gb-sfo3-01',
    user     : 'root',
    password : 'CSE135forSQL!',
    database : 'CollectorDatabase'
