@@ -95,7 +95,7 @@ server.post('/performance', (req, res) => {
 
     performanceCollection = JSON.parse(req.body.performanceCollection);
 
-    connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, performanceCollection != null ? parseFloat(performanceCollection['timeStartLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeEndLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeTotalLoad']) : null, performanceCollection != null ? performanceCollection['wholeTimingObject'] : null], (err, rows, fields) => {
+    connection.query("INSERT INTO Performance (Pageid, Userid, timeStartLoad, timeEndLoad, timeTotalLoad, wholeTimingObject) VALUES (?, ?, ?, ?, ?, ?);", [req.body.Pageid, req.body.Userid, performanceCollection != null ? parseFloat(performanceCollection['timeStartLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeEndLoad']) : null, performanceCollection != null ? parseFloat(performanceCollection['timeTotalLoad']) : null, performanceCollection != null ? JSON.parse(performanceCollection['wholeTimingObject']) : null], (err, rows, fields) => {
         
     });
 
