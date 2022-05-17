@@ -3,11 +3,11 @@
 const jsonServer = require('/usr/local/lib/node_modules/json-server');
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-   host     : 'ubuntu-s-2vcpu-2gb-sfo3-01',
-   port     : '3306',
-   user     : 'root@localhost',
-   password : 'CSE135forSQL!',
-   database : 'CollectorDatabase'
+    host     : 'localhost',
+    port     : '3306',
+    user     : 'liam',
+    password : 'LIAM20forSQL!',
+    database : 'CollectorDatabase'
 });
 
 // Returns an Express server
