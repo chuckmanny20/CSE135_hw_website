@@ -132,6 +132,11 @@ server.delete('/static/:Pageid', (req, res) => {
     res.send('Deleted from Static table!');
 });
 
+server.delete('/static/', (req, res) => {
+    connection.query("DELETE * FROM Static;", (err, rows, fields) => { });
+    res.send('Deleted from Static table!');
+});
+
 server.delete('/performance/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
 
