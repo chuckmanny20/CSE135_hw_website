@@ -134,7 +134,7 @@ server.delete('/static/:Pageid', (req, res) => {
 
 server.delete('/static/all', (req, res) => {
     connection.query("DELETE * FROM Static;", (err, rows, fields) => { });
-    res.send('Deleted from Static table!');
+    res.send('Deleted everything from Static table!');
 });
 
 server.delete('/performance/:Pageid', (req, res) => { 
@@ -147,6 +147,11 @@ server.delete('/performance/:Pageid', (req, res) => {
     res.send('Deleted from Performance table!');
 });
 
+server.delete('/performance/all', (req, res) => {
+    connection.query("DELETE * FROM Performance;", (err, rows, fields) => { });
+    res.send('Deleted everything from Performance table!');
+});
+
 server.delete('/activity/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
 
@@ -155,6 +160,11 @@ server.delete('/activity/:Pageid', (req, res) => {
     });
 
     res.send('Deleted from Activity table!');
+});
+
+server.delete('/activity/all', (req, res) => {
+    connection.query("DELETE * FROM Activity;", (err, rows, fields) => { });
+    res.send('Deleted everything from Activity table!');
 });
 
 // PUT specific ID
