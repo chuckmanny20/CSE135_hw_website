@@ -13,6 +13,15 @@ function generatePageID() {
     window.localStorage.setItem('PageID', JSON.stringify(idObj));
 }
 
+function loadStyle() {
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = './styles.css';
+    link.id = 'testCss';
+    return link;
+  }  
+
 function staticCollect() {
     var staticMap = new Map();
     staticMap.set('userAgentStr', navigator.userAgent);
@@ -28,8 +37,14 @@ function staticCollect() {
     staticMap.set('isImageAllowed', !img.disabled);
     block.removeChild(img);
 
-    var cssFile = document.getElementById('cssFile');
+    // try insert css
+    var cssLink = loadStyle('test.css');
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(cssLink);
+    var cssFile = document.getElementById('testCss');
     staticMap.set('isCssAllowed', !cssFile.disabled);
+    console.log(cssLink.disabled);
+    head.removeChild(cssLink);
 
     staticMap.set('userScreenWidth', window.screen.width);
     staticMap.set('userScreenHeight', window.screen.height);
@@ -140,8 +155,7 @@ function activityCollect() {
         resetTimer();
     }
     doc.onscroll = function () {
-        // TODO: Why is this always 784?
-        scrollMap.set((new Date()).getTime(), doc.body.scrollHeight);
+        scrollMap.set((new Date()).getTime(), [window.pageXOffset, window.pageYOffset]);
 
         // localStorage
         let oldscrollMap = JSON.parse(window.localStorage.getItem('scrollCollection'));
