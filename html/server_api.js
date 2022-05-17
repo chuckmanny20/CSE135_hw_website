@@ -19,6 +19,8 @@ server.use(jsonServer.defaults());
 server.get('/static', (req, res) => { 
     console.log(connection);
 
+    window.document.createElement("p");
+
     connection.query("SELECT * from Static;", (err, rows, fields) => {
         console.log("I think we fetched");
         res.json(rows);
