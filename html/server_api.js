@@ -91,6 +91,7 @@ server.post('/static', (req, res) => {
 
 server.post('/performance', (req, res) => {
     console.log(req.body.Pageid);
+    console.log(req.body.performanceCollection);
 
     performanceCollection = JSON.parse(req.body.performanceCollection);
 
