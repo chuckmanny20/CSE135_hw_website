@@ -106,6 +106,37 @@ server.post('/activity', (req, res) => {
     res.send('Saved to Activity table!');
 });
 
+// DELETE specific ID
+server.delete('/static/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("DELETE FROM Static WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        
+    });
+
+    res.send('Deleted from Static table!');
+});
+
+server.delete('/performance/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("DELETE FROM Performance WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        
+    });
+
+    res.send('Deleted from Performance table!');
+});
+
+server.delete('/activity/:Pageid', (req, res) => { 
+    let PageID = req.params.Pageid
+
+    connection.query("DELETE FROM Activity WHERE Pageid = ?;", [PageID], (err, rows, fields) => {
+        
+    });
+
+    res.send('Deleted from Activity table!');
+});
+
 // Returns an Express router
 var router = jsonServer.router('db_api.json');
 
