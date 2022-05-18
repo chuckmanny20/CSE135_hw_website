@@ -433,6 +433,6 @@ window.addEventListener("beforeunload", function (e) {
 // XHR
 setInterval(sendData, 60000);
 
-// Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
+// Goal: Want an ID to tie all the data together as one person, but each PUT should have its own ID to tie to a specific page visit
 
 // TODO: Test what happens if you have multiple tabs open (after having collector.js on all pages) and whether or not you need to append to localStorage or what
