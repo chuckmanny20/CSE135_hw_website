@@ -1,6 +1,6 @@
 // send GET request and get the JSON object return
 // dataType: static/performance/activity
-function GET_data(dataType) {
+function getData(dataType) {
     var httpRequest = new XMLHttpRequest();
     var url = 'https://zhaoxinglyu.site/api/' + dataType;
     httpRequest.open('GET', url, true);
@@ -13,3 +13,14 @@ function GET_data(dataType) {
     };
 }
 
+// parse JSON text of http response, and get the target data
+// param: jsonText, target: isCSSAllowed/isImageAllowed/etc
+// return: array of target data
+function parseJsonObject(jsonText, target) {
+    var jsonObject = JSON.parse(jsonText);
+    var res = [];
+    for (var record in jsonObject) {
+        res.push(record[target]);
+    }
+    return res;
+}

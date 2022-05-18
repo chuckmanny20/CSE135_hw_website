@@ -79,6 +79,12 @@
   <script src="getData.js"></script>
 
   <script>
+		// here to send the request to get the data
+    import {getData, parseJsonObject} from './getData'
+		var jsonText = getData('static');
+		var dataArray = parseJsonObject(jsonText, 'isCssAllowed');
+		console.log(dataArray);
+
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"]; //real-time feed random math function
     function realTimeFeed(callback) {
       var tick = {};
