@@ -385,6 +385,21 @@ staticCollect();
 performanceCollect();
 activityCollect();
 
+// delete "beforeunload"
+// When they refresh, close the browser, close the tab
+window.addEventListener("beforeunload", function (e) {
+    window.localStorage.removeItem('staticCollection');
+    window.localStorage.removeItem('performanceCollection');
+    window.localStorage.removeItem('idleEndList');
+    window.localStorage.removeItem('idleLengthList');
+    window.localStorage.removeItem('cursorPosCollection');
+    window.localStorage.removeItem('clickCollection');
+    window.localStorage.removeItem('scrollCollection');
+    window.localStorage.removeItem('keyboardCollection');
+    window.localStorage.removeItem('visibleCollection');
+    window.localStorage.removeItem('curPage');
+});
+
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
 setInterval(sendData, 60000);
