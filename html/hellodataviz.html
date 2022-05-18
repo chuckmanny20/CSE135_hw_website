@@ -97,6 +97,7 @@
 		function parseJsonObject(jsonText, target) {
 			console.log(jsonText);
 			var jsonObject = JSON.parse(jsonText);
+      console.log(jsonObject);
 			var res = [];
 			for (var record in jsonObject) {
 				res.push(record[target]);
@@ -106,7 +107,6 @@
 
 		// log the parse result to see
 		var dataArray = getData('static', 'isCssAllowed');
-		console.log(dataArray);
 
 		// ----------------------------------------
 
