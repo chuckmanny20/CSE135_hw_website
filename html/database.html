@@ -10,25 +10,20 @@
 		body {
 			background: #e6e6e6;
 		}
-
-		zg-cell {
-			overflow: auto;
-		}
-
-		zg-row {
-			overflow: auto;
+		zing-grid {
+			--zg-cell-label-overflow_layout_card: auto;
 		}
 	</style>
 </head>
 
 <body>
 
-	<zing-grid caption="Static" compact="" zebra="" role="grid" viewport="tablet-portrait" editor="modal"
-		editor-controls layout-controls pager page-size="4" src="https://zhaoxinglyu.site/api/static"></zing-grid>
-	<zing-grid caption="Performance" compact="" zebra="" role="grid" viewport="tablet-portrait" editor="modal"
-		editor-controls layout-controls pager page-size="4" src="https://zhaoxinglyu.site/api/performance"></zing-grid>
-	<zing-grid caption="Activity" compact="" zebra="" role="grid" viewport="tablet-portrait" editor="modal"
-		editor-controls layout-controls pager page-size="4" src="https://zhaoxinglyu.site/api/activity"></zing-grid>
+	<zing-grid caption="Static" compact="" zebra="" role="grid" viewport="tablet-portrait" layout-controls pager
+		page-size="5" src="https://zhaoxinglyu.site/api/static"></zing-grid>
+	<zing-grid caption="Performance" compact="" zebra="" role="grid" viewport="tablet-portrait" layout-controls pager
+		page-size="5" src="https://zhaoxinglyu.site/api/performance"></zing-grid>
+	<zing-grid caption="Activity" compact="" zebra="" role="grid" viewport="tablet-portrait" layout-controls pager
+		page-size="5" src="https://zhaoxinglyu.site/api/activity"></zing-grid>
 </body>
 
 </html>
