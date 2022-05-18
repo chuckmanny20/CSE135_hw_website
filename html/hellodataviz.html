@@ -85,7 +85,7 @@
 			var url = 'https://zhaoxinglyu.site/api/' + dataType;
 			httpRequest.open('GET', url, false);
 			httpRequest.send();
-      httpRequest.onload = function () {
+      if (httpRequest.status == 200) {
         var jsonText = httpRequest.responseText;
         return parseJsonObject(jsonText, target);
       };
