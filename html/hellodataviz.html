@@ -57,6 +57,38 @@
     </div>
   </div>
   <script>
+    // ----------------------------------
+    // send GET request and get the JSON object return
+    // dataType: static/performance/activity, target: isCSSAllowed/isImageAllowed/etc
+    // return: array of target data
+    function getData(dataType, target) {
+      var httpRequest = new XMLHttpRequest();
+      var url = 'https://zhaoxinglyu.site/api/' + dataType;
+      httpRequest.open('GET', url, false);
+      httpRequest.send();
+      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        var jsonText = httpRequest.responseText;
+        return parseJsonObject(jsonText, target);
+      };
+    }
+
+    // parse JSON text of http response, and get the target data
+    // param: jsonText, target: isCSSAllowed/isImageAllowed/etc
+    // return: array of target data
+    function parseJsonObject(jsonText, target) {
+      var jsonObject = JSON.parse(jsonText);
+      var res = [];
+      for (var ind in jsonObject) {
+        res.push(jsonObject[ind][target]);
+      }
+      return res;
+    }
+
+    // log the parse result to see
+    var dataArray = getData('static', 'isCSSAllowed');
+
+    // ----------------------------------
+
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"]; // window:load event for Javascript to run after HTML
     // because this Javascript is injected into the document head
     window.addEventListener('load', () => {
