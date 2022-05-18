@@ -387,7 +387,6 @@ activityCollect();
 
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
-sendData();
 setInterval(sendData, 60000);
 
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
