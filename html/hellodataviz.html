@@ -99,10 +99,10 @@
 
       var listOfIdles = getData('activity', 'idleLengthList');
       console.log(listOfIdles);
-      listOfIdles.sort(function(a, b){
-        // ASC  -> a.length - b.length
-        // DESC -> b.length - a.length
-        return a.length - b.length;
+      listOfIdles.sort(function(a, b) {
+        var aLen = a==null ? 0 : a.length;
+        var bLen = b==null ? 0 : b.length;
+        return bLen - aLen;
       });      
       console.log(listOfIdles);
 
