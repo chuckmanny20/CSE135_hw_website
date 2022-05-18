@@ -99,7 +99,11 @@
 
       var listOfIdles = getData('activity', 'idleLengthList');
       console.log(listOfIdles);
-      listOfIdles.sort();
+      listOfIdles.sort(function(a, b){
+        // ASC  -> a.length - b.length
+        // DESC -> b.length - a.length
+        return a.length - b.length;
+      });      
       console.log(listOfIdles);
 
       let chartConfig1 = {
@@ -172,7 +176,6 @@
       for (let [key, value] of map) {
         pageData.push({text: key, values: [value]});
       }
-      console.log(pageData);
       let chartConfig3 = {
         type: 'pie',
         legend: {
