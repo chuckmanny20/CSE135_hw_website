@@ -103,7 +103,7 @@
         legend: {
           "toggle-action": "hide",
           "header": {
-            "text": "Legend"
+            "text": "Idle length"
           },
           "item": {
             "cursor": "pointer"
@@ -134,7 +134,7 @@
         legend: {
           "toggle-action": "hide",
           "header": {
-            "text": "Legend"
+            "text": "Time of loading"
           },
           "item": {
             "cursor": "pointer"
@@ -155,13 +155,22 @@
             text: "timeEndLoad"
           }
         ]
-        };
+      };
+
+      var curPageData = getData('activity', 'curPage');
+      const map = new Map();
+      for (ind in curPageData) {
+        var page = curPageData[ind];
+        if (map.has(page)) map.set(page, map.get(page)+1);
+        else map.set(page, 1);
+      }
+      console.log(map);
       let chartConfig3 = {
         type: 'pie',
         legend: {
           "toggle-action": "hide",
           "header": {
-            "text": "Legend"
+            "text": "Accessed page"
           },
           "item": {
             "cursor": "pointer"
