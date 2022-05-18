@@ -96,10 +96,15 @@
  
       // full ZingChart schema can be found here:
       // https://www.zingchart.com/docs/api/json-configuration/
+
+      var timeTotalLoad = getData('performance', 'timeTotalLoad');
+      var timeStartLoad = getData('performance', 'timeStartLoad');
+      var timeEndLoad = getData('performance', 'timeEndLoad');
+
       let chartConfig1 = {
         type: 'line',
         series: [{
-            values: [76, 23, 15, 85, 13]
+            values: timeTotalLoad
           },
           {
             values: [36, 53, 65, 25, 45]
