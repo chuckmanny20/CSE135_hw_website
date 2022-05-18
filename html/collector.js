@@ -52,7 +52,6 @@ function staticCollect() {
     staticMap.set('userNetworkConnectionType', navigator.connection.effectiveType);
 
     // localStorage
-    console.log("huh");
     window.localStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
 }
 

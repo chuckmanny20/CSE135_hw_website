@@ -38,6 +38,8 @@
 </head>
  
 <body>
+  <div id="enableTestBlock"></div>
+  <script src="./collector.js"></script>
   <!-- CHART CONTAINER -->
   <div class="chart--main">
     <div class="chart--row">
@@ -98,13 +100,13 @@
       // https://www.zingchart.com/docs/api/json-configuration/
 
       var listOfIdles = getData('activity', 'idleLengthList');
-      console.log(listOfIdles);
+      // console.log(listOfIdles);
       listOfIdles.sort(function(a, b) {
         var aLen = a==null ? 0 : a.length;
         var bLen = b==null ? 0 : b.length;
         return bLen - aLen;
       });      
-      console.log(listOfIdles);
+      // console.log(listOfIdles);
 
       let chartConfig1 = {
         type: 'line',
