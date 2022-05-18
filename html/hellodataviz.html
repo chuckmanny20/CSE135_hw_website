@@ -159,16 +159,14 @@
 
       var curPageData = getData('activity', 'curPage');
       const map = new Map();
-      for (ind in curPageData) {
+      for (var ind in curPageData) {
         var page = curPageData[ind];
         if (map.has(page)) map.set(page, map.get(page)+1);
         else map.set(page, 1);
       }
       var pageData = [];
-      for (key in map) {
-        console.log(key);
-        console.log(map.get(key));
-        pageData.push({text: key, values: map.get(key)});
+      for (let [key, value] of map) {
+        pageData.push({text: key, values: value});
       }
       console.log(pageData);
       let chartConfig3 = {
