@@ -103,11 +103,25 @@
 
       let chartConfig1 = {
         type: 'line',
+        legend: {
+          "toggle-action": "hide",
+          "item": {
+            "cursor": "pointer"
+          },
+          "draggable": true,
+          "drag-handler": "icon"
+        },
         series: [{
-            values: timeTotalLoad
+            values: timeTotalLoad,
+            text: "timeTotalLoad"
           },
           {
-            values: [36, 53, 65, 25, 45]
+            values: timeStartLoad,
+            text: "timeStartLoad"
+          },
+          {
+            values: timeEndLoad,
+            text: "timeEndLoad"
           }
         ]
       };
