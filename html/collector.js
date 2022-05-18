@@ -10,7 +10,7 @@ function generatePageID() {
     let idObj = {};
 
     idObj['id'] = id;
-    window.sessionStorage.setItem('PageID', JSON.stringify(idObj));
+    window.localStorage.setItem('PageID', JSON.stringify(idObj));
 }
 
 function loadStyle() {
@@ -51,8 +51,8 @@ function staticCollect() {
     staticMap.set('userWindowHeight', window.outerHeight);
     staticMap.set('userNetworkConnectionType', navigator.connection.effectiveType);
 
-    // sessionStorage
-    window.sessionStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
+    // localStorage
+    window.localStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
 }
 
 function performanceCollect() {
@@ -70,8 +70,8 @@ function performanceCollect() {
         performanceMap.set('timeEndLoad', timeLoadEnd);
         performanceMap.set('timeTotalLoad', timeLoadEnd - timeLoadStart);
 
-        // sessionStorage
-        window.sessionStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
+        // localStorage
+        window.localStorage.setItem('performanceCollection', JSON.stringify(mapToObj(performanceMap)));
     };
 }
 
@@ -96,21 +96,21 @@ function activityCollect() {
             idleEndList.push(idleEndTime);
             idleLengthList.push(idleEndTime - idleStartTime);
 
-            // sessionStorage
+            // localStorage
             // if the item is not deleted, that means it wasnt sent to server. Thus, grab then append
-            let oldidleEndList = window.sessionStorage.getItem('idleEndList');
-            let oldidleLengthList = window.sessionStorage.getItem('idleLengthList');
+            let oldidleEndList = window.localStorage.getItem('idleEndList');
+            let oldidleLengthList = window.localStorage.getItem('idleLengthList');
 
             if (oldidleEndList == null) {
-                window.sessionStorage.setItem('idleEndList', idleEndList.toString());
+                window.localStorage.setItem('idleEndList', idleEndList.toString());
             } else {
-                window.sessionStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
+                window.localStorage.setItem('idleEndList', oldidleEndList + ',' + idleEndList.toString());
             }
 
             if (oldidleLengthList == null) {
-                window.sessionStorage.setItem('idleLengthList', idleLengthList.toString());
+                window.localStorage.setItem('idleLengthList', idleLengthList.toString());
             } else {
-                window.sessionStorage.setItem('idleLengthList', oldidleLengthList + ',' + idleLengthList.toString());
+                window.localStorage.setItem('idleLengthList', oldidleLengthList + ',' + idleLengthList.toString());
             }
 
             // clear lists after adding
@@ -132,10 +132,10 @@ function activityCollect() {
     doc.onmousemove = function (event) {
         cursorPosMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
 
-        // sessionStorage
-        let oldcursorPosMap = JSON.parse(window.sessionStorage.getItem('cursorPosCollection'));
+        // localStorage
+        let oldcursorPosMap = JSON.parse(window.localStorage.getItem('cursorPosCollection'));
 
-        window.sessionStorage.setItem('cursorPosCollection', JSON.stringify(Object.assign({}, oldcursorPosMap, mapToObj(cursorPosMap))));
+        window.localStorage.setItem('cursorPosCollection', JSON.stringify(Object.assign({}, oldcursorPosMap, mapToObj(cursorPosMap))));
 
         cursorPosMap = new Map();
 
@@ -144,10 +144,10 @@ function activityCollect() {
     doc.onclick = function (event) {
         clickMap.set((new Date()).getTime(), [event.pageX, event.pageY]);
 
-        // sessionStorage
-        let oldclickMap = JSON.parse(window.sessionStorage.getItem('clickCollection'));
+        // localStorage
+        let oldclickMap = JSON.parse(window.localStorage.getItem('clickCollection'));
 
-        window.sessionStorage.setItem('clickCollection', JSON.stringify(Object.assign({}, oldclickMap, mapToObj(clickMap))));
+        window.localStorage.setItem('clickCollection', JSON.stringify(Object.assign({}, oldclickMap, mapToObj(clickMap))));
 
         clickMap = new Map();
 
@@ -156,10 +156,10 @@ function activityCollect() {
     doc.onscroll = function () {
         scrollMap.set((new Date()).getTime(), [window.pageXOffset, window.pageYOffset]);
 
-        // sessionStorage
-        let oldscrollMap = JSON.parse(window.sessionStorage.getItem('scrollCollection'));
+        // localStorage
+        let oldscrollMap = JSON.parse(window.localStorage.getItem('scrollCollection'));
 
-        window.sessionStorage.setItem('scrollCollection', JSON.stringify(Object.assign({}, oldscrollMap, mapToObj(scrollMap))));
+        window.localStorage.setItem('scrollCollection', JSON.stringify(Object.assign({}, oldscrollMap, mapToObj(scrollMap))));
 
         scrollMap = new Map();
 
@@ -171,10 +171,10 @@ function activityCollect() {
     doc.onkeydown = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyDown']);
 
-        // sessionStorage
-        let oldkeyboardMap = JSON.parse(window.sessionStorage.getItem('keyboardCollection'));
+        // localStorage
+        let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
 
-        window.sessionStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
 
         keyboardMap = new Map();
 
@@ -183,10 +183,10 @@ function activityCollect() {
     doc.onkeyup = function (event) {
         keyboardMap.set((new Date()).getTime(), [event.code, 'KeyUp']);
 
-        // sessionStorage
-        let oldkeyboardMap = JSON.parse(window.sessionStorage.getItem('keyboardCollection'));
+        // localStorage
+        let oldkeyboardMap = JSON.parse(window.localStorage.getItem('keyboardCollection'));
 
-        window.sessionStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
+        window.localStorage.setItem('keyboardCollection', JSON.stringify(Object.assign({}, oldkeyboardMap, mapToObj(keyboardMap))));
 
         keyboardMap = new Map();
 
@@ -199,28 +199,28 @@ function activityCollect() {
 
     var curPage = doc.location.toString();
     if (!doc.hidden)
-        window.sessionStorage.setItem('curPage', curPage);
+        window.localStorage.setItem('curPage', curPage);
     
     doc.addEventListener('visibilitychange', function () {
         if (!doc.hidden) {
             visibleMap.set((new Date()).getTime(), 'enterPage');
 
-            //sessionStorage
-            let oldvisibleMap = JSON.parse(window.sessionStorage.getItem('visibleCollection'));
+            //localStorage
+            let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
 
-            window.sessionStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
+            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
 
             visibleMap = new Map();
 
             var curPage = doc.location.toString();
-            window.sessionStorage.setItem('curPage', curPage);
+            window.localStorage.setItem('curPage', curPage);
         } else {
             visibleMap.set((new Date()).getTime(), 'leavePage');
 
-            //sessionStorage
-            let oldvisibleMap = JSON.parse(window.sessionStorage.getItem('visibleCollection'));
+            //localStorage
+            let oldvisibleMap = JSON.parse(window.localStorage.getItem('visibleCollection'));
 
-            window.sessionStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
+            window.localStorage.setItem('visibleCollection', JSON.stringify(Object.assign({}, oldvisibleMap, mapToObj(visibleMap))));
 
             visibleMap = new Map();
         }
@@ -230,17 +230,17 @@ function activityCollect() {
 function sendData() {
 
     // grab all the items
-    staticCollection = window.sessionStorage.getItem('staticCollection');
-    performanceCollection = window.sessionStorage.getItem('performanceCollection');
-    idleEndList = window.sessionStorage.getItem('idleEndList');
-    idleLengthList = window.sessionStorage.getItem('idleLengthList');
-    cursorPosCollection = window.sessionStorage.getItem('cursorPosCollection');
-    clickCollection = window.sessionStorage.getItem('clickCollection');
-    scrollCollection = window.sessionStorage.getItem('scrollCollection');
-    keyboardCollection = window.sessionStorage.getItem('keyboardCollection');
-    visibleCollection = window.sessionStorage.getItem('visibleCollection');
-    curPage = window.sessionStorage.getItem('curPage');
-    PageID = JSON.parse(window.sessionStorage.getItem('PageID'));
+    staticCollection = window.localStorage.getItem('staticCollection');
+    performanceCollection = window.localStorage.getItem('performanceCollection');
+    idleEndList = window.localStorage.getItem('idleEndList');
+    idleLengthList = window.localStorage.getItem('idleLengthList');
+    cursorPosCollection = window.localStorage.getItem('cursorPosCollection');
+    clickCollection = window.localStorage.getItem('clickCollection');
+    scrollCollection = window.localStorage.getItem('scrollCollection');
+    keyboardCollection = window.localStorage.getItem('keyboardCollection');
+    visibleCollection = window.localStorage.getItem('visibleCollection');
+    curPage = window.localStorage.getItem('curPage');
+    PageID = JSON.parse(window.localStorage.getItem('PageID'));
 
     // Add UserID (Cookie) to packet
     UserID = getCookie('UserID');
@@ -317,27 +317,27 @@ function sendData() {
 function handleStaticResponse(response) {
     //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
-        //window.sessionStorage.removeItem('staticCollection');
+        //window.localStorage.removeItem('staticCollection');
 }
 
 function handlePerformanceResponse(response) {
     //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
-        //window.sessionStorage.removeItem('performanceCollection');
+        //window.localStorage.removeItem('performanceCollection');
 }
 
 function handleActivityResponse(response) {
     //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
         /*
-        window.sessionStorage.removeItem('idleEndList');
-        window.sessionStorage.removeItem('idleLengthList');
-        window.sessionStorage.removeItem('cursorPosCollection');
-        window.sessionStorage.removeItem('clickCollection');
-        window.sessionStorage.removeItem('scrollCollection');
-        window.sessionStorage.removeItem('keyboardCollection');
-        window.sessionStorage.removeItem('visibleCollection');
-        window.sessionStorage.removeItem('curPage');
+        window.localStorage.removeItem('idleEndList');
+        window.localStorage.removeItem('idleLengthList');
+        window.localStorage.removeItem('cursorPosCollection');
+        window.localStorage.removeItem('clickCollection');
+        window.localStorage.removeItem('scrollCollection');
+        window.localStorage.removeItem('keyboardCollection');
+        window.localStorage.removeItem('visibleCollection');
+        window.localStorage.removeItem('curPage');
         */
 }
 
@@ -385,10 +385,10 @@ staticCollect();
 performanceCollect();
 activityCollect();
 
-// store locally in sessionStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
+// store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
 setInterval(sendData, 60000);
 
 // Goal: Want an ID to tie all the data together as one person, but each POST should have its own ID to tie to a specific page visit
 
-// TODO: Test what happens if you have multiple tabs open (after having collector.js on all pages) and whether or not you need to append to sessionStorage or what
+// TODO: Test what happens if you have multiple tabs open (after having collector.js on all pages) and whether or not you need to append to localStorage or what
