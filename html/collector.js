@@ -278,9 +278,9 @@ function sendData() {
     // open up request
     // will have to change the url for this later
     // Split this into 3 XHRs for static, performance, and activity
-    postStaticXHR.open('POST', 'https://zhaoxinglyu.site/api/static', true);
-    postPerformanceXHR.open('POST', 'https://zhaoxinglyu.site/api/performance', true);
-    postActivityXHR.open('POST', 'https://zhaoxinglyu.site/api/activity', true);
+    postStaticXHR.open('PUT', 'https://zhaoxinglyu.site/api/static/' + PageID['id'], true);
+    postPerformanceXHR.open('PUT', 'https://zhaoxinglyu.site/api/performance/' + PageID['id'], true);
+    postActivityXHR.open('PUT', 'https://zhaoxinglyu.site/api/activity/' + PageID['id'], true);
 
     // set Headers
     // Want JSON back
@@ -291,6 +291,7 @@ function sendData() {
 
     // Add Event for when Response is fully loaded to show in output
     // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
+    /*
     postStaticXHR.addEventListener('load', function () {
         handleStaticResponse(postStaticXHR);
     });
@@ -301,7 +302,7 @@ function sendData() {
 
     postActivityXHR.addEventListener('load', function () {
         handleActivityResponse(postActivityXHR);
-    });
+    });*/
 
 
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
@@ -309,32 +310,35 @@ function sendData() {
     postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
     // New PageID for next POST!
-    generatePageID();
+    // Not needed for PUT
+    //generatePageID();
 }
 
 function handleStaticResponse(response) {
-    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
-        window.localStorage.removeItem('staticCollection');
+        //window.localStorage.removeItem('staticCollection');
 }
 
 function handlePerformanceResponse(response) {
-    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
-        window.localStorage.removeItem('performanceCollection');
+        //window.localStorage.removeItem('performanceCollection');
 }
 
 function handleActivityResponse(response) {
-    if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
+    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
+        /*
         window.localStorage.removeItem('idleEndList');
-    window.localStorage.removeItem('idleLengthList');
-    window.localStorage.removeItem('cursorPosCollection');
-    window.localStorage.removeItem('clickCollection');
-    window.localStorage.removeItem('scrollCollection');
-    window.localStorage.removeItem('keyboardCollection');
-    window.localStorage.removeItem('visibleCollection');
-    window.localStorage.removeItem('curPage');
+        window.localStorage.removeItem('idleLengthList');
+        window.localStorage.removeItem('cursorPosCollection');
+        window.localStorage.removeItem('clickCollection');
+        window.localStorage.removeItem('scrollCollection');
+        window.localStorage.removeItem('keyboardCollection');
+        window.localStorage.removeItem('visibleCollection');
+        window.localStorage.removeItem('curPage');
+        */
 }
 
 function generateUserID() {
