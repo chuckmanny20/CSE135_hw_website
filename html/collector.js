@@ -388,6 +388,9 @@ activityCollect();
 // delete "beforeunload"
 // When they refresh, close the browser, close the tab
 window.addEventListener("beforeunload", function (e) {
+    // instantly send data
+    sendData();
+
     window.localStorage.removeItem('staticCollection');
     window.localStorage.removeItem('performanceCollection');
     window.localStorage.removeItem('idleEndList');
