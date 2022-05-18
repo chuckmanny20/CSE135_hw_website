@@ -314,6 +314,77 @@ function sendData() {
     //generatePageID();
 }
 
+function sendData_fetch() {
+
+    // grab all the items
+    staticCollection = window.localStorage.getItem('staticCollection');
+    performanceCollection = window.localStorage.getItem('performanceCollection');
+    idleEndList = window.localStorage.getItem('idleEndList');
+    idleLengthList = window.localStorage.getItem('idleLengthList');
+    cursorPosCollection = window.localStorage.getItem('cursorPosCollection');
+    clickCollection = window.localStorage.getItem('clickCollection');
+    scrollCollection = window.localStorage.getItem('scrollCollection');
+    keyboardCollection = window.localStorage.getItem('keyboardCollection');
+    visibleCollection = window.localStorage.getItem('visibleCollection');
+    curPage = window.localStorage.getItem('curPage');
+    PageID = JSON.parse(window.localStorage.getItem('PageID'));
+
+    // Add UserID (Cookie) to packet
+    UserID = getCookie('UserID');
+
+    // build JSON object
+    let staticJSONpacket = {};
+    let performanceJSONpacket = {};
+    let activityJSONpacket = {};
+
+    staticJSONpacket['staticCollection'] = staticCollection;
+    staticJSONpacket['Userid'] = UserID;
+    staticJSONpacket['Pageid'] = PageID['id'];
+
+    performanceJSONpacket['performanceCollection'] = performanceCollection;
+    performanceJSONpacket['Userid'] = UserID;
+    performanceJSONpacket['Pageid'] = PageID['id'];
+
+    activityJSONpacket['idleEndList'] = idleEndList;
+    activityJSONpacket['idleLengthList'] = idleLengthList;
+    activityJSONpacket['cursorPosCollection'] = cursorPosCollection;
+    activityJSONpacket['clickCollection'] = clickCollection;
+    activityJSONpacket['scrollCollection'] = scrollCollection;
+    activityJSONpacket['keyboardCollection'] = keyboardCollection;
+    activityJSONpacket['visibleCollection'] = visibleCollection;
+    activityJSONpacket['curPage'] = curPage;
+    activityJSONpacket['Userid'] = UserID;
+    activityJSONpacket['Pageid'] = PageID['id'];
+
+    fetch('https://zhaoxinglyu.site/api/static/' + PageID['id'], {
+        keepalive: true,
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(staticJSONpacket)
+    });
+
+    fetch('https://zhaoxinglyu.site/api/performance/' + PageID['id'], {
+        keepalive: true,
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(performanceJSONpacket)
+    });
+
+    fetch('https://zhaoxinglyu.site/api/activity/' + PageID['id'], {
+        keepalive: true,
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(activityJSONpacket)
+    });
+
+}
+
 function handleStaticResponse(response) {
     //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
         // delete already saved data
@@ -389,7 +460,7 @@ activityCollect();
 // When they refresh, close the browser, close the tab
 window.addEventListener("beforeunload", function (e) {
     // instantly send data
-    sendData();
+    sendData_fetch();
 
     window.localStorage.removeItem('staticCollection');
     window.localStorage.removeItem('performanceCollection');
@@ -402,6 +473,8 @@ window.addEventListener("beforeunload", function (e) {
     window.localStorage.removeItem('visibleCollection');
     window.localStorage.removeItem('curPage');
 });
+// Rather have duplicate data than a way to prevent data from being sent
+// TODO: Is there a way to keep a request alive after tab close?
 
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
