@@ -85,12 +85,10 @@
 			httpRequest.open('GET', url, true);
 			httpRequest.send();
 			httpRequest.onreadystatechange = function () {
-				while (true) {
-					if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-						var jsonText = httpRequest.responseText;
-						return jsonText;
-					}
-				}
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+          var jsonText = httpRequest.responseText;
+          return jsonText;
+        }
 			};
 		}
 
