@@ -164,7 +164,10 @@
         if (map.has(page)) map.set(page, map.get(page)+1);
         else map.set(page, 1);
       }
-      console.log(map);
+      var pageData = [];
+      for (key in map) {
+        pageData.push({text: key, values: map.get(key)});
+      }
       let chartConfig3 = {
         type: 'pie',
         legend: {
@@ -178,16 +181,7 @@
           "draggable": true,
           "drag-handler": "icon"
         },
-        series: [{
-            values: [15]
-          },
-          {
-            values: [30]
-          },
-          {
-            values: [34]
-          }
-        ]
+        series: pageData
       };
  
  
