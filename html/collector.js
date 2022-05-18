@@ -52,6 +52,7 @@ function staticCollect() {
     staticMap.set('userNetworkConnectionType', navigator.connection.effectiveType);
 
     // localStorage
+    console.log("huh");
     window.localStorage.setItem('staticCollection', JSON.stringify(mapToObj(staticMap)));
 }
 
@@ -289,29 +290,10 @@ function sendData() {
     postPerformanceXHR.setRequestHeader('Content-Type', 'application/json');
     postActivityXHR.setRequestHeader('Content-Type', 'application/json');
 
-    // Add Event for when Response is fully loaded to show in output
-    // Have to put handleResponse call in anonymous function to get it to wait for readyState to actually be 4
-    /*
-    postStaticXHR.addEventListener('load', function () {
-        handleStaticResponse(postStaticXHR);
-    });
-
-    postPerformanceXHR.addEventListener('load', function () {
-        handlePerformanceResponse(postPerformanceXHR);
-    });
-
-    postActivityXHR.addEventListener('load', function () {
-        handleActivityResponse(postActivityXHR);
-    });*/
-
-
     postStaticXHR.send(JSON.stringify(staticJSONpacket));
     postPerformanceXHR.send(JSON.stringify(performanceJSONpacket));
     postActivityXHR.send(JSON.stringify(activityJSONpacket));
 
-    // New PageID for next POST!
-    // Not needed for PUT
-    //generatePageID();
 }
 
 function sendData_fetch() {
@@ -356,6 +338,7 @@ function sendData_fetch() {
     activityJSONpacket['Userid'] = UserID;
     activityJSONpacket['Pageid'] = PageID['id'];
 
+    // send requests that stay alive after page
     fetch('https://zhaoxinglyu.site/api/static/' + PageID['id'], {
         keepalive: true,
         method: 'PUT',
@@ -383,33 +366,6 @@ function sendData_fetch() {
         body: JSON.stringify(activityJSONpacket)
     });
 
-}
-
-function handleStaticResponse(response) {
-    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
-        // delete already saved data
-        //window.localStorage.removeItem('staticCollection');
-}
-
-function handlePerformanceResponse(response) {
-    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
-        // delete already saved data
-        //window.localStorage.removeItem('performanceCollection');
-}
-
-function handleActivityResponse(response) {
-    //if ((response.status == 200 || response.status == 201 || response.status == 204) && response.readyState == 4)
-        // delete already saved data
-        /*
-        window.localStorage.removeItem('idleEndList');
-        window.localStorage.removeItem('idleLengthList');
-        window.localStorage.removeItem('cursorPosCollection');
-        window.localStorage.removeItem('clickCollection');
-        window.localStorage.removeItem('scrollCollection');
-        window.localStorage.removeItem('keyboardCollection');
-        window.localStorage.removeItem('visibleCollection');
-        window.localStorage.removeItem('curPage');
-        */
 }
 
 function generateUserID() {
@@ -473,8 +429,6 @@ window.addEventListener("beforeunload", function (e) {
     window.localStorage.removeItem('visibleCollection');
     window.localStorage.removeItem('curPage');
 });
-// Rather have duplicate data than a way to prevent data from being sent
-// TODO: Is there a way to keep a request alive after tab close?
 
 // store locally in localStorage, and send periodcally (1 min for now? Not actually one minute b/c of how event queues work ;) )
 // XHR
