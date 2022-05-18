@@ -98,23 +98,6 @@
       // https://www.zingchart.com/docs/api/json-configuration/
 
       var listOfIdles = getData('activity', 'idleLengthList');
-      var threeLongest = [0, 0, 0];
-      var first = listOfIdles[0].length;
-      var second = listOfIdles[0].length;
-      var third = listOfIdles[0].length;
-      for (var ind in listOfIdles) {
-        var len = listOfIdles[ind].length;
-        if (len > first) {
-          first = len;
-          threeLongest[0] = ind;
-        } else if (len > second) {
-          second = len;
-          threeLongest[1] = ind;
-        } else if (len > third) {
-          third = len;
-          threeLongest[2] = ind;
-        }
-      }
 
       let chartConfig1 = {
         type: 'line',
@@ -130,15 +113,15 @@
           "drag-handler": "icon"
         },
         series: [{
-            values: listOfIdles[threeLongest[0]],
+            values: listOfIdles[0],
             text: "idleOfUser1"
           },
           {
-            values: listOfIdles[threeLongest[1]],
+            values: listOfIdles[1],
             text: "idleOfUser2"
           },
           {
-            values: listOfIdles[threeLongest[2]],
+            values: listOfIdles[2],
             text: "idleOfUser3"
           }
         ]
