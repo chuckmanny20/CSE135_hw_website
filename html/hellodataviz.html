@@ -89,7 +89,6 @@
       var jsonObject = JSON.parse(jsonText);
       var res = [];
       for (var ind in jsonObject) {
-        console.log(jsonObject[ind]);
         res.push(jsonObject[ind][target]);
       }
       return res;
@@ -97,6 +96,7 @@
 
     // log the parse result to see
     var dataArray = getData('static', 'isCssAllowed');
+    console.log(dataArray);
 
     // ------------------------------
 
