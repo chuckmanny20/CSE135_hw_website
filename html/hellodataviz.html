@@ -14,512 +14,121 @@
       padding: 0;
     }
  
-    #myChart {
-      margin: 0 auto;
-      height: 380px;
-      width: 98%;
-      box-shadow: 5px 5px 5px #eee;
-      background-color: #fff;
-      border: 1px solid #eee;
+    .chart--main {
       display: flex;
-      flex-flow: column wrap;
+      flex-direction: column;
+      height: 100%;
     }
-
-    #barChart {
+ 
+    .chart--row {
+      display: flex;
+      height: 50%;
+    }
+ 
+    .chart--container {
       height: 100%;
       width: 100%;
-      min-height: 150px;
+      min-height: 350px;
     }
-
  
     .zc-ref {
       display: none;
     }
   </style>
 </head>
-
-<body>
-  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
-
-  <!-- script to send GET request and parse data -->
-  <script>
-    // send GET request and get the JSON object return
-    // dataType: static/performance/activity, target: isCSSAllowed/isImageAllowed/etc
-    // return: array of target data
-    function getData(dataType, target) {
-      var httpRequest = new XMLHttpRequest();
-      var url = 'https://zhaoxinglyu.site/api/' + dataType;
-      httpRequest.open('GET', url, false);
-      httpRequest.send();
-      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-        var jsonText = httpRequest.responseText;
-        return parseJsonObject(jsonText, target);
-      };
-    }
-
-    // parse JSON text of http response, and get the target data
-    // param: jsonText, target: isCSSAllowed/isImageAllowed/etc
-    // return: array of target data
-    function parseJsonObject(jsonText, target) {
-      var jsonObject = JSON.parse(jsonText);
-      var res = [];
-      for (var ind in jsonObject) {
-        res.push(jsonObject[ind][target]);
-      }
-      return res;
-    }
-
-    // log the parse result to see
-    var dataArray = getData('static', 'isCSSAllowed');
-
-    // ------------------------------
-
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-    var myConfig = {
-      "type": "line",
-      "utc": true,
-      "title": {
-        "text": "Webpage Analytics",
-        "font-size": "24px",
-        "adjust-layout": true
-      },
-      "plotarea": {
-        "margin": "dynamic 45 60 dynamic",
-      },
-      "legend": {
-        "layout": "float",
-        "background-color": "none",
-        "border-width": 0,
-        "shadow": 0,
-        "align": "center",
-        "adjust-layout": true,
-        "toggle-action": "remove",
-        "item": {
-          "padding": 7,
-          "marginRight": 17,
-          "cursor": "hand"
-        }
-      },
-      "scale-x": {
-        "min-value": 1383292800000,
-        "shadow": 0,
-        "step": 3600000,
-        "transform": {
-          "type": "date",
-          "all": "%D, %d %M<br />%h:%i %A",
-          "item": {
-            "visible": false
-          }
-        },
-        "label": {
-          "visible": false
-        },
-        "minor-ticks": 0
-      },
-      "scale-y": {
-        "line-color": "#f6f7f8",
-        "shadow": 0,
-        "guide": {
-          "line-style": "dashed"
-        },
-        "label": {
-          "text": "Page Views",
-        },
-        "minor-ticks": 0,
-        "thousands-separator": ","
-      },
-      "crosshair-x": {
-        "line-color": "#efefef",
-        "plot-label": {
-          "border-radius": "5px",
-          "border-width": "1px",
-          "border-color": "#f6f7f8",
-          "padding": "10px",
-          "font-weight": "bold"
-        },
-        "scale-label": {
-          "font-color": "#000",
-          "background-color": "#f6f7f8",
-          "border-radius": "5px"
-        }
-      },
-      "tooltip": {
-        "visible": false
-      },
-      "plot": {
-        "highlight": true,
-        "tooltip-text": "%t views: %v<br>%k",
-        "shadow": 0,
-        "line-width": "2px",
-        "marker": {
-          "type": "circle",
-          "size": 3
-        },
-        "highlight-state": {
-          "line-width": 3
-        },
-        "animation": {
-          "effect": 1,
-          "sequence": 2,
-          "speed": 100,
-        }
-      },
-      "series": [{
-          "values": [
-            149.2,
-            174.3,
-            187.7,
-            147.1,
-            129.6,
-            189.6,
-            230,
-            164.5,
-            171.7,
-            163.4,
-            194.5,
-            200.1,
-            193.4,
-            254.4,
-            287.8,
-            246,
-            199.9,
-            218.3,
-            244,
-            312.2,
-            284.5,
-            249.2,
-            305.2,
-            286.1,
-            347.7,
-            278,
-            240.3,
-            212.4,
-            237.1,
-            253.2,
-            186.1,
-            153.6,
-            168.5,
-            140.9,
-            86.9,
-            49.4,
-            24.7,
-            64.8,
-            114.4,
-            137.4
-          ],
-          "text": "Pricing",
-          "line-color": "#007790",
-          "legend-item": {
-            "background-color": "#007790",
-            "borderRadius": 5,
-            "font-color": "white"
-          },
-          "legend-marker": {
-            "visible": false
-          },
-          "marker": {
-            "background-color": "#007790",
-            "border-width": 1,
-            "shadow": 0,
-            "border-color": "#69dbf1"
-          },
-          "highlight-marker": {
-            "size": 6,
-            "background-color": "#007790",
-          }
-        },
-        {
-          "values": dataArray,
-          "text": "Documentation",
-          "line-color": "#009872",
-          "legend-item": {
-            "background-color": "#009872",
-            "borderRadius": 5,
-            "font-color": "white"
-          },
-          "legend-marker": {
-            "visible": false
-          },
-          "marker": {
-            "background-color": "#009872",
-            "border-width": 1,
-            "shadow": 0,
-            "border-color": "#69f2d0"
-          },
-          "highlight-marker": {
-            "size": 6,
-            "background-color": "#009872",
-          }
-        },
-        {
-          "values": [
-            536.9,
-            576.4,
-            639.3,
-            669.4,
-            708.7,
-            691.5,
-            681.7,
-            673,
-            701.8,
-            636.4,
-            637.8,
-            640.5,
-            653.1,
-            613.7,
-            583.4,
-            538,
-            506.7,
-            563.1,
-            541.4,
-            489.3,
-            434.7,
-            442.1,
-            482.3,
-            495.4,
-            556.1,
-            505.4,
-            463.8,
-            434.7,
-            377.4,
-            325.4,
-            351.7,
-            343.5,
-            333.2,
-            332,
-            378.9,
-            415.4,
-            385,
-            412.6,
-            445.9,
-            441.5
-          ],
-          "text": "Support",
-          "line-color": "#da534d",
-          "legend-item": {
-            "background-color": "#da534d",
-            "borderRadius": 5,
-            "font-color": "white"
-          },
-          "legend-marker": {
-            "visible": false
-          },
-          "marker": {
-            "background-color": "#da534d",
-            "border-width": 1,
-            "shadow": 0,
-            "border-color": "#faa39f"
-          },
-          "highlight-marker": {
-            "size": 6,
-            "background-color": "#da534d",
-          }
-        }
-      ]
-    };
  
-    zingchart.render({
-      id: 'myChart',
-      data: myConfig,
-      height: '100%',
-      width: '100%'
-    });
-  </script>
-
-  <!-- <div id='barChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+<body>
+  <!-- CHART CONTAINER -->
+  <div class="chart--main">
+    <div class="chart--row">
+      <div id="myChart1" class="chart--container">
+        <a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+      </div>
+    </div>
+    <div class="chart--row">
+      <div id="myChart2" class="chart--container">
+        <a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+      </div>
+    </div>
+    <div class="chart--row">
+      <div id="myChart3" class="chart--container">
+        <a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+      </div>
+    </div>
+  </div>
   <script>
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-    var myConfig = {
-      "graphset": [{
-        "type": "bar",
-        "background-color": "white",
-        "title": {
-          "text": "Tech Giant Quarterly Revenue",
-          "font-color": "#7E7E7E",
-          "backgroundColor": "none",
-          "font-size": "22px",
-          "alpha": 1,
-          "adjust-layout": true,
-        },
-        "plotarea": {
-          "margin": "dynamic"
-        },
-        "legend": {
-          "layout": "x3",
-          "overflow": "page",
-          "alpha": 0.05,
-          "shadow": false,
-          "align": "center",
-          "adjust-layout": true,
-          "marker": {
-            "type": "circle",
-            "border-color": "none",
-            "size": "10px"
-          },
-          "border-width": 0,
-          "maxItems": 3,
-          "toggle-action": "hide",
-          "pageOn": {
-            "backgroundColor": "#000",
-            "size": "10px",
-            "alpha": 0.65
-          },
-          "pageOff": {
-            "backgroundColor": "#7E7E7E",
-            "size": "10px",
-            "alpha": 0.65
-          },
-          "pageStatus": {
-            "color": "black"
-          }
-        },
-        "plot": {
-          "bars-space-left": 0.15,
-          "bars-space-right": 0.15,
-          "animation": {
-            "effect": "ANIMATION_SLIDE_BOTTOM",
-            "sequence": 0,
-            "speed": 800,
-            "delay": 800
-          }
-        },
-        "scale-y": {
-          "line-color": "#7E7E7E",
-          "item": {
-            "font-color": "#7e7e7e"
-          },
-          "values": "0:60:10",
-          "guide": {
-            "visible": true
-          },
-          "label": {
-            "text": "$ Billions",
-            "font-family": "arial",
-            "bold": true,
-            "font-size": "14px",
-            "font-color": "#7E7E7E",
-          },
-        },
-        "scaleX": {
-          "values": [
-            "Q3",
-            "Q4",
-            "Q1",
-            "Q2"
-          ],
-          "placement": "default",
-          "tick": {
-            "size": 58,
-            "placement": "cross"
-          },
-          "itemsOverlap": true,
-          "item": {
-            "offsetY": -55
-          }
-        },
-        "scaleX2": {
-          "values": ["2013", "2014"],
-          "placement": "default",
-          "tick": {
-            "size": 20,
-          },
-          "item": {
-            "offsetY": -15
-          }
-        },
-        "tooltip": {
-          "visible": false
-        },
-        "crosshair-x": {
-          "line-width": "100%",
-          "alpha": 0.18,
-          "plot-label": {
-            "header-text": "%kv Sales"
-          }
-        },
-        "series": [{
-            "values": [
-              37.47,
-              57.59,
-              45.65,
-              37.43
-            ],
-            "alpha": 0.95,
-            "borderRadiusTopLeft": 7,
-            "background-color": "purple",
-            "text": "Apple",
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"]; // window:load event for Javascript to run after HTML
+    // because this Javascript is injected into the document head
+    window.addEventListener('load', () => {
+      // Javascript code to execute after DOM content
+ 
+      // full ZingChart schema can be found here:
+      // https://www.zingchart.com/docs/api/json-configuration/
+      let chartConfig1 = {
+        type: 'line',
+        series: [{
+            values: [76, 23, 15, 85, 13]
           },
           {
-            "values": [
-              2.02,
-              2.59,
-              2.5,
-              2.91
-            ],
-            "borderRadiusTopLeft": 7,
-            "alpha": 0.95,
-            "background-color": "orange",
-            "text": "Facebook"
-          },
-          {
-            "values": [
-              13.4,
-              14.11,
-              14.89,
-              16.86
-            ],
-            "alpha": 0.95,
-            "borderRadiusTopLeft": 7,
-            "background-color": "teal",
-            "text": "Google"
-          },
-          {
-            "values": [
-              18.53,
-              24.52,
-              20.4,
-              23.38
-            ],
-            "borderRadiusTopLeft": 7,
-            "alpha": 0.95,
-            "background-color": "red",
-            "text": "Microsoft"
-          },
-          {
-            "values": [
-              17.09,
-              25.59,
-              19.74,
-              19.34
-            ],
-            "borderRadiusTopLeft": 7,
-            "alpha": 0.95,
-            "background-color": "blue",
-            "text": "Amazon"
-          },
-          {
-            "values": [
-              2.31,
-              2.36,
-              2.42,
-              2.52
-            ],
-            "borderRadiusTopLeft": 7,
-            "alpha": 0.95,
-            "background-color": "green",
-            "text": "Cognizant"
+            values: [36, 53, 65, 25, 45]
           }
         ]
-      }]
-    };
+      };
+      let chartConfig2 = {
+        type: 'funnel',
+        series: [{
+            values: [30]
+          },
+          {
+            values: [15]
+          },
+          {
+            values: [5]
+          },
+          {
+            values: [3]
+          }
+        ]
+      };
+      let chartConfig3 = {
+        type: 'pie',
+        series: [{
+            values: [15]
+          },
+          {
+            values: [30]
+          },
+          {
+            values: [34]
+          }
+        ]
+      };
  
-    zingchart.render({
-      id: 'myChart',
-      data: myConfig,
-      height: '100%',
-      width: '100%'
+ 
+ 
+      // render chart with width and height to
+      // fill the parent container CSS dimensions
+      zingchart.render({
+        id: 'myChart1',
+        data: chartConfig1,
+        height: '100%',
+        width: '100%',
+      });
+      zingchart.render({
+        id: 'myChart2',
+        data: chartConfig2,
+        height: '100%',
+        width: '100%',
+      });
+      zingchart.render({
+        id: 'myChart3',
+        data: chartConfig3,
+        height: '100%',
+        width: '100%',
+      });
+ 
     });
-  </script> -->
+  </script>
 </body>
  
 </html>
