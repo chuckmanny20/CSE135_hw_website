@@ -107,8 +107,7 @@
 		}
 
 		// log the parse result to see
-		var jsonText = getData('static');
-		var dataArray = parseJsonObject(jsonText, 'isCssAllowed');
+		var dataArray = parseJsonObject(getData('static'), 'isCssAllowed');
 		console.log(dataArray);
 
 		// ----------------------------------------
