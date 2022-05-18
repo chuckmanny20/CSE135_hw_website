@@ -88,9 +88,9 @@
       console.log(jsonText);
       var jsonObject = JSON.parse(jsonText);
       var res = [];
-      for (var record in jsonObject) {
-        console.log(record);
-        res.push(record[target]);
+      for (var ind in jsonObject) {
+        console.log(jsonObject[ind]);
+        res.push(jsonObject[ind][target]);
       }
       return res;
     }
