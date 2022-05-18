@@ -76,8 +76,6 @@
   </div>
 
   <!-- script to send GET request and parse data -->
-  <script src="getData.js"></script>
-
   <script>
 		// send GET request and get the JSON object return
 		// dataType: static/performance/activity
@@ -88,8 +86,8 @@
 			httpRequest.send();
 			httpRequest.onreadystatechange = function () {
 				if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-					var json = httpRequest.responseText;
-					return json;
+					var jsonText = httpRequest.responseText;
+					return jsonText;
 				}
 			};
 		}
@@ -98,6 +96,7 @@
 		// param: jsonText, target: isCSSAllowed/isImageAllowed/etc
 		// return: array of target data
 		function parseJsonObject(jsonText, target) {
+			console.log(jsonText);
 			var jsonObject = JSON.parse(jsonText);
 			var res = [];
 			for (var record in jsonObject) {
