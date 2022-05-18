@@ -148,14 +148,13 @@ server.delete('/performance/:Pageid', (req, res) => {
 
 server.delete('/activity/:Pageid', (req, res) => { 
     let PageID = req.params.Pageid
-    res.send(PageID);
 
     if (PageID == 'all') {
         connection.query("DELETE * FROM Activity;", [], (err, rows, fields) => { });
-        // res.send('Deleted everything from Activity table!');
+        res.send('Deleted everything from Activity table!');
     } else {
         connection.query("DELETE FROM Activity WHERE Pageid = ?;", [PageID], (err, rows, fields) => { });
-        // res.send('Deleted from Activity table!');
+        res.send('Deleted from Activity table!');
     }
 });
 
