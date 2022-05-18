@@ -98,6 +98,9 @@
       // https://www.zingchart.com/docs/api/json-configuration/
 
       var listOfIdles = getData('activity', 'idleLengthList');
+      console.log(listOfIdles);
+      listOfIdles.sort();
+      console.log(listOfIdles);
 
       let chartConfig1 = {
         type: 'line',
