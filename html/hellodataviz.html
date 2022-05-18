@@ -167,13 +167,14 @@
         },
         //real-time feed
         refresh: {
-          type: 'feed',
-          transport: 'http',
-          url: 'https://zhaoxinglyu.site/api/static',
-          interval: 200,
-          maxTicks: 20,
-          adjustScale: true,
-          resetTimeout: 60,
+            type: 'feed',
+            transport: 'websockets',
+            url: 'https://zhaoxinglyu.site/api/static',
+            method: 'get',
+            interval: 200,
+            maxTicks: 20,
+            adjustScale: true,
+            resetTimeout: 60,
         },
         plot: {
           shadow: 1,
