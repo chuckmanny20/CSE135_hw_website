@@ -166,6 +166,8 @@
       }
       var pageData = [];
       for (key in map) {
+        console.log(key);
+        console.log(map.get(key));
         pageData.push({text: key, values: map.get(key)});
       }
       console.log(pageData);
