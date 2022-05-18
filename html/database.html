@@ -12,9 +12,46 @@
 		}
 
 		zing-grid {
-			height: 60px;
+			background: #eeeeee;
+			font-size: 1.2rem;
+			padding: 10px;
+			box-shadow: 0 0 9px rgba(0, 0, 0, .15);
 		}
-		
+
+		zg-caption {
+			background-color: darkorange;
+			color: white;
+			font-weight: bold;
+			opacity: 0.6;
+			text-align: center;
+			transition: 0.3s opacity;
+			font-size: 2rem;
+		}
+
+		zg-caption:hover {
+			opacity: 1;
+		}
+
+		zg-head {
+			color: orange;
+		}
+
+		zg-cell {
+			color: blue;
+			transition: 1s background-color;
+		}
+
+		zg-cell:hover {
+			background-color: orange;
+		}
+
+		zg-body zg-row:nth-child(odd) {
+			background-color: lightblue;
+		}
+
+		zg-pager {
+			background: #bdbdbd;
+		}
 	</style>
 </head>
 
