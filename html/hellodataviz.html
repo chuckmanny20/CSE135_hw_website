@@ -85,7 +85,6 @@
     // param: jsonText, target: isCSSAllowed/isImageAllowed/etc
     // return: array of target data
     function parseJsonObject(jsonText, target) {
-      console.log(jsonText);
       var jsonObject = JSON.parse(jsonText);
       var res = [];
       for (var ind in jsonObject) {
@@ -96,7 +95,6 @@
 
     // log the parse result to see
     var dataArray = getData('static', 'isCSSAllowed');
-    console.log(dataArray);
 
     // ------------------------------
 
@@ -255,48 +253,7 @@
           }
         },
         {
-          "values": [
-            714.6,
-            656.3,
-            660.6,
-            729.8,
-            731.6,
-            682.3,
-            654.6,
-            673.5,
-            700.6,
-            755.2,
-            817.8,
-            809.1,
-            815.2,
-            836.6,
-            897.3,
-            896.9,
-            866.5,
-            835.8,
-            797.9,
-            784.7,
-            802.8,
-            749.3,
-            722.1,
-            688.1,
-            730.4,
-            661.5,
-            609.7,
-            630.2,
-            633,
-            604.2,
-            558.1,
-            581.4,
-            511.5,
-            556.5,
-            542.1,
-            599.7,
-            664.8,
-            725.3,
-            694.2,
-            690.5
-          ],
+          "values": dataArray,
           "text": "Documentation",
           "line-color": "#009872",
           "legend-item": {
