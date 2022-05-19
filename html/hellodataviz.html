@@ -148,7 +148,7 @@
 
         var showedIndSet = new Set();
         while (showedIndSet.length < 7) {
-          var ind = Math.floor(Math.random() * timeStartLoad);
+          var ind = Math.floor(Math.random() * timeStartLoad.length);
           showedIndSet.add(ind);
         }
 
@@ -162,7 +162,7 @@
         timeStartLoad = showedTimeStartLoad;
         timeEndLoad = showedTimeEndLoad;
       }
-      
+
       let chartConfig2 = {
         type: "bar",
         legend: {
