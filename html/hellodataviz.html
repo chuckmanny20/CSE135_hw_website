@@ -147,23 +147,22 @@
         var showedTimeEndLoad = [];
 
         var showedIndSet = new Set();
-        while (showedIndSet.length < 7) {
+        while (showedIndSet.size < 7) {
           var ind = Math.floor(Math.random() * timeStartLoad.length);
           showedIndSet.add(ind);
         }
 
-        for (var i = 0; i < 7; i++) {
-          showedTimeTotalLoad.push(timeTotalLoad[showedIndSet[i]]);
-          showedTimeStartLoad.push(timeStartLoad[showedIndSet[i]]);
-          showedTimeEndLoad.push(timeEndLoad[showedIndSet[i]]);
+        var showedIndArr = Array.from(showedIndSet);
+        for (var i in showedIndArr) {
+          showedTimeTotalLoad.push(timeTotalLoad[showedIndArr[i]]);
+          showedTimeStartLoad.push(timeStartLoad[showedIndArr[i]]);
+          showedTimeEndLoad.push(timeEndLoad[showedIndArr[i]]);
         }
 
         timeTotalLoad = showedTimeTotalLoad;
         timeStartLoad = showedTimeStartLoad;
         timeEndLoad = showedTimeEndLoad;
       }
-
-      console.log(timeTotalLoad);
 
       let chartConfig2 = {
         type: "bar",
