@@ -106,10 +106,12 @@
         var bLen = b==null ? 0 : b.length;
         return bLen - aLen;
       });      
-      // console.log(listOfIdles);
 
       let chartConfig1 = {
         type: 'line',
+        title: {
+          text: 'Idle Times of 3 Users',
+        },
         legend: {
           "toggle-action": "hide",
           "header": {
@@ -122,15 +124,15 @@
           "drag-handler": "icon"
         },
         series: [{
-            values: listOfIdles[0],
+            values: listOfIdles[3].split(",").map(Number),
             text: "idleOfUser1"
           },
           {
-            values: listOfIdles[1],
+            values: listOfIdles[5].split(",").map(Number),
             text: "idleOfUser2"
           },
           {
-            values: listOfIdles[2],
+            values: listOfIdles[6].split(",").map(Number),
             text: "idleOfUser3"
           }
         ]
@@ -166,10 +168,13 @@
 
       let chartConfig2 = {
         type: "bar",
+        title: {
+          text: 'Loading Time of Random Selected Users',
+        },
         legend: {
           "toggle-action": "hide",
           "header": {
-            "text": "Time of loading"
+            "text": "Loading time"
           },
           "item": {
             "cursor": "pointer"
@@ -205,6 +210,9 @@
       }
       let chartConfig3 = {
         type: 'pie',
+        title: {
+          text: 'Accessed page',
+        },
         legend: {
           "toggle-action": "hide",
           "header": {
