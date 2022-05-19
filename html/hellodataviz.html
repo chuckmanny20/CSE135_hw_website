@@ -140,8 +140,6 @@
       var timeStartLoad = getData('performance', 'timeStartLoad');
       var timeEndLoad = getData('performance', 'timeEndLoad');
 
-      console.log(timeTotalLoad);
-
       if (timeTotalLoad.length > 7) {
         // random sample 7 to show
         var showedTimeTotalLoad = [];
@@ -155,17 +153,15 @@
         }
 
         for (var i = 0; i < 7; i++) {
-          showedTimeTotalLoad.push(timeTotalLoad[i]);
-          showedTimeStartLoad.push(timeStartLoad[i]);
-          showedTimeEndLoad.push(timeEndLoad[i]);
+          showedTimeTotalLoad.push(timeTotalLoad[showedIndSet[i]]);
+          showedTimeStartLoad.push(timeStartLoad[showedIndSet[i]]);
+          showedTimeEndLoad.push(timeEndLoad[ishowedIndSet[i]]);
         }
 
         timeTotalLoad = showedTimeTotalLoad;
         timeStartLoad = showedTimeStartLoad;
         timeEndLoad = showedTimeEndLoad;
       }
-
-      console.log(timeTotalLoad);
       
       let chartConfig2 = {
         type: "bar",
