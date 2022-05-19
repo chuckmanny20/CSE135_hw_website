@@ -140,6 +140,8 @@
       var timeStartLoad = getData('performance', 'timeStartLoad');
       var timeEndLoad = getData('performance', 'timeEndLoad');
 
+      console.log(timeTotalLoad);
+
       if (timeTotalLoad.length > 7) {
         // random sample 7 to show
         var showedTimeTotalLoad = [];
@@ -162,6 +164,8 @@
         timeStartLoad = showedTimeStartLoad;
         timeEndLoad = showedTimeEndLoad;
       }
+
+      console.log(timeTotalLoad);
       
       let chartConfig2 = {
         type: "bar",
