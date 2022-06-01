@@ -1,2 +1,4 @@
 html/cgi-bin/*.cgi
 html/db_api.json
+reporting/node_modules
+reporting/.env
