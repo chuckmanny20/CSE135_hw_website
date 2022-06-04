@@ -9,8 +9,10 @@ if (process.env.NODE_ENV !== 'production') {
   const flash = require('express-flash')
   const session = require('express-session')
   const methodOverride = require('method-override')
-  
   const initializePassport = require('./passport-config')
+  
+
+const { Router } = require('express')
   initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -63,7 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
     }
   })
   
-  app.delete('/logout', (req, res) => {
+  app.post('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
   })
