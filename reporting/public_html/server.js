@@ -9,10 +9,8 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+
 const initializePassport = require('./passport-config')
-
-
-const { Router } = require('express')
 initializePassport(
   passport,
   email => users.find(user => user.email === email),
@@ -21,11 +19,13 @@ initializePassport(
 
 const users = []
 
+app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(session({
-  secret: 'secret',
-  //secret: process.env.SESSION_SECRET,
+  // hard-code if not working
+  //secret: 'secret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
@@ -34,11 +34,11 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.sendFile('index.html', { root: __dirname })
+  res.render('authapp/index.ejs', { name: req.user.name })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.sendFile('authapp/login.html', { root: __dirname })
+  res.render('authapp/login.ejs')
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -48,7 +48,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.sendFile('authapp/register.html', { root: __dirname })
+  res.render('authapp/register.ejs')
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -66,7 +66,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.post('/logout', (req, res) => {
+app.delete('/logout', (req, res) => {
   req.logOut()
   res.redirect('/authapp/login')
 })
