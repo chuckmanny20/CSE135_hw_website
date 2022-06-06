@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt')
 function initialize(passport, getUserByEmail, getUserByName, getUserById) {
   const authenticateUser = async (email, name, password, done) => {
     if(getUserByEmail(email) != null) {
-      const user = getUserByEmail(email)
+      let user = getUserByEmail(email)
     } else {
-      const user = getUserByName(name)
+      let user = getUserByName(name)
     }
-    
+
     if (user == null) {
       return done(null, false, { message: 'No user with that name or email' })
     }
