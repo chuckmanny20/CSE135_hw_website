@@ -27,8 +27,7 @@ connection.connect(function (err) {
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  name => users.find(user => user.name === name),
+  email => users.find(user => (user.email === email) || (user.name === email)),
   id => users.find(user => user.id === id)
 )
 
