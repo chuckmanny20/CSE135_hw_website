@@ -34,7 +34,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.sendFile('public_html/index.html', { root: __dirname })
+  res.sendFile('index.html', { root: __dirname })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -43,7 +43,7 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login',
+  failureRedirect: '/authapp/login',
   failureFlash: true
 }))
 
@@ -60,22 +60,22 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
       email: req.body.email,
       password: hashedPassword
     })
-    res.redirect('/login')
+    res.redirect('/authapp/login')
   } catch {
-    res.redirect('/register')
+    res.redirect('/authapp/register')
   }
 })
 
 app.post('/logout', (req, res) => {
   req.logOut()
-  res.redirect('/login')
+  res.redirect('/authapp/login')
 })
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   }
-  res.redirect('/login')
+  res.redirect('/authapp/login')
 }
 
 function checkNotAuthenticated(req, res, next) {
