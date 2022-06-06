@@ -16,7 +16,8 @@
 
 </body>
 
-<form action="/authapp/logout" method="POST">
+<!-- we use method-override b/c we want to do an app.delete() but forms can only do GET and POST -->
+<form action="/authapp/logout?_method=DELETE" method="POST">
 	<button type="submit">Log Out</button>
 </form>
 
