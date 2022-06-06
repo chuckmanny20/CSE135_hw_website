@@ -25,6 +25,7 @@ const { Router } = require('express')
   app.use(flash())
   app.use(session({
     secret: 'secret',
+    // secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
   }))
