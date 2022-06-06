@@ -67,8 +67,11 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 })
 
 app.delete('/logout', (req, res) => {
-  req.logOut()
-  res.redirect('/authapp/login')
+  // logout() is now an async function after version 0.6.0
+  req.logOut(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/authapp/login')
+  })
 })
 
 function checkAuthenticated(req, res, next) {
