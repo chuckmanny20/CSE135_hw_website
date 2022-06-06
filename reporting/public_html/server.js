@@ -36,7 +36,7 @@ const users = []
 // grab all users in database (lol this would be trash in a real app)
 connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
   console.log(rows);
-  console.log(JSON.parse(rows));
+  console.log(rows['name']);
 });
 
 /*users.push({
