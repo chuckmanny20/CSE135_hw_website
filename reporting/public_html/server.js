@@ -62,7 +62,7 @@ const { Router } = require('express')
       })
       res.redirect('/login')
     } catch {
-      res.redirect('/register')
+      res.redirect('authapp/register')
     }
   })
   
