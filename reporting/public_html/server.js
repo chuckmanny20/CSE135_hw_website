@@ -10,6 +10,20 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 
+const mysql = require('mysql');
+const connection = mysql.createConnection({
+  host     : 'localhost',
+  port     : '/var/run/mysqld/mysqld.sock',
+  user     : 'liam',
+  password : 'LIAM20forSQL!',
+  database : 'ReportingDatabase'
+});
+
+// Connect ONCE
+connection.connect(function (err) {
+  if(err) throw err;
+})
+
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -18,6 +32,19 @@ initializePassport(
 )
 
 const users = []
+
+// grab all users in database (lol this would be trash in a real app)
+connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
+  console.log(rows);
+  console.log(JSON.parse(rows));
+});
+
+/*users.push({
+  id: ,
+  name: ,
+  email: ,
+  password: 
+})*/
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -60,6 +87,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
       email: req.body.email,
       password: hashedPassword
     })
+    // TODO: Change users to work with our sql server
+    // Make sure NO DUPLICATE EMAILS!
     res.redirect('/authapp/login')
   } catch {
     res.redirect('/authapp/register')
