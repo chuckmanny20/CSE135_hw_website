@@ -35,16 +35,18 @@ const users = []
 
 // grab all users in database (lol this would be trash in a real app)
 connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
-  console.log(rows);
-  console.log(rows[0]['name']);
-});
+  //console.log(rows[0]['name']);
 
-/*users.push({
-  id: ,
-  name: ,
-  email: ,
-  password: 
-})*/
+  for(let i = 0; i < rows.length; i++) {
+    users.push({
+      id: rows[i]['id'],
+      isAdmin: rows[i]['isAdmin'],
+      name: rows[i]['name'],
+      email: rows[i]['email'],
+      password: rows[i]['password'] 
+    })
+  }
+});
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -81,14 +83,18 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 app.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    userID = Date.now().toString()
     users.push({
-      id: Date.now().toString(),
+      id: userID,
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword
     })
-    // TODO: Change users to work with our sql server
-    // Make sure NO DUPLICATE EMAILS!
+    // Change users to work with our sql server
+    // Storing into SQL server
+    connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?);", [req.body.name, req.body.email, hashedPassword, 0, userID], (err, rows, fields) => {
+
+    });
     res.redirect('/authapp/login')
   } catch {
     res.redirect('/authapp/register')
