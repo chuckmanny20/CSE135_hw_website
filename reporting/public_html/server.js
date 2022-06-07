@@ -121,6 +121,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 })
 
 app.get('/users', checkIsAdmin, (req, res) => {
+  console.log(req.body)
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/users.ejs')
 })
@@ -132,10 +133,6 @@ app.delete('/logout', (req, res) => {
     res.redirect('/authapp/login')
   })
 })
-
-app.get('/users', (req, res) => {
-  res.render('./authapp/users.ejs');
-});
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -152,10 +149,6 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 function checkIsAdmin(req, res, next) {
-  console.log(req.body.user)
-  console.log(req.body)
-  console.log(name)
-  console.log(email)
   //if(req.isAuthenticated() && req.body.user)
 }
 
