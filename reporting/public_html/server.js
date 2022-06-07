@@ -150,6 +150,7 @@ function checkNotAuthenticated(req, res, next) {
 
 function checkIsAdmin(req, res, next) {
   //if(req.isAuthenticated() && req.body.user)
+  next()
 }
 
 app.listen(3003)
