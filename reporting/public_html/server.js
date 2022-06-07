@@ -88,7 +88,7 @@ app.post('/login', function (req, res, next) {
     req.logIn(user, function (err) {
       if (err) return next(err);
 
-      if (Number(user['isAdmin']) == 1) return res.render('./authapp/admin.ejs');
+      if (Number(user['isAdmin']) == 1) return res.render('./authapp/admin.ejs', { name: req.user.name });
       else return res.redirect('/authapp');
     });
   })(req, res, next);
