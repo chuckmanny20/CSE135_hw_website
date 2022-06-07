@@ -66,29 +66,29 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('./authapp/index.ejs', { name: req.user.name })
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('./authapp/login.ejs')
-})
+// app.get('/login', checkNotAuthenticated, (req, res) => {
+//   res.render('./authapp/login.ejs')
+// })
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/authapp',
-  failureRedirect: '/authapp/login',
-  failureFlash: true
-}))
+// app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+//   successRedirect: '/authapp',
+//   failureRedirect: '/authapp/login',
+//   failureFlash: true
+// }))
 
-// app.get('/login', function (req, res, next) {
-//   passport.authenticate('local', function (err, user, info) {
-//     if (err) return next(err);
-//     if (!user) return res.render('/authapp/login.ejs');   // TODO: how to add failureFlash?
+app.get('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) return next(err);
+    if (!user) return res.render('./authapp/login.ejs');   // TODO: how to add failureFlash?
 
-//     req.logIn(function (err) {
-//       if (err) return next(err);
+    req.logIn(function (err) {
+      if (err) return next(err);
 
-//       if (isAdmin(req, res)) return res.render('/authapp/users.ejs');
-//       else return res.redirect('/authapp');
-//     });
-//   })(req, res, next);
-// });
+      if (isAdmin(req, res)) return res.render('./authapp/users.ejs');
+      else return res.redirect('/authapp');
+    });
+  })(req, res, next);
+});
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/register.ejs')
