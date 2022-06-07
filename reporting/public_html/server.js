@@ -66,9 +66,9 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('/authapp/index.ejs', { name: req.user.name })
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('/authapp/login.ejs')
-})
+// app.get('/login', checkNotAuthenticated, (req, res) => {
+//   res.render('/authapp/login.ejs')
+// })
 
 // app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 //   successRedirect: '/authapp',
@@ -76,7 +76,7 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 //   failureFlash: true
 // }))
 
-app.post('/login', function (req, res, next) {
+app.get('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     console.log(1111111);
     if (err) return next(err);
