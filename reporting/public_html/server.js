@@ -70,32 +70,27 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/login.ejs')
 })
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successFlash: function (err, user, info) {
+// app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+//   successRedirect: '/authapp',
+//   failureRedirect: '/authapp/login',
+//   failureFlash: true
+// }))
+
+app.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
     if (err) return next(err);
-    if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
-    else return res.redirect('/authapp');
-  },
-  // successRedirect: '/authapp',
-  failureRedirect: '/authapp/login',
-  failureFlash: true
-}))
-
-// app.post('/login', function (req, res, next) {
-//   passport.authenticate('local', function (err, user, info) {
-//     if (err) return next(err);
-//     if (!user) return res.render('./authapp/login.ejs');   
-//     // TODO: how to add failureFlash?
-//     // TODO: what if user exist but password wrong?
+    if (!user) return res.render('./authapp/login.ejs');   
+    // TODO: how to add failureFlash?
+    // TODO: what if user exist but password wrong?
     
-//     req.logIn(function (err) {
-//       // if (err) return next(err);
+    req.logIn(user, function (err) {
+      if (err) return next(err);
 
-//       if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
-//       else return res.redirect('/authapp');
-//     });
-//   })(req, res, next);
-// });
+      if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
+      else return res.redirect('/authapp');
+    });
+  })(req, res, next);
+});
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/register.ejs')
@@ -148,17 +143,5 @@ function checkNotAuthenticated(req, res, next) {
   }
   next()
 }
-
-// function isAdmin(req, res, next) {
-//   console.log(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
-//     [req.body, email],
-//     (err, rows, fields) => { }
-//   ));
-//   let isAdmin = Number(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
-//     [req.body, email],
-//     (err, rows, fields) => { }
-//   ));
-//   return isAdmin == 1;
-// }
 
 app.listen(3003)
