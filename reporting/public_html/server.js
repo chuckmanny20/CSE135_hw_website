@@ -64,7 +64,7 @@ app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
   res.setHeader('Cache-Control', 'no-cache')
-  res.render('./authapp/index.ejs', { name: req.user.name, isAdmin: users.find(user => req.user.name.toLowerCase() === user['name'])['isAdmin'] })
+  res.render('./authapp/index.ejs', { name: req.user.name, isAdmin: users.find(u => req.user.name.toLowerCase() === u.name).isAdmin })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
