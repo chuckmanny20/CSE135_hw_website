@@ -68,6 +68,7 @@ app.get('/', checkAuthenticated, (req, res) => {
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/login.ejs')
 })
 
@@ -87,7 +88,7 @@ app.post('/login', function (req, res, next) {
     req.logIn(user, function (err) {
       if (err) return next(err);
 
-      if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
+      if (Number(user['isAdmin']) == 1) return res.render('./authapp/admin.ejs');
       else return res.redirect('/authapp');
     });
   })(req, res, next);
@@ -119,6 +120,11 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
+app.get('/users', checkIsAdmin, (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache')
+  res.render('./authapp/users.ejs')
+})
+
 app.delete('/logout', (req, res) => {
   // logout() is now an async function after version 0.6.0
   req.logOut(function (err) {
@@ -143,6 +149,11 @@ function checkNotAuthenticated(req, res, next) {
     return res.redirect('/authapp')
   }
   next()
+}
+
+function checkIsAdmin(req, res, next) {
+  console.log(req.body.user)
+  //if(req.isAuthenticated() && req.body.user)
 }
 
 app.listen(3003)
