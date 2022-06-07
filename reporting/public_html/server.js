@@ -76,7 +76,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
     else return res.redirect('/authapp');
   },
-  successRedirect: '/authapp',
+  // successRedirect: '/authapp',
   failureRedirect: '/authapp/login',
   failureFlash: true
 }))
