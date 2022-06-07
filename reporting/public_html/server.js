@@ -64,7 +64,7 @@ app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
   res.setHeader('Cache-Control', 'no-cache')
-  res.render('./authapp/index.ejs', { name: req.user.name })
+  res.render('./authapp/index.ejs', { name: req.user.name, isAdmin: user['isAdmin'] })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
