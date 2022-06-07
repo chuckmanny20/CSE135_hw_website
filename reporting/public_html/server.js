@@ -63,7 +63,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.setHeader('Cache-Control: no-cache')
+  res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/index.ejs', { name: req.user.name })
 })
 
