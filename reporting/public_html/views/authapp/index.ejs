@@ -22,4 +22,10 @@
 	<button type="submit">Log Out</button>
 </form>
 
+<% if(isAdmin) { %>
+<form action="/authapp/users" method="GET">
+	<button type="submit">User Manager</button>
+</form>
+<% } %>
+
 </html>
