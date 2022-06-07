@@ -12,16 +12,16 @@ const methodOverride = require('method-override')
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host     : 'localhost',
-  port     : '/var/run/mysqld/mysqld.sock',
-  user     : 'liam',
-  password : 'LIAM20forSQL!',
-  database : 'ReportingDatabase'
+  host: 'localhost',
+  port: '/var/run/mysqld/mysqld.sock',
+  user: 'liam',
+  password: 'LIAM20forSQL!',
+  database: 'ReportingDatabase'
 });
 
 // Connect ONCE
 connection.connect(function (err) {
-  if(err) throw err;
+  if (err) throw err;
 })
 
 const initializePassport = require('./passport-config')
@@ -37,13 +37,13 @@ const users = []
 connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
   //console.log(rows[0]['name']);
 
-  for(let i = 0; i < rows.length; i++) {
+  for (let i = 0; i < rows.length; i++) {
     users.push({
       id: rows[i]['id'],
       isAdmin: rows[i]['isAdmin'],
       name: rows[i]['name'],
       email: rows[i]['email'],
-      password: rows[i]['password'] 
+      password: rows[i]['password']
     })
   }
 });
@@ -53,8 +53,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(session({
   // hard-code if not working
-  //secret: 'secret',
-  secret: process.env.SESSION_SECRET,
+  secret: 'secret',
+  // secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
@@ -63,21 +63,34 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('authapp/index.ejs', { name: req.user.name })
+  res.render('/authapp/index.ejs', { name: req.user.name })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('authapp/login.ejs')
+  res.render('/authapp/login.ejs')
 })
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/authapp',
-  failureRedirect: '/authapp/login',
-  failureFlash: true
-}))
+// app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+//   successRedirect: '/authapp',
+//   failureRedirect: '/authapp/login',
+//   failureFlash: true
+// }))
+
+app.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+      if (err) return next(err);
+      if (!user) return res.redirect('/authapp/login');   // TODO: how to add failureFlash?
+
+      req.logIn(function (err) {
+        if (err) return next(err);
+        if (isAdmin(req, res)) return res.redirect('/authapp/users' + user.username);
+        else return res.redirect('/authapp' + user.username);
+      });
+    })(req, res, next);
+});
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('authapp/register.ejs')
+  res.render('/authapp/register.ejs')
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -92,9 +105,10 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     })
     // Change users to work with our sql server
     // Storing into SQL server
-    connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?);", [req.body.name, req.body.email, hashedPassword, 0, userID], (err, rows, fields) => {
-
-    });
+    connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?);",
+      [req.body.name, req.body.email, hashedPassword, 0, userID],
+      (err, rows, fields) => { }
+    );
     res.redirect('/authapp/login')
   } catch {
     res.redirect('/authapp/register')
@@ -103,11 +117,15 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 
 app.delete('/logout', (req, res) => {
   // logout() is now an async function after version 0.6.0
-  req.logOut(function(err) {
+  req.logOut(function (err) {
     if (err) { return next(err); }
     res.redirect('/authapp/login')
   })
 })
+
+app.get('/users', (req, res) => {
+  res.render('/authapp.users.ejs');
+});
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -121,6 +139,14 @@ function checkNotAuthenticated(req, res, next) {
     return res.redirect('/authapp')
   }
   next()
+}
+
+function isAdmin(req, res, next) {
+  let isAdmin = Number(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
+    [req.body, email],
+    (err, rows, fields) => { }
+  ));
+  return isAdmin == 1;
 }
 
 app.listen(3003)
