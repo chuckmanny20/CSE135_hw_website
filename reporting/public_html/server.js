@@ -67,11 +67,11 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('/authapp/index.ejs', { name: req.user.name })
+  res.render('./authapp/index.ejs', { name: req.user.name })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('/authapp/login.ejs')
+  res.render('./authapp/login.ejs')
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -95,7 +95,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 // });
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('/authapp/register.ejs')
+  res.render('./authapp/register.ejs')
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -129,7 +129,7 @@ app.delete('/logout', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  res.render('/authapp/users.ejs');
+  res.render('./authapp/users.ejs');
 });
 
 function checkAuthenticated(req, res, next) {
