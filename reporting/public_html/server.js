@@ -49,7 +49,7 @@ connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
 });
 
 app.set('views', './views');
-app.set('view-engine', 'ejs')
+app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(session({
