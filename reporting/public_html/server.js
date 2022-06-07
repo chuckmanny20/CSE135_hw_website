@@ -78,12 +78,12 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 
 app.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    console.log(111);
     if (err) return next(err);
-    console.log(222);
-    if (!user) return res.render('./authapp/login.ejs');   // TODO: how to add failureFlash?
+    if (!user) return res.render('./authapp/login.ejs');   
+    // TODO: how to add failureFlash?
+    // TODO: what if user exist but password wrong?
 
-    console.log(333);
+    console.log(user);
     req.logIn(function (err) {
       if (err) return next(err);
 
