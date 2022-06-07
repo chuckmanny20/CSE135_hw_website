@@ -153,6 +153,7 @@ function checkNotAuthenticated(req, res, next) {
 
 function checkIsAdmin(req, res, next) {
   console.log(req.body.user)
+  console.log(user)
   //if(req.isAuthenticated() && req.body.user)
 }
 
