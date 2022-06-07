@@ -122,7 +122,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.get('/users', checkIsAdmin, (req, res) => {
+app.post('/users', checkIsAdmin, (req, res) => {
   console.log(req.body)
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/users.ejs')
