@@ -48,8 +48,8 @@ connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
   }
 });
 
-app.set('views', './views');
-app.set('view engine', 'ejs')
+app.set('view-engine', 'ejs')
+app.set('views', __dirname + '/views');
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(session({
@@ -64,11 +64,11 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('/authapp/index', { name: req.user.name })
+  res.render('/authapp/index.ejs', { name: req.user.name })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('/authapp/login')
+  res.render('/authapp/login.ejs')
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -92,7 +92,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 // });
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('/authapp/register')
+  res.render('/authapp/register.ejs')
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -126,7 +126,7 @@ app.delete('/logout', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  res.render('/authapp/users');
+  res.render('/authapp/users.ejs');
 });
 
 function checkAuthenticated(req, res, next) {
