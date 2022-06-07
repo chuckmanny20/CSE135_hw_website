@@ -78,19 +78,14 @@ app.get('/', checkAuthenticated, (req, res) => {
 
 app.get('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    console.log(1111111);
     if (err) return next(err);
-    console.log(2222222);
-    if (!user) return res.redirect('/authapp/login');   // TODO: how to add failureFlash?
+    if (!user) return res.render('/authapp/login.ejs');   // TODO: how to add failureFlash?
 
     req.logIn(function (err) {
-      console.log(3333333);
-
       if (err) return next(err);
-      console.log(4444444);
 
-      if (isAdmin(req, res)) return res.redirect('/authapp/users' + user.username);
-      else return res.redirect('/authapp' + user.username);
+      if (isAdmin(req, res)) return res.render('/authapp/users.ejs');
+      else return res.redirect('/authapp');
     });
   })(req, res, next);
 });
@@ -147,16 +142,16 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
-function isAdmin(req, res, next) {
-  console.log(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
-    [req.body, email],
-    (err, rows, fields) => { }
-  ));
-  let isAdmin = Number(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
-    [req.body, email],
-    (err, rows, fields) => { }
-  ));
-  return isAdmin == 1;
-}
+// function isAdmin(req, res, next) {
+//   console.log(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
+//     [req.body, email],
+//     (err, rows, fields) => { }
+//   ));
+//   let isAdmin = Number(connection.query("SELECT isAdmin FROM userInfo WHERE email = (?)",
+//     [req.body, email],
+//     (err, rows, fields) => { }
+//   ));
+//   return isAdmin == 1;
+// }
 
 app.listen(3003)
