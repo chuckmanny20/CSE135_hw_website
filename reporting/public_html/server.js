@@ -84,7 +84,7 @@ app.post('/login', function (req, res, next) {
     // TODO: what if user exist but password wrong?
     
     req.logIn(function (err) {
-      if (err) return next(err);
+      // if (err) return next(err);
 
       if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
       else return res.redirect('/authapp');
