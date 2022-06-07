@@ -82,16 +82,13 @@ app.post('/login', function (req, res, next) {
     if (!user) return res.render('./authapp/login.ejs');   
     // TODO: how to add failureFlash?
     // TODO: what if user exist but password wrong?
+    
+    req.logIn(function (err) {
+      if (err) return next(err);
 
-    console.log(user['isAdmin']);
-    if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
-    else return res.redirect('/authapp');
-    // req.logIn(function (err) {
-    //   if (err) return next(err);
-
-    //   if (isAdmin(req, res)) return res.render('./authapp/users.ejs');
-    //   else return res.redirect('/authapp');
-    // });
+      if (Number(user['isAdmin']) == 1) return res.render('./authapp/users.ejs');
+      else return res.redirect('/authapp');
+    });
   })(req, res, next);
 });
 
