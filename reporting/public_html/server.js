@@ -191,9 +191,9 @@ app.post('/123123', async (req, res) => {
 
 // DELETE
 app.delete('/123123/:id', (req, res) => {
-  console.log('DELETE', req.params.id) 
-  console.log(req.body);
-  console.log(req.params);
+  //console.log('DELETE', req.params.id) 
+  //console.log(req.body); --> empty
+  //console.log(req.params); --> has id
 
   // Delete from users
   users = users.filter(user => user.id != req.params.id );
@@ -208,8 +208,17 @@ app.delete('/123123/:id', (req, res) => {
 // UPDATE cell
 app.patch('/123123/:id', (req, res) => {
   console.log('PATCH', req.params.id) 
+  // has the edited value
   console.log(req.body);
+  // has the id
   console.log(req.params);
+
+  // Update users
+  usersIndex = users.findIndex(user => user.id == req.params.id);
+  console.log(req.body[0].key);
+  //users[usersIndex].
+  
+  // Update SQL
 
   res.sendStatus(200);
 });
