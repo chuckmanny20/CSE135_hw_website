@@ -184,6 +184,9 @@ app.post('/123123', async (req, res) => {
     });
 
     res.json(jsonPacket);
+
+    // force reload after
+    location.reload();
   } else {
     res.sendStatus(400);
   }
@@ -248,7 +251,7 @@ app.put('/123123/:id', (req, res) => {
 
   if(req.body.isAdmin === '')
     req.body.isAdmin = 0;
-    
+
   users[usersIndex].isAdmin = req.body.isAdmin;
   users[usersIndex].id = req.body.id;
 
