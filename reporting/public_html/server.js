@@ -170,7 +170,9 @@ app.post('/123123', (req, res) => {
       return hashedPass;
     }
 
-    const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPassword(), isAdmin: packet_isAdmin, id: packet_id};
+    packet_hashedPass = packet_hashedPassword();
+
+    const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPass, isAdmin: packet_isAdmin, id: packet_id};
 
     res.json(jsonPacket);
   } else {
