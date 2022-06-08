@@ -165,18 +165,28 @@ app.post('/123123', async (req, res) => {
     packet_name = req.body.name;
     packet_email = req.body.email;
     packet_hashedPass = await bcrypt.hash(req.body.password, 10);
-    
+
     console.log(packet_hashedPass);
 
     const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPass, isAdmin: packet_isAdmin, id: packet_id};
+
+    //TODO: Update users
+    users.push({
+      id: packet_id,
+      isAdmin: packet_isAdmin,
+      name: packet_name,
+      email: packet_email,
+      password: packet_hashedPass
+    })
+    //TODO: Update SQL server
+    connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?);", [packet_name, packet_email, packet_hashedPass, packet_isAdmin, packet_id], (err, rows, fields) => {
+        
+    });
 
     res.json(jsonPacket);
   } else {
     res.sendStatus(400);
   }
-
-  //TODO: Update users
-  //TODO: Update SQL server
 });
 
 // DELETE
