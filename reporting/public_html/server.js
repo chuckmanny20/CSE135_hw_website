@@ -147,7 +147,7 @@ app.get('/123123', (req, res) => {
 });
 
 // CREATE
-app.post('/123123', (req, res) => {
+app.post('/123123', async (req, res) => {
   //console.log('POST')
   //console.log(req.body);
   if(req.body.name != "" && req.body.email != "" && req.body.password != "" && req.body.isAdmin != "" && req.body.id != "") {
@@ -164,13 +164,8 @@ app.post('/123123', (req, res) => {
     // set rest of vars
     packet_name = req.body.name;
     packet_email = req.body.email;
-    let packet_hashedPassword = async function() {
-      let hashedPass = await bcrypt.hash(req.body.password, 10);
-      console.log(hashedPass);
-      return hashedPass.toString();
-    }
-
-    packet_hashedPass = packet_hashedPassword();
+    packet_hashedPass = await bcrypt.hash(req.body.password, 10);
+    
     console.log(packet_hashedPass);
 
     const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPass, isAdmin: packet_isAdmin, id: packet_id};
