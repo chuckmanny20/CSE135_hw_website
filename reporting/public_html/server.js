@@ -168,7 +168,7 @@ app.post('/123123', (req, res) => {
       return await bcrypt.hash(req.body.password, 10);
     }
 
-    const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPassword, isAdmin: packet_isAdmin, id: packet_id};
+    const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPassword(), isAdmin: packet_isAdmin, id: packet_id};
 
     res.json(jsonPacket);
   } else {
