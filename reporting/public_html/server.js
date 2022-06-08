@@ -221,6 +221,9 @@ app.patch('/123123/:id', (req, res) => {
   console.log(users);
   
   // Update SQL
+  connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, email = ?, password = ?, isAdmin = ?, id = ?;", [users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id'], users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id']], (err, rows, fields) => {
+        
+  });
 
   res.sendStatus(200);
 });
