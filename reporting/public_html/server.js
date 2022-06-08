@@ -63,6 +63,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
+  //these are not empty
   //console.log(req.user)
   //console.log(users)
   res.setHeader('Cache-Control', 'no-cache')
@@ -125,7 +126,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 })
 
 app.post('/users', checkAuthenticated, (req, res) => {
-  console.log(req.body)
+  //console.log(req.body) --> empty :(
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/users.ejs')
 })
