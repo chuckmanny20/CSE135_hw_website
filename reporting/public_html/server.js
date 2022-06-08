@@ -132,10 +132,31 @@ app.post('/users', checkAuthenticated, (req, res) => {
 })
 
 // hidden link on purpose
+// READ
 app.get('/123123', (req, res) => { 
   connection.query("SELECT * from userInfo;", (err, rows, fields) => {
       res.json(rows);
   });
+});
+
+// CREATE
+app.post('/123123', (req, res) => { 
+  console.log(req.body);
+});
+
+// DELETE
+app.delete('/123123', (req, res) => { 
+  console.log(req.body);
+});
+
+// UPDATE cell
+app.patch('/123123', (req, res) => { 
+  console.log(req.body);
+});
+
+// UPDATE row
+app.put('/123123', (req, res) => { 
+  console.log(req.body);
 });
 
 app.delete('/logout', (req, res) => {
