@@ -67,7 +67,7 @@ app.use(methodOverride('_method'))
 var jsonParser = bodyParser.json()
 
 // Add parser for JSON and urlencoded forms
-server.use(jsonParser);
+app.use(jsonParser);
 
 app.get('/', checkAuthenticated, (req, res) => {
   //these are not empty
