@@ -9,6 +9,7 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser');
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -61,6 +62,12 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// Add parser for JSON and urlencoded forms
+server.use(jsonParser);
 
 app.get('/', checkAuthenticated, (req, res) => {
   //these are not empty
