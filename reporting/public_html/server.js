@@ -148,27 +148,39 @@ app.get('/123123', (req, res) => {
 
 // CREATE
 app.post('/123123', (req, res) => {
-  console.log('POST')
-  console.log(req.body);
+  //console.log('POST')
+  //console.log(req.body);
   res.json(req.body);
+
+  //TODO: Update users
+  //TODO: Update SQL server
 });
 
 // DELETE
 app.delete('/123123/:id', (req, res) => {
   console.log('DELETE', req.params.id) 
   console.log(req.body);
+  console.log(req.params);
+
+  res.sendStatus(200);
 });
 
 // UPDATE cell
 app.patch('/123123/:id', (req, res) => {
   console.log('PATCH', req.params.id) 
   console.log(req.body);
+  console.log(req.params);
+
+  res.sendStatus(200);
 });
 
 // UPDATE row
 app.put('/123123/:id', (req, res) => { 
   console.log('PUT', req.params.id) 
   console.log(req.body);
+  console.log(req.params);
+
+  res.sendStatus(200);
 });
 
 app.delete('/logout', (req, res) => {
