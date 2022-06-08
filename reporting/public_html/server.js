@@ -170,7 +170,7 @@ app.post('/123123', async (req, res) => {
 
     const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPass, isAdmin: packet_isAdmin, id: packet_id};
 
-    //TODO: Update users
+    //Update users
     users.push({
       id: packet_id,
       isAdmin: packet_isAdmin,
@@ -178,7 +178,7 @@ app.post('/123123', async (req, res) => {
       email: packet_email,
       password: packet_hashedPass
     })
-    //TODO: Update SQL server
+    //Update SQL server
     connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?);", [packet_name, packet_email, packet_hashedPass, packet_isAdmin, packet_id], (err, rows, fields) => {
         
     });
@@ -195,6 +195,13 @@ app.delete('/123123/:id', (req, res) => {
   console.log(req.body);
   console.log(req.params);
 
+  // Delete from users
+  users = users.filter(user => user.id != req.params.id );
+  console(users);
+
+  // Delete from SQL
+  connection.query("DELETE FROM userInfo WHERE id = ?;", [req.params.id], (err, rows, fields) => { });
+    
   res.sendStatus(200);
 });
 
