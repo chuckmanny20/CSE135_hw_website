@@ -164,7 +164,7 @@ app.post('/123123', (req, res) => {
     // set rest of vars
     packet_name = req.body.name;
     packet_email = req.body.email;
-    packet_hashedPassword = await bcrypt.hash(req.body.password, 10)
+    packet_hashedPassword = bcrypt.hash(req.body.password, 10)
 
     const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPassword, isAdmin: packet_isAdmin, id: packet_id};
 
