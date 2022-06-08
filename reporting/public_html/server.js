@@ -197,7 +197,7 @@ app.delete('/123123/:id', (req, res) => {
 
   // Delete from users
   users = users.filter(user => user.id != req.params.id );
-  console(users);
+  console.log(users);
 
   // Delete from SQL
   connection.query("DELETE FROM userInfo WHERE id = ?;", [req.params.id], (err, rows, fields) => { });
