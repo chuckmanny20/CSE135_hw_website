@@ -185,8 +185,7 @@ app.post('/123123', async (req, res) => {
 
     res.json(jsonPacket);
 
-    // force reload after
-    window.location.reload();
+    // Maybe it should be a feature they can see their input before reload?
   } else {
     res.sendStatus(400);
   }
@@ -284,13 +283,6 @@ function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect('/authapp')
   }
-  next()
-}
-
-// Don't need this?
-function checkIsAdmin(req, res, next) {
-  // TODO
-  //if(req.isAuthenticated() && req.body.user)
   next()
 }
 
