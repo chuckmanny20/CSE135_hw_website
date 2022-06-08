@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>CSE 135 HW Lives!</title>
+	<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
 </head>
 
 <body>
@@ -18,13 +19,42 @@
 		<h3>Continue to Dashboard...</h3>
 	</a>
 
+	<!-- Get data and visualize them -->
+	<script>
+		async function fetchAsync(url) {
+			let payload;
+			await fetch(url)
+				.then(response => response.json()) // Access and return response's text content
+				.then(json => {
+					payload = json; // Display file content in the console
+				});
+			return payload;
+		}
+	</script>
+
 	<h3> Visualization of Recorded Data </h3>
-	<iframe id="vizIframe" src="https://zhaoxinglyu.site/hellodataviz.html" onload="adjustIframe('vizIframe');" frameborder="10"
-		scrolling="auto"> </iframe>
+	<script>
+		console.log(typeof fetchAsync("https://zhaoxinglyu.site/api/static"));
+		console.log(fetchAsync("https://zhaoxinglyu.site/api/static"));
+	</script>
+	<!-- <iframe id="vizIframe" src="https://zhaoxinglyu.site/hellodataviz.html" onload="adjustIframe('vizIframe');" frameborder="10"
+		scrolling="auto"> </iframe> -->
 
 	<h3> Overview of Recorded Data </h3>
+
+	<!-- <div id="enableTestBlock"></div>
+	<script src="./collector.js"></script>
+
+	
+
+	<zing-grid caption="Static" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
+		layout="raw" layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/static"></zing-grid>
+	<zing-grid caption="Performance" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
+		layout="raw" layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/performance"></zing-grid>
+	<zing-grid caption="Activity" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
+		layout="raw" layout-controls pager page-size="5" height="400" src="https://zhaoxinglyu.site/api/activity"></zing-grid>
 	<iframe id="dbIframe" src="https://zhaoxinglyu.site/database.html" onload="adjustIframe('dbIframe');" frameborder="10"
-		scrolling="auto"> </iframe>
+		scrolling="auto"> </iframe> -->
 
 	<script>
 		function adjustIframe(iframeId) {
