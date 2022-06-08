@@ -167,7 +167,7 @@ app.post('/123123', (req, res) => {
     let packet_hashedPassword = async function() {
       let hashedPass = await bcrypt.hash(req.body.password, 10);
       console.log(hashedPass);
-      return hashedPass;
+      return hashedPass.toString();
     }
 
     packet_hashedPass = packet_hashedPassword();
