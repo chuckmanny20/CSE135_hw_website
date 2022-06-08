@@ -150,7 +150,7 @@ app.get('/123123', (req, res) => {
 app.post('/123123', (req, res) => {
   //console.log('POST')
   //console.log(req.body);
-  if(req.body.name != null && req.body.email != null && req.body.password != null && req.body.isAdmin != null && req.body.id != null) {
+  if(req.body.name != "" && req.body.email != "" && req.body.password != "" && req.body.isAdmin != "" && req.body.id != "") {
     // if isAdmin is positive non-zero just set it to 1
     if(req.body.isAdmin > 0) {
       packet_isAdmin = 1;
