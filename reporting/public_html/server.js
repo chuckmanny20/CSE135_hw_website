@@ -216,6 +216,10 @@ app.patch('/123123/:id', (req, res) => {
   // Update users
   usersIndex = users.findIndex(user => user.id == req.params.id);
   key = Object.keys(req.body)[0];
+
+  if(key == 'isAdmin' && req.body[key] === '')
+    req.body[key] = 0;
+
   users[usersIndex][key] = req.body[key];
 
   console.log(users);
@@ -241,6 +245,10 @@ app.put('/123123/:id', (req, res) => {
   users[usersIndex].name = req.body.name;
   users[usersIndex].email = req.body.email;
   users[usersIndex].password = req.body.password;
+
+  if(req.body.isAdmin === '')
+    req.body.isAdmin = 0;
+    
   users[usersIndex].isAdmin = req.body.isAdmin;
   users[usersIndex].id = req.body.id;
 
