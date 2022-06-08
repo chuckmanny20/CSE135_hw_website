@@ -63,8 +63,8 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  console.log(req.user)
-  console.log(users)
+  //console.log(req.user)
+  //console.log(users)
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/index.ejs', { name: req.user.name, isAdmin: users.find(u => req.user.name.toLowerCase() === u.name.toLowerCase()).isAdmin })
 })
@@ -124,7 +124,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.post('/users', checkIsAdmin, (req, res) => {
+app.post('/users', checkAuthenticated, (req, res) => {
   console.log(req.body)
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/users.ejs')
@@ -152,6 +152,7 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
+// Don't need this?
 function checkIsAdmin(req, res, next) {
   // TODO
   //if(req.isAuthenticated() && req.body.user)
