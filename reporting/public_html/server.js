@@ -74,13 +74,15 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/login.ejs')
 })
 
-// app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-//   successRedirect: '/authapp',
-//   failureRedirect: '/authapp/login',
-//   failureFlash: true
-// }))
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+  failureRedirect: '/authapp/login',
+  failureFlash: true
+}),
+  function(req, res) {
+    res.render('./authapp/index.ejs', { name: req.user.name, isAdmin: users.find(u => req.user.name.toLowerCase() === u.name.toLowerCase()).isAdmin })
+  })
 
-app.post('/login', function (req, res, next) {
+/*app.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) return next(err);
     if (!user) return res.render('./authapp/login.ejs');   
@@ -94,7 +96,7 @@ app.post('/login', function (req, res, next) {
       else return res.redirect('/authapp');
     });
   })(req, res, next);
-});
+});*/
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/register.ejs')
