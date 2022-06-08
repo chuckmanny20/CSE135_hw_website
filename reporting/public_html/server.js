@@ -32,7 +32,7 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 
-const users = []
+var users = []
 
 // grab all users in database (lol this would be trash in a real app)
 connection.query("SELECT * FROM userInfo;", (err, rows, fields) => {
