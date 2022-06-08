@@ -14,8 +14,26 @@
 		document.write(`Live @ ${new Date()}`);
 	</script>
 
-</body>
+	<a href="/authapp/">
+		<h3>Continue to Dashboard...</h3>
+	</a>
 
-<a href="/authapp/"><h3>Continue to Dashboard...</h3></a>
+	<h3> Visualization of Recorded Data </h3>
+	<iframe id="vizIframe" src="../../html/hellodataviz.html" onload="adjustIframe('vizIframe');" frameborder="10"
+		scrolling="auto"> </iframe>
+
+	<h3> Overview of Recorded Data </h3>
+	<iframe id="dbIframe" src="../../html/database.html" onload="adjustIframe('dbIframe');" frameborder="10"
+		scrolling="auto"> </iframe>
+
+	<script>
+		function adjustIframe(iframeId) {
+			var ifm = document.getElementById(iframeId);
+			ifm.height = document.documentElement.clientHeight * 0.9;
+			ifm.width = document.documentElement.clientWidth * 0.9;
+		}
+	</script>
+
+</body>
 
 </html>
