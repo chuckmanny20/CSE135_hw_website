@@ -150,8 +150,7 @@ app.get('/123123', (req, res) => {
 app.post('/123123', (req, res) => {
   console.log('POST')
   console.log(req.body);
-  console.log(req.json);
-  res.json(req.json);
+  res.json(req.body);
 });
 
 // DELETE
