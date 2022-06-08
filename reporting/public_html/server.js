@@ -231,8 +231,25 @@ app.patch('/123123/:id', (req, res) => {
 // UPDATE row
 app.put('/123123/:id', (req, res) => { 
   console.log('PUT', req.params.id) 
+  // has all the values
   console.log(req.body);
+  // has the id
   console.log(req.params);
+
+  // Update users
+  usersIndex = users.findIndex(user => user.id == req.params.id);
+  users[usersIndex].name = req.body.name;
+  users[usersIndex].email = req.body.email;
+  users[usersIndex].password = req.body.password;
+  users[usersIndex].isAdmin = req.body.isAdmin;
+  users[usersIndex].id = req.body.id;
+
+  console.log(users);
+
+  // Update SQL
+  connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, email = ?, password = ?, isAdmin = ?, id = ?;", [users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id'], users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id']], (err, rows, fields) => {
+        
+  });
 
   res.sendStatus(200);
 });
