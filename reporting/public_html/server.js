@@ -145,17 +145,17 @@ app.post('/123123', (req, res) => {
 });
 
 // DELETE
-app.delete('/123123', (req, res) => { 
+app.delete('/123123/:id', (req, res) => { 
   console.log(req.body);
 });
 
 // UPDATE cell
-app.patch('/123123', (req, res) => { 
+app.patch('/123123/:id', (req, res) => { 
   console.log(req.body);
 });
 
 // UPDATE row
-app.put('/123123', (req, res) => { 
+app.put('/123123/:id', (req, res) => { 
   console.log(req.body);
 });
 
