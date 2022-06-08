@@ -186,7 +186,7 @@ app.post('/123123', async (req, res) => {
     res.json(jsonPacket);
 
     // force reload after
-    res.render('./authapp/users.ejs')
+    window.location.reload();
   } else {
     res.sendStatus(400);
   }
