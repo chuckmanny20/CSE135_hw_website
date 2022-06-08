@@ -140,22 +140,26 @@ app.get('/123123', (req, res) => {
 });
 
 // CREATE
-app.post('/123123', (req, res) => { 
+app.post('/123123', (req, res) => {
+  console.log('POST')
   console.log(req.body);
 });
 
 // DELETE
-app.delete('/123123/:id', (req, res) => { 
+app.delete('/123123/:id', (req, res) => {
+  console.log('DELETE', id) 
   console.log(req.body);
 });
 
 // UPDATE cell
-app.patch('/123123/:id', (req, res) => { 
+app.patch('/123123/:id', (req, res) => {
+  console.log('PATCH', id) 
   console.log(req.body);
 });
 
 // UPDATE row
 app.put('/123123/:id', (req, res) => { 
+  console.log('PUT', id) 
   console.log(req.body);
 });
 
