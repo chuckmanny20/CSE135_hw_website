@@ -150,7 +150,28 @@ app.get('/123123', (req, res) => {
 app.post('/123123', (req, res) => {
   //console.log('POST')
   //console.log(req.body);
-  res.json(req.body);
+  if(req.body.name != null && req.body.email != null && req.body.password != null && req.body.isAdmin != null && req.body.id != null) {
+    // if isAdmin is positive non-zero just set it to 1
+    if(req.body.isAdmin > 0) {
+      packet_isAdmin = 1;
+    } else {
+      packet_isAdmin = 0;
+    }
+
+    // set id to timestamp
+    packet_id = Date.now().toString();
+
+    // set rest of vars
+    packet_name = req.body.name;
+    packet_email = req.body.email;
+    packet_hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+    const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPassword, isAdmin: packet_isAdmin, id: packet_id};
+
+    res.json(jsonPacket);
+  } else {
+    res.sendStatus(400);
+  }
 
   //TODO: Update users
   //TODO: Update SQL server
