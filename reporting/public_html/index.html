@@ -6,64 +6,196 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>CSE 135 HW Lives!</title>
 	<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+	<script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+	<style>
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.chart--main {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		.chart--row {
+			display: flex;
+			height: 50%;
+		}
+
+		.chart--container {
+			height: 100%;
+			width: 100%;
+			min-height: 350px;
+		}
+
+		.zc-ref {
+			display: none;
+		}
+	</style>
 </head>
 
 <body>
 	<h1>CSE 135 HW1 Lives!</h1>
 	<h2>Reporting.zhaoxinglyu.site</h2>
-	<script>
-		document.write(`Live @ ${new Date()}`);
-	</script>
+	<script> document.write(`Live @ ${new Date()}`); </script>
 
 	<a href="/authapp/">
 		<h3>Continue to Dashboard...</h3>
 	</a>
 
-	<!-- Get data and visualize them -->
-	<script>
-		async function fetchAsync(url) {
-			let payload;
-			await fetch(url)
-				.then(response => response.json()) // Access and return response's text content
-				.then(json => {
-					payload = json; // Display file content in the console
-				});
-			return payload;
-		}
-	</script>
-
 	<h3> Visualization of Recorded Data </h3>
-	<script>
-		console.log(typeof fetchAsync("https://zhaoxinglyu.site/api/static"));
-		console.log(fetchAsync("https://zhaoxinglyu.site/api/static"));
-	</script>
-	<!-- <iframe id="vizIframe" src="https://zhaoxinglyu.site/hellodataviz.html" onload="adjustIframe('vizIframe');" frameborder="10"
-		scrolling="auto"> </iframe> -->
+	<div class="chart--row">
+		<div id="myChart3" class="chart--container">
+			<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+		</div>
+	</div>
 
 	<h3> Overview of Recorded Data </h3>
-
-	<!-- <div id="enableTestBlock"></div>
-	<script src="./collector.js"></script>
-
-	
-
-	<zing-grid caption="Static" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
-		layout="raw" layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/static"></zing-grid>
-	<zing-grid caption="Performance" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
-		layout="raw" layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/performance"></zing-grid>
-	<zing-grid caption="Activity" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls
-		layout="raw" layout-controls pager page-size="5" height="400" src="https://zhaoxinglyu.site/api/activity"></zing-grid>
-	<iframe id="dbIframe" src="https://zhaoxinglyu.site/database.html" onload="adjustIframe('dbIframe');" frameborder="10"
-		scrolling="auto"> </iframe> -->
-
-	<script>
-		function adjustIframe(iframeId) {
-			var ifm = document.getElementById(iframeId);
-			ifm.height = document.documentElement.clientHeight * 0.9;
-			ifm.width = document.documentElement.clientWidth * 0.9;
-		}
-	</script>
+	<zing-grid caption="User Device Size Data" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls layout="raw"
+		layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/static"></zing-grid>
 
 </body>
+
+
+
+<script>
+	// ----------------------------------
+	// send GET request and get the JSON object return
+	// dataType: static/performance/activity, target: isCSSAllowed/isImageAllowed/etc
+	// return: array of target data
+	function getData(dataType, target, needParse = true) {
+		var httpRequest = new XMLHttpRequest();
+		var url = 'https://zhaoxinglyu.site/api/' + dataType;
+		httpRequest.open('GET', url, false);
+		httpRequest.send();
+		if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+			var jsonText = httpRequest.responseText;
+			if (needParse)
+				return parseJsonObject(jsonText, target);
+			else
+				return jsonText;
+		};
+	}
+
+	// parse JSON text of http response, and get the target data
+	// param: jsonText, target: isCSSAllowed/isImageAllowed/etc
+	// return: array of target data
+	function parseJsonObject(jsonText, target) {
+		var jsonObject = JSON.parse(jsonText);
+		var res = [];
+		for (var ind in jsonObject) {
+			res.push(jsonObject[ind][target]);
+		}
+		return res;
+	}
+
+	// ----------------------------------
+	window.addEventListener('load', () => {
+		var curPageData = getData('activity', 'curPage');
+
+		// Top 3 accessed pages
+		var first = 0, second = -1, third = -2;
+		var firstPage, secondPage, thirdPage;
+
+		const map = new Map();
+		for (var ind in curPageData) {
+			var page = curPageData[ind];
+			if (map.has(page)) map.set(page, map.get(page) + 1);
+			else map.set(page, 1);
+
+			const accessedTime = map.get(page);
+			if (accessedTime > first) {
+				first = accessedTime;
+				firstPage = page;
+			} else if (accessedTime > second) {
+				second = accessedTime;
+				secondPage = page;
+			} else if (accessedTime > third) {
+				third = accessedTime;
+				thirdPage = page;
+			}
+		}
+
+		map.set('Other pages', 0);
+		for (let [key, value] of map) {
+			if (key == firstPage || key == secondPage || key == thirdPage)
+				continue;
+			map.set('Other pages', map.get('Other pages') + 1);
+		}
+
+		var pageData = [];
+		for (let [key, value] of map) {
+			if (key == firstPage || key == secondPage || key == thirdPage || key == 'Other pages')
+				pageData.push({ text: key, values: [value] });
+		}
+		let chartConfig3 = {
+			type: 'pie',
+			title: {
+				text: 'Accessed page',
+			},
+			legend: {
+				"toggle-action": "hide",
+				"header": {
+					"text": "Accessed page"
+				},
+				"item": {
+					"cursor": "pointer"
+				},
+				"draggable": true,
+				"drag-handler": "icon"
+			},
+			series: pageData
+		};
+
+		zingchart.render({
+			id: 'myChart3',
+			data: chartConfig3,
+			height: '100%',
+			width: '100%',
+		});
+
+	});
+</script>
+
+
+<!-- Grid data -->
+<script>
+	function select(obj, attr) {
+		if (typeof obj !== 'object' || !Array.isArray(attr)) return;
+		let tempArr = [...attr];
+		return JSON.parse(JSON.stringify(obj, tempArr));
+	}
+
+	function noRepeat(json) {
+		if (!Array.isArray(json)) {
+			return;
+		}
+
+		for (var i = 0; i < json.length; i++) {
+			if (!json[i].Userid) json[i].Userid = 'Unknown';
+
+			for (var j = i + 1; j < json.length;) {
+				if (json[i].Userid === json[j].Userid)
+					json.splice(j, 1);
+				else
+					j++;
+			}
+		}
+		return json;
+	}
+
+	var staticData = getData('static', '', false);
+
+	const keptSizeAttr = ['Userid', 'userScreenWidth', 'userScreenHeight', 'userWindowWidth', 'userWindowHeight'];
+	var deviceSizeData = select(JSON.parse(staticData), keptSizeAttr);
+
+	const zgRef = document.querySelector('zing-grid');
+	zgRef.setData(noRepeat(deviceSizeData));
+</script>
 
 </html>
