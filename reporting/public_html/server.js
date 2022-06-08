@@ -147,19 +147,19 @@ app.post('/123123', (req, res) => {
 
 // DELETE
 app.delete('/123123/:id', (req, res) => {
-  console.log('DELETE', id) 
+  console.log('DELETE', req.params.id) 
   console.log(req.body);
 });
 
 // UPDATE cell
 app.patch('/123123/:id', (req, res) => {
-  console.log('PATCH', id) 
+  console.log('PATCH', req.params.id) 
   console.log(req.body);
 });
 
 // UPDATE row
 app.put('/123123/:id', (req, res) => { 
-  console.log('PUT', id) 
+  console.log('PUT', req.params.id) 
   console.log(req.body);
 });
 
