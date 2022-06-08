@@ -215,8 +215,10 @@ app.patch('/123123/:id', (req, res) => {
 
   // Update users
   usersIndex = users.findIndex(user => user.id == req.params.id);
-  console.log(req.body[0].key);
-  //users[usersIndex].
+  key = Object.keys(req.body)[0];
+  users[usersIndex].key = req.body.key;
+
+  console.log(users);
   
   // Update SQL
 
