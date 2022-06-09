@@ -154,7 +154,7 @@ app.get('/123123', (req, res) => {
 // CREATE
 app.post('/123123', async (req, res) => {
   //console.log('POST')
-  console.log(req.body);
+  // console.log(req.body);
   if(req.body.name != "" && req.body.email != "" && req.body.password != "" && req.body.isAdmin !== "" && req.body.id != "") {
     // if isAdmin is positive non-zero just set it to 1
     if(req.body.isAdmin > 0) {
@@ -171,7 +171,7 @@ app.post('/123123', async (req, res) => {
     packet_email = req.body.email;
     packet_hashedPass = await bcrypt.hash(req.body.password, 10);
 
-    console.log(packet_hashedPass);
+    // console.log(packet_hashedPass);
 
     const jsonPacket = {name: packet_name, email: packet_email, password: packet_hashedPass, isAdmin: packet_isAdmin, id: packet_id};
 
@@ -204,7 +204,7 @@ app.delete('/123123/:id', (req, res) => {
 
   // Delete from users
   users = users.filter(user => user.id != req.params.id );
-  console.log(users);
+  // console.log(users);
 
   // Delete from SQL
   connection.query("DELETE FROM userInfo WHERE id = ?;", [req.params.id], (err, rows, fields) => { });
@@ -214,11 +214,11 @@ app.delete('/123123/:id', (req, res) => {
 
 // UPDATE cell
 app.patch('/123123/:id', (req, res) => {
-  console.log('PATCH', req.params.id) 
+  // console.log('PATCH', req.params.id) 
   // has the edited value
-  console.log(req.body);
+  // console.log(req.body);
   // has the id
-  console.log(req.params);
+  // console.log(req.params);
 
   // Update users
   usersIndex = users.findIndex(user => user.id == req.params.id);
@@ -229,7 +229,7 @@ app.patch('/123123/:id', (req, res) => {
 
   users[usersIndex][key] = req.body[key];
 
-  console.log(users);
+  // console.log(users);
   
   // Update SQL
   connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, email = ?, password = ?, isAdmin = ?, id = ?;", [users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id'], users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id']], (err, rows, fields) => {
@@ -241,11 +241,11 @@ app.patch('/123123/:id', (req, res) => {
 
 // UPDATE row
 app.put('/123123/:id', (req, res) => { 
-  console.log('PUT', req.params.id) 
+  // console.log('PUT', req.params.id) 
   // has all the values
-  console.log(req.body);
+  // console.log(req.body);
   // has the id
-  console.log(req.params);
+  // console.log(req.params);
 
   // Update users
   usersIndex = users.findIndex(user => user.id == req.params.id);
@@ -259,7 +259,7 @@ app.put('/123123/:id', (req, res) => {
   users[usersIndex].isAdmin = req.body.isAdmin;
   users[usersIndex].id = req.body.id;
 
-  console.log(users);
+  // console.log(users);
 
   // Update SQL
   connection.query("INSERT INTO userInfo (name, email, password, isAdmin, id) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, email = ?, password = ?, isAdmin = ?, id = ?;", [users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id'], users[usersIndex]['name'], users[usersIndex]['email'], users[usersIndex]['password'], users[usersIndex]['isAdmin'], users[usersIndex]['id']], (err, rows, fields) => {
