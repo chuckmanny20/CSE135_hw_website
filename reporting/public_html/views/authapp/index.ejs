@@ -14,36 +14,35 @@
 	<script>
 		document.write(`Live @ ${new Date()}`);
 	</script>
+	
+	<form action="/authapp/metric" method="POST">
+		<button type="submit">Get Detailed Report</button>
+	</form>
+
+	<!-- we use method-override b/c we want to do an app.delete() but forms can only do GET and POST -->
+	<form action="/authapp/logout?_method=DELETE" method="POST">
+		<button type="submit">Log Out</button>
+	</form>
+
+	<% if(isAdmin) { %>
+	<form action="/authapp/users" method="POST">
+		<button type="submit">User Manager</button>
+	</form>
+	<% } %>
+	
+	<div class="chart--row">
+		<div id="myChart2" class="chart--container">
+			<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+		</div>
+		<div id="myChart3" class="chart--container">
+			<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+		</div>
+	</div>
+
+	<zing-grid id="grid1" caption="User Device Size Data" compact="" zebra="" role="grid" viewport="tablet-portrait"
+		editor-controls layout="raw" layout-controls pager page-size="5"></zing-grid>
 
 </body>
-
-<form action="/authapp/metric" method="POST">
-	<button type="submit">Get Detailed Report</button>
-</form>
-
-<!-- we use method-override b/c we want to do an app.delete() but forms can only do GET and POST -->
-<form action="/authapp/logout?_method=DELETE" method="POST">
-	<button type="submit">Log Out</button>
-</form>
-
-<% if(isAdmin) { %>
-<form action="/authapp/users" method="POST">
-	<button type="submit">User Manager</button>
-</form>
-<% } %>
-
-<div class="chart--row">
-	<div id="myChart2" class="chart--container">
-		<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
-	</div>
-	<div id="myChart3" class="chart--container">
-		<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
-	</div>
-</div>
-
-<zing-grid id="grid1" caption="User Device Size Data" compact="" zebra="" role="grid" viewport="tablet-portrait"
-	editor-controls layout="raw" layout-controls pager page-size="5"></zing-grid>
-
 
 <script>
 	// ----------------------------------
