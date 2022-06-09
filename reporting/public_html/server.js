@@ -286,7 +286,7 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
-app.get('/metric', checkNotAuthenticated, (req, res) => {
+app.post('/metric', checkNotAuthenticated, (req, res) => {
   res.setHeader('Cache-Control', 'no-cache')
   res.render('./authapp/metric.ejs')
 })
