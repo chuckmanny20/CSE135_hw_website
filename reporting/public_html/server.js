@@ -140,8 +140,12 @@ app.post('/users', checkAuthenticated, (req, res) => {
 
 app.post('/metric', checkNotAuthenticated, (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
+  res.redirect('/authapp/metric');
+});
+
+app.get('/metric', checkNotAuthenticated, (req, res) => {
   res.render('./authapp/metric.ejs');
-})
+});
 
 // hidden link on purpose
 // READ
