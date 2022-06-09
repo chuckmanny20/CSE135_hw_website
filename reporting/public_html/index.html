@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>CSE 135 HW Lives!</title>
+	<title>Dashboard: CSE 135 HW Lives!</title>
 	<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
 	<script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
 	<style>
@@ -45,20 +45,20 @@
 	<script> document.write(`Live @ ${new Date()}`); </script>
 
 	<a href="/authapp/">
-		<h3>Continue to Dashboard...</h3>
+		<h3>Continue to Login...</h3>
 	</a>
 
-	<h3> Visualization of Recorded Data </h3>
 	<div class="chart--row">
+		<div id="myChart2" class="chart--container">
+			<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
+		</div>
 		<div id="myChart3" class="chart--container">
 			<a class="zc-ref" href="https://www.zingchart.com">Powered by ZingChart</a>
 		</div>
 	</div>
 
-	<h3> Overview of Recorded Data </h3>
-	<zing-grid caption="User Device Size Data" compact="" zebra="" role="grid" viewport="tablet-portrait" editor-controls layout="raw"
-		layout-controls pager page-size="5" src="https://zhaoxinglyu.site/api/static"></zing-grid>
-
+	<zing-grid id="grid1" caption="User Device Size Data" compact="" zebra="" role="grid" viewport="tablet-portrait"
+		editor-controls layout="raw" layout-controls pager page-size="5"></zing-grid>
 </body>
 
 
@@ -94,7 +94,7 @@
 		return res;
 	}
 
-	// ----------------------------------
+	// ----------- Plot Pie Chart -----------
 	window.addEventListener('load', () => {
 		var curPageData = getData('activity', 'curPage');
 
@@ -160,27 +160,58 @@
 		});
 
 	});
+	// ----------- Plot Pie Chart -----------
 </script>
 
 
-<!-- Grid data -->
 <script>
+	// ----------- Plot Bar Chart -----------
+	var timeTotalLoad = getData('performance', 'timeTotalLoad');
+	timeTotalLoad.sort(function(a, b){return b-a});
+
+	if (timeTotalLoad.length > 7)
+		timeTotalLoad = timeTotalLoad.slice(0, 7);
+
+	let chartConfig2 = {
+		type: "bar",
+		title: {
+			text: '7 Slowest Loading Times (ms)',
+		},
+		series: [{
+			values: timeTotalLoad,
+		},
+		]
+	};
+
+	zingchart.render({
+        id: 'myChart2',
+        data: chartConfig2,
+        height: '100%',
+        width: '100%',
+	});
+	// ----------- Plot Bar Chart -----------
+</script>
+
+
+<script>
+	// ----------- Plot Grid -----------
 	function select(obj, attr) {
 		if (typeof obj !== 'object' || !Array.isArray(attr)) return;
 		let tempArr = [...attr];
 		return JSON.parse(JSON.stringify(obj, tempArr));
 	}
 
-	function noRepeat(json) {
+	function noRepeat(json, attr = null) {
 		if (!Array.isArray(json)) {
 			return;
 		}
 
-		for (var i = 0; i < json.length; i++) {
-			if (!json[i].Userid) json[i].Userid = 'Unknown';
+		for (var i = 0; i < json.length; i++)
+			if (!json[i][attr]) json[i][attr] = 'Unknown';
 
+		for (var i = 0; i < json.length; i++) {
 			for (var j = i + 1; j < json.length;) {
-				if (json[i].Userid === json[j].Userid)
+				if (json[i][attr] === json[j][attr])
 					json.splice(j, 1);
 				else
 					j++;
@@ -194,8 +225,9 @@
 	const keptSizeAttr = ['Userid', 'userScreenWidth', 'userScreenHeight', 'userWindowWidth', 'userWindowHeight'];
 	var deviceSizeData = select(JSON.parse(staticData), keptSizeAttr);
 
-	const zgRef = document.querySelector('zing-grid');
-	zgRef.setData(noRepeat(deviceSizeData));
+	const zgRef = document.querySelector('#grid1');
+	zgRef.setData(noRepeat(deviceSizeData, 'Userid'));
+	// ----------- Plot Grid -----------
 </script>
 
 </html>
