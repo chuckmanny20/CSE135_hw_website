@@ -138,6 +138,11 @@ app.post('/users', checkAuthenticated, (req, res) => {
   res.render('./authapp/users.ejs')
 })
 
+app.post('/metric', checkNotAuthenticated, (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.render('./authapp/metric.ejs');
+})
+
 // hidden link on purpose
 // READ
 app.get('/123123', (req, res) => { 
@@ -285,9 +290,5 @@ function checkNotAuthenticated(req, res, next) {
   }
   next()
 }
-
-app.post('/metric', checkNotAuthenticated, (req, res) => {
-  res.render('./authapp/metric.ejs')
-})
 
 app.listen(3003)
